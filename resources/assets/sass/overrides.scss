@@ -32,6 +32,7 @@ a.nav-item:not(.button){
     border-bottom: 3px solid $npp-yellow;
     color: $npp-yellow;
 }
+
 .is-text-yellow{
   color: $npp-yellow;
 }
@@ -60,4 +61,37 @@ a.nav-item:not(.button){
 
 .has-text-warning {
     color: $npp-yellow;
+}
+
+.navbar-link {
+    color: #fff;
+
+    img {
+      border-radius: 50%;
+    }
+}
+.navbar-item.has-dropdown{
+  &:hover,
+  &.is-active {
+    .navbar-link {
+      background-color: #000;
+      color: $npp-yellow;
+    }
+  }
+}
+
+.dropdown {
+  &.is-right {
+    .dropdown-menu {
+      left: auto;
+      right: 0;
+    }
+  }
+}
+
+.navbar-dropdown{
+  &.is-right {
+    left: auto;
+    right: 0;
+  }
 }

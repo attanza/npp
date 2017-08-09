@@ -1,18 +1,16 @@
-
-// Fonts
-// @import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
-
-
-// Bulma
+// Bulma Utilities
+@import "node_modules/bulma/sass/utilities/_all";
+// Variables
+@import "variables";
 // @import "node_modules/bulma/bulma";
 @import "node_modules/buefy/node_modules/bulma/bulma";
 // Buefy
 @import "node_modules/buefy/src/scss/buefy";
 // Font Awesome
 @import "node_modules/font-awesome/scss/font-awesome";
+// noty
+@import "node_modules/noty/src/noty";
 
-// Variables
-@import "variables";
 // Custom SASS
 @import "overrides";
 @import "helpers";

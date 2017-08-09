@@ -19,6 +19,8 @@
   },
   "dependencies": {
     "buefy": "^0.4.6",
-    "cross-env": "^5.0.4"
+    "cross-env": "^5.0.4",
+    "vee-validate": "^2.0.0-rc.9",
+    "vuex": "^2.3.1"
   }
 }

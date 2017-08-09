@@ -3,7 +3,7 @@
 export default {
   name: "login_register",
   data: () => ({
-
+    gender: null,
   })
 }
 </script>
@@ -15,8 +15,12 @@ a{
 a:hover{
   color: #fff;
 }
-.checkbox .with-yellow-text label{
-  color: #fff;
-
+.block{
+  &.with-panel{
+    background-color: #fff;
+    padding: 7px;
+    border-radius: 3px;
+    box-shadow: inset 0 1px 2px rgba(10, 10, 10, 0.1);
+  }
 }
 </style>

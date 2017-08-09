@@ -27,6 +27,7 @@ class InitialSeeder extends Seeder
             'username' => 'superuser',
             'email' => 'superuser@superuser.com',
             'password' => bcrypt('password'),
+            'is_active' => 1
         ]);
 
         factory(App\User::class)->create([
@@ -34,6 +35,7 @@ class InitialSeeder extends Seeder
           'username' => 'administrator',
           'email' => 'admin@admin.com',
           'password' => bcrypt('password'),
+          'is_active' => 1
         ]);
 
         factory(App\User::class)->create([
@@ -41,6 +43,7 @@ class InitialSeeder extends Seeder
           'username' => 'user',
           'email' => 'user@user.com',
           'password' => bcrypt('password'),
+          'is_active' => 1
         ]);
 
         DB::table('role_user')->insert([

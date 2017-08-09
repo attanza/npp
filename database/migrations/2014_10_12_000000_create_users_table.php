@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->date('dob')->nullable();
             $table->string('gender',10)->nullable();
             $table->string('username',150);
+            $table->boolean('is_active')->default(0);
             $table->rememberToken();
             $table->timestamps();
 

@@ -8,9 +8,9 @@
             <i class="fa fa-envelope"></i>
           </span>
         </p>
-        <p class="m-t-5">
-          <div class="field with-yellow-text">
-              <b-checkbox>Ingat saya </b-checkbox>
+        <p class="m-t-10">
+          <div class="field">
+              <b-checkbox><span style="color: #00d1b2;">Ingat saya</span> </b-checkbox>
           </div>
         </p>
       </div>
@@ -37,6 +37,11 @@
   <div class="columns" id="register">
     <div class="column" >
       <div class="card bg-yellow">
+        <div class="card-header">
+          <div class="card-header-title has-text-centered">
+            <span class="has-text-centered is-size-3-desktop">Bergabung bersama kami</span>
+          </div>
+        </div>
         <div class="card-content">
           <div class="field">
             <div class="control has-icons-left">
@@ -82,18 +87,15 @@
               </span>
             </div>
           </div>
-          <div class="block" style="background-color: #fff; padding: 7px; border-radius: 3px; box-shadow: inset 0 1px 2px rgba(10, 10, 10, 0.1);">
+          <div class="block with-panel">
+            <b-radio-group>
               <span class="icon is-left m-r-5" style="color: #dbdbdb;">
                 <i class="fa fa-venus-mars"></i>
               </span>
-              <b-radio v-model="radio"
-                  native-value="Flint">
-                  Laki-laki
-              </b-radio>
-              <b-radio v-model="radio"
-                  native-value="Silver">
-                  Perempuan
-              </b-radio>
+              <b-radio v-model="gender" name="gender" native-value="Male">Laki-laki</b-radio>
+              <b-radio v-model="gender" name="gender" native-value="Female"> Perempuan</b-radio>
+            </b-radio-group>
+            <p class="content"><b>Selection:</b> {{ gender }}</p>
           </div>
           <div class="field m-t-10">
             <b-checkbox>
