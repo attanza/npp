@@ -11,6 +11,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        Artisan::call('migrate:refresh');
+        $this->call(InitialSeeder::class);
     }
 }

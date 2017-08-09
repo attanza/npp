@@ -1,0 +1,63 @@
+.navbar{
+  background-color: $black;
+  border-bottom: 2px solid $npp-yellow;
+  height: 4.5rem;
+  .has-shadow{
+    box-shadow: 0 2px 3px rgba($black, 0.1);
+  }
+}
+.navbar{
+  max-height: 4.5rem;
+}
+.navbar-item img {
+    max-height: 2.8rem;
+}
+.nav-item a:not(.button),
+a.nav-item:not(.button){
+  color: $white;
+  &:hover{
+    color: $npp-yellow;
+  }
+  &.is-tab{
+    &:hover{
+      border-bottom: 3px solid $npp-yellow;
+    }
+  }
+  &.is-active{
+    border-bottom: 3px solid $npp-yellow;
+    color: $npp-yellow;
+  }
+}
+.nav-item a:not(.button).is-tab.is-active, a.nav-item:not(.button).is-tab.is-active {
+    border-bottom: 3px solid $npp-yellow;
+    color: $npp-yellow;
+}
+.is-text-yellow{
+  color: $npp-yellow;
+}
+.footer{
+  background-color: $npp-yellow;
+  padding: 3rem 1.5rem 6rem;
+}
+
+.navbar-burger span {
+    background-color: $white;
+}
+.card{
+  border-radius: 8px;
+  &.bg-yellow{
+    background-color: rgb(255, 204, 42);
+  }
+  &.bg-yellow-opacity{
+    background: linear-gradient(rgba(255, 204, 42,0.5),rgba(255, 204, 42,0.5));
+  }
+}
+.section{
+  &.bg-transparent{
+    background-color: transparent;
+  }
+}
+
+.has-text-warning {
+    color: $npp-yellow;
+}
