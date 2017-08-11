@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Auth;
 use App\User;
 use Carbon\Carbon;
+use Session;
 
 class LoginController extends Controller
 {
@@ -32,6 +33,7 @@ class LoginController extends Controller
         if ($request->has('remember')) {
             $remember = $request->remember;
         }
+
         if (Auth::attempt([
               'email' => $request->email, 'password' => $request->password, 'is_active' => 1
             ], $remember)) {
@@ -41,6 +43,8 @@ class LoginController extends Controller
             if ($request->ajax()) {
                 return response()->json(1, 200);
             }
+        } else {
+            return redirect('/login');
         }
     }
 

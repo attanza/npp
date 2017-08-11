@@ -12,11 +12,17 @@
 </head>
 <body>
     <div id="app">
+        @if (Auth::check())
+          <user-init :user="{{Auth::user()}}"></user-init>
+          <notification-listener username="{{Auth::user()->username}}"></notification-listener>
+        @endif
         @include('layouts.partials.mainNav')
         @yield('content')
+        @include('slots.session_messages')
         @include('layouts.partials.footer')
     </div>
     <script src="{{ mix('js/app.js') }}"></script>
     @yield('scripts')
+
 </body>
 </html>

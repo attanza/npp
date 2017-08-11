@@ -1,0 +1,85 @@
+<div id="login">
+  <div class="columns is-hidden-mobile is-multiline">
+    <div class="column is-one-third">
+      <div class="field">
+        <p class="control has-icons-left">
+          <input name="email" id="email"  v-model="email" v-validate="'required|email'" :class="{'input': true, 'is-danger': errors.has('email') }" data-vv-as="Alamat Email" type="text" placeholder="alamat email">
+          <span class="icon is-small is-left">
+            <i class="fa fa-envelope"></i>
+          </span>
+        </p>
+      </div>
+    </div>
+    <div class="column is-one-third">
+      <div class="field">
+        <p class="control has-icons-left">
+          <input class="input" type="password" placeholder="password" name="password" id="password" v-model="password"   v-validate="'required'":class="{'input': true, 'is-danger': errors.has('password') }" data-vv-as="Password" >
+          <span class="icon is-small is-left">
+            <i class="fa fa-lock"></i>
+          </span>
+        </p>
+      </div>
+    </div>
+    <div class="column is-one-third">
+      <button class="button is-warning is-fullwidth" v-bind:class="button_processing" @click="validateBeforeSubmit()">
+        Login
+      </button>
+    </div>
+    <div class="column is-one-third">
+      <div class="field">
+        <b-checkbox v-model="remember" name="remember">
+          <span style="color: #00d1b2;">Ingat saya</span>
+        </b-checkbox>
+      </div>
+    </div>
+    <div class="column is-one-third">
+      <a href="javascript:void(0)"><span style="color: 00d1b2">Lupa password ?</span></a>
+    </div>
+    <b-modal :active.sync="showModal" has-modal-card>
+        <modal-form></modal-form>
+    </b-modal>
+  </div>
+  <div class="columns is-hidden-desktop is-hidden-tablet">
+    <div class="column">
+      <div class="field">
+        <p class="control has-icons-left">
+          <input name="email" id="email"  v-model="email" v-validate="'required|email'" :class="{'input': true, 'is-danger': errors.has('email') }" data-vv-as="Alamat Email" type="text" placeholder="alamat email">
+          <span class="icon is-small is-left">
+            <i class="fa fa-envelope"></i>
+          </span>
+        </p>
+      </div>
+    </div>
+    <div class="column">
+      <div class="field">
+        <p class="control has-icons-left">
+          <input class="input" type="password" placeholder="password" name="password" id="password" v-model="password"   v-validate="'required'":class="{'input': true, 'is-danger': errors.has('password') }" data-vv-as="Password" >
+          <span class="icon is-small is-left">
+            <i class="fa fa-lock"></i>
+          </span>
+        </p>
+      </div>
+    </div>
+    <div class="columns is-mobile is-centered">
+      <div class="column">
+        <div class="field">
+          <b-checkbox v-model="remember" name="remember">
+            <span style="color: #00d1b2;">Ingat saya</span>
+          </b-checkbox>
+        </div>
+      </div>
+      <div class="column">
+        <a href="javascript:void(0)"><span style="color: 00d1b2">Lupa password ?</span></a>
+      </div>
+      <b-modal :active.sync="showModal" has-modal-card>
+          <modal-form></modal-form>
+      </b-modal>
+    </div>
+    <div class="column">
+      <button class="button is-warning is-fullwidth" v-bind:class="button_processing" @click="validateBeforeSubmit()">
+        Login
+      </button>
+      <hr>
+    </div>
+  </div>
+</div>

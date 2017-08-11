@@ -14931,6 +14931,14 @@ a.nav-item:not(.button).is-tab.is-active {
   padding: 3rem 1.5rem 6rem;
 }
 
+.footer a {
+  color: #00d1b2;
+}
+
+.footer a:hover {
+  color: #000;
+}
+
 .navbar-burger span {
   background-color: white;
 }

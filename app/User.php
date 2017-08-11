@@ -20,6 +20,8 @@ class User extends Authenticatable
 
     protected $dates = ['dob'];
 
+    public $with = ['profile'];
+
     public function activation()
     {
         return $this->hasOne('App\Models\Activation');
@@ -27,6 +29,11 @@ class User extends Authenticatable
 
     public function profile()
     {
-        return $this->belongsTo('App\Models\Profile');
+        return $this->hasOne('App\Models\Profile');
+    }
+
+    public function receivesBroadcastNotificationsOn()
+    {
+        return 'npp-user.'.$this->username;
     }
 }

@@ -18,11 +18,10 @@
         @if (Auth::check())
           <div class="navbar-item has-dropdown is-hoverable">
             <a class="navbar-link">
-              <img src="{{asset('images/resource/user.jpg')}}" alt="{{Auth::user()->first_name}}">
-              {{Auth::user()->first_name}}
+              <avatar-nav></avatar-nav><span class="m-l-5">{{Auth::user()->first_name}}</span>
             </a>
             <div class="navbar-dropdown is-right">
-              <a href="#" class="navbar-item">
+              <a href="{{route('profile', Auth::user()->username)}}" class="navbar-item">
                 <span class="icon m-r-10">
                   <i class="fa fa-user"></i>
                 </span> Profile

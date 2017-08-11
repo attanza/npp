@@ -6,14 +6,34 @@ window.eventBus = new Vue({})
 // Bulma Vue - Buefy
 import Buefy from 'buefy';
 Vue.use(Buefy);
+// Moment
+import moment from 'moment';
+import 'moment/locale/id';
+import VueMoment from 'vue-moment';
+Vue.use(VueMoment);
+
+// Main
+Vue.component('session-messages', require('./components/SessionMessages.vue'));
 
 // Auth
-Vue.component('login-register', require('./components/auth/LoginRegister.vue'));
+Vue.component('register', require('./components/auth/Register.vue'));
 Vue.component('login', require('./components/auth/Login.vue'));
-// Nav
-Vue.component('user-menu', require('./components/nav/UserMenu.vue'));
+// Notifications
+Vue.component('notification-listener', require('./components/notifications/NotificationListener.vue'));
+
+// User
+Vue.component('user-init', require('./components/user/UserInit.vue'));
+// Profile
+Vue.component('profile-info', require('./components/profile/ProfileInfo.vue'));
+Vue.component('avatar', require('./components/profile/avatar/Avatar.vue'));
+Vue.component('avatar-nav', require('./components/profile/avatar/AvatarNav.vue'));
 
 
+
+import {
+  store
+} from './store'
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    store
 });

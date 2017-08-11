@@ -1,0 +1,94 @@
+<div id="register" class="m-r-20 m-l-20">
+  <div class="columns" id="register">
+    <div class="column" >
+      <div class="card bg-yellow">
+        <div class="card-header">
+          <header class="card-header">
+            <p class="card-header-title">
+              Bergabung bersama kami
+            </p>
+          </header>
+        </div><!-- card-header -->
+        <div class="card-content">
+          <div class="content">
+            <div class="columns is-desktop">
+              <div class="column">
+                <p class="control">
+                  <input name="first_name" v-model="first_name" type="text" placeholder="nama depan"  v-validate="'required|max:200'" data-vv-as="Nama depan" :class="{'input': true, 'is-danger': errors.has('first_name') }">
+                  <span v-show="errors.has('first_name')" class="help is-danger">{{ errors.first('first_name') }}</span>
+                </p>
+              </div>
+              <div class="column">
+                <p class="control">
+                  <input name="last_name" v-model="last_name" type="text" class="input" placeholder="nama belakang">
+                </p>
+              </div>
+            </div><!-- columns is-desktop -->
+            <p class="control">
+              <input name="email" v-model="email" type="email" placeholder="alamat email" v-validate="'required|email'" data-vv-as="alamat email" :class="{'input': true, 'is-danger': errors.has('email') }">
+              <span v-show="errors.has('email')" class="help is-danger">{{ errors.first('email') }}</span>
+            </p>
+
+            <p class="control">
+              <input name="password" v-model="password" type="password" placeholder="password" v-validate="'required|min:6'" data-vv-as="password" :class="{'input': true, 'is-danger': errors.has('password') }">
+              <span v-show="errors.has('password')" class="help is-danger">{{ errors.first('password') }}</span>
+            </p>
+
+            <div class="columns is-gapless">
+              <div class="column">
+                <p class="control">
+                  <select name="dd" id="dd" v-model="dd" v-validate="'required'" data-vv-as="Tanggal lahir"
+                   :class="{'input': true, 'is-danger': errors.has('dd') }">
+                    <option value="" disabled selected>Tanggal lahir</option>
+                    <option :value="dd" v-for="dd in date_births">{{dd}}</option>
+                  </select>
+                  <span v-show="errors.has('dd')" class="help is-danger">{{ errors.first('dd') }}</span>
+                </p>
+              </div>
+              <div class="column">
+                <p class="control">
+                  <select name="mm" id="mm" v-model="mm" v-validate="'required'" data-vv-as="Bulan lahir"
+                   :class="{'input': true, 'is-danger': errors.has('mm') }">
+                    <option value="" disabled selected>Bulan lahir</option>
+                    <option :value="mm" v-for="mm in month_births">{{mm}}</option>
+                  </select>
+                  <span v-show="errors.has('mm')" class="help is-danger">{{ errors.first('mm') }}</span>
+                </p>
+              </div>
+              <div class="column">
+                <p class="control">
+                  <select name="yyyy" id="yyyy" v-model="yyyy" v-validate="'required'" data-vv-as="Tahun lahir"
+                   :class="{'input': true, 'is-danger': errors.has('yyyy') }">
+                    <option value="" disabled selected>Tahun lahir</option>
+                    <option :value="yyyy" v-for="yyyy in years">{{yyyy}}</option>
+                  </select>
+                  <span v-show="errors.has('yyyy')" class="help is-danger">{{ errors.first('yyyy') }}</span>
+                </p>
+              </div>
+            </div>
+
+            <p class="control radio">
+              <input id="male" type="radio" name="gender" v-model="gender" value="Male" v-validate="'required|in:Male,Female'">
+              <label for="male">Laki-laki</label>
+              <input id="female" type="radio" name="gender" v-model="gender" value="Female">
+              <label for="female">Perempuan</label>
+              <span class="help is-danger" v-show="errors.has('gender')">{{ errors.first('gender') }}</span>
+            </p>
+
+            <p class="control">
+              <b-checkbox name="terms" v-model="terms" v-validate="'required'">
+                Saya setuju dengan <a href="javascript:void(0)"><span style="color: #00d1b2;">Syarat & ketentuan</span></a>
+              </b-checkbox>
+              <span class="help is-danger" v-show="errors.has('terms')">{{ errors.first('terms') }}</span>
+            </p>
+          </div><!-- content -->
+          <center>
+            <button type="button" class="button is-dark is-hovered" v-bind:class="button_processing" @click="validateBeforeSubmit()">
+              <span style="color: #00d1b2;">Bergabung</span>
+            </button>
+          </center>
+        </div><!-- card-content -->
+      </div><!-- card bg-yellow -->
+    </div><!-- column -->
+  </div><!-- columns -->
+</div>

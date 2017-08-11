@@ -13,8 +13,8 @@
   </div>
   <div class="column" style="padding: 20px;">
     @if (Auth::guest())
-      {{-- <login-register></login-register> --}}
       <login></login>
+      <register></register>
 
     @else
       <div class="card bg-yellow-opacity m-l-20 m-r-20">

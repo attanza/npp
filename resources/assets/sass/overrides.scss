@@ -39,6 +39,13 @@ a.nav-item:not(.button){
 .footer{
   background-color: $npp-yellow;
   padding: 3rem 1.5rem 6rem;
+
+  a {
+    color: #00d1b2;
+  }
+  a:hover {
+    color: #000;
+  }
 }
 
 .navbar-burger span {

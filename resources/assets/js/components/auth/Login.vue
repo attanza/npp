@@ -1,44 +1,6 @@
-<template>
-  <div class="columns" id="login">
-    <div class="column">
-      <div class="field">
-        <p class="control has-icons-left">
-          <input name="email" id="email"  v-model="email" v-validate="'required|email'" :class="{'input': true, 'is-danger': errors.has('email') }" data-vv-as="Alamat Email" type="text" placeholder="Alamat Email">
-          <span class="icon is-small is-left">
-            <i class="fa fa-envelope"></i>
-          </span>
-        </p>
-        <p class="m-t-10">
-          <div class="field">
-              <b-checkbox v-model="remember" name="remember"><span style="color: #ffcc2a;">Ingat saya</span> </b-checkbox>
-          </div>
-        </p>
-      </div>
-    </div>
-    <div class="column">
-      <div class="field">
-        <p class="control has-icons-left">
-          <input class="input" type="password" placeholder="Password" name="password" id="password" v-model="password"   v-validate="'required'":class="{'input': true, 'is-danger': errors.has('password') }" data-vv-as="Password" >
-          <span class="icon is-small is-left">
-            <i class="fa fa-lock"></i>
-          </span>
-        </p>
-        <p class="m-t-5">
-          <a href="javascript:void(0)">Lupa password ?</a>
-        </p>
-      </div>
-    </div>
-    <div class="column is-narow">
-      <button class="button is-warning is-fullwidth" v-bind:class="button_processing" @click="validateBeforeSubmit()">
-        Login
-      </button>
-    </div>
-    <b-modal :active.sync="showModal" has-modal-card>
-        <modal-form></modal-form>
-    </b-modal>
-  </div>
-</template>
+<template src="./login_form.html"></template>
 <script>
+import catchJsonErrors from '../../mixins/catchJsonErrors';
 import id from 'vee-validate/dist/locale/id';
 import VeeValidate, { Validator } from 'vee-validate';
 Validator.addLocale(id);
@@ -52,9 +14,9 @@ export default {
       ModalForm
   },
   data: () => ({
-    email: 'admin@admin.com',
+    email: 'dani.lesmiadi@gmail.com',
     password: 'password',
-    remember: '',
+    remember: false,
     button_processing: '',
     showModal: false,
   }),
@@ -74,6 +36,7 @@ export default {
           vm.$toast.open({
             duration: 3000,
             message: value[0].msg,
+            type: 'is-danger'
           });
         });
 	    });
@@ -82,6 +45,7 @@ export default {
     login(){
       this.button_processing = 'is-loading'
       axios.post('/npp-login', this.get_data()).then((resp)=>{
+        // console.log(resp);
         if (resp.status == 200) {
             window.location.replace('/');
         } else if (resp.status == 201) {
@@ -90,13 +54,7 @@ export default {
         }
       }).catch(error => {
         if (error.response) {
-          let vm = this;
-          _.forEach(error.response.data, function(value, key) {
-            vm.$toast.open({
-              duration: 3000,
-              message: _.trim(value),
-            });
-          });
+          this.catchError(error.response);
           this.button_processing = ''
         }
       });
@@ -117,16 +75,45 @@ export default {
       }
     },
     request_resend_mail(){
-      this.$toast.open({
-        duration: 3000,
-        message: 'Email akan segera dikirmkan.',
+      axios.post('/npp-activation/resend', this.get_data()).then((resp)=>{
+        if (resp.status == 200) {
+            this.$toast.open({
+              duration: 3000,
+              message: resp.data.msg,
+              type: 'is-success',
+            });
+            this.clear_form();
+        }
+      }).catch(error => {
+        if (error.response) {
+          let vm = this;
+          _.forEach(error.response.data, function(value, key) {
+            vm.$toast.open({
+              duration: 3000,
+              type: 'is-danger',
+              message: _.trim(value),
+            });
+          });
+        }
       });
+    },
+    clear_form(){
+      this.email = '',
+      this.password = '',
+      this.remember = false
     }
-  }
+  },
+  mixins: [catchJsonErrors]
 }
 </script>
 <style lang="scss" scoped>
 #login{
   padding: 0px 20px;
+}
+a {
+  color: #00d1b2;
+}
+a:hover {
+  color: #ffcc2a;
 }
 </style>

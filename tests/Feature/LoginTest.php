@@ -68,14 +68,17 @@ class LoginTest extends TestCase
      */
     public function test_activated_user_can_login()
     {
-        $user = User::find(1);
+        $user = factory(User::class)->create([
+          'is_active' => 1
+        ]);
         $postData = [
           'email' => $user->email,
-          'password' => 'password'
+          'password' => 'password',
         ];
-        $this->visit('/')
+        $this->get('/')
           ->see('Login')
           ->json('post', '/npp-login', $postData)
           ->assertResponseStatus(200);
+          // ->assertResponseStatus(200);
     }
 }
