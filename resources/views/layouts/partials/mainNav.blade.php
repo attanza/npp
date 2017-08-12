@@ -10,8 +10,14 @@
         <a href="{{'/'}}" class="nav-item is-tab is-hidden-mobile m-l-20 @if(Request::is('/')) is-active @endif">
           Home
         </a>
-        <a href="{{'/bmi'}}" class="nav-item is-tab is-hidden-mobile @if(Request::is('bmi*')) is-active @endif">Berjuta Mimpi Indonesia</a>
-          <a href="{{'/about'}}" class="nav-item is-tab is-hidden-mobile @if(Request::is('about*')) is-active @endif">Tentang Kami</a>
+        <a href="{{route('bmi.index')}}" class="nav-item is-tab is-hidden-mobile
+          @if(Request::is('berjuta-mimpi-indonesia*')) is-active @endif">
+          Berjuta Mimpi Indonesia
+        </a>
+          <a href="{{route('about.index')}}" class="nav-item is-tab is-hidden-mobile
+            @if(Request::is('tentang-negeri-para-pemimmpi*')) is-active @endif">
+            Tentang Kami
+          </a>
         <a href="#" class="nav-item is-tab is-hidden-mobile">Kontak</a>
       </div>
       <div class="navbar-end">

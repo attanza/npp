@@ -6,9 +6,11 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Artisan;
 use Faker\Factory;
 use App\User;
+use App\Events\Register;
 
 class RegisterTest extends TestCase
 {

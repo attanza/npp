@@ -18,17 +18,20 @@ Vue.component('session-messages', require('./components/SessionMessages.vue'));
 // Auth
 Vue.component('register', require('./components/auth/Register.vue'));
 Vue.component('login', require('./components/auth/Login.vue'));
+
 // Notifications
 Vue.component('notification-listener', require('./components/notifications/NotificationListener.vue'));
 
 // User
 Vue.component('user-init', require('./components/user/UserInit.vue'));
+
 // Profile
 Vue.component('profile-info', require('./components/profile/ProfileInfo.vue'));
 Vue.component('avatar', require('./components/profile/avatar/Avatar.vue'));
+
+// nav
 Vue.component('avatar-nav', require('./components/profile/avatar/AvatarNav.vue'));
-
-
+Vue.component('mobile-nav', require('./components/nav/MobileNav.vue'));
 
 import {
   store

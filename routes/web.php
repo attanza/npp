@@ -2,11 +2,12 @@
 
 // Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/rumah-negeri-para-pemimmpi', 'HomeController@index')->name('home');
 Route::get('/login', 'HomeController@index')->name('login');
+Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 
-Route::get('/bmi', 'BmiController@index')->name('bmi.index');
-Route::get('/about', 'AboutController@index')->name('about.index');
+Route::get('/berjuta-mimpi-indonesia', 'BmiController@index')->name('bmi.index');
+Route::get('/tentang-negeri-para-pemimmpi', 'AboutController@index')->name('about.index');
 
 Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 
