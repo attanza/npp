@@ -6,7 +6,6 @@
 <script>
 export default {
   name: "user_init",
-  props: ['user'],
   data: () => ({
 
   }),
@@ -15,9 +14,15 @@ export default {
   },
   methods: {
     get_user(){
-      this.$store.commit('user_mutation', this.user);
-      this.$store.commit('profile_mutation', this.user.profile);
-      this.$store.commit('avatar_mutation', this.user.profile.photo_path);
+      axios.get('/api/user-data').then((resp) => {
+        if (resp.status == 200) {
+          this.$store.commit('user_mutation', resp.data.user);
+          this.$store.commit('profile_mutation', resp.data.user.profile);
+          this.$store.commit('avatar_mutation', resp.data.user.profile.photo_path);
+          this.$store.commit('dream_mutation', resp.data.user.dream);
+          this.$store.commit('dream_photo_mutation', resp.data.user.dream.photo);
+        }
+      });
     }
   }
 }

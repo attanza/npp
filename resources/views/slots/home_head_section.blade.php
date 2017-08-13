@@ -15,7 +15,6 @@
     @if (Auth::guest())
       <login></login>
       <register></register>
-
     @else
       <div class="card bg-yellow-opacity m-l-20 m-r-20">
         <div class="card-content">
@@ -25,6 +24,10 @@
           </p>
         </div>
       </div>
+      <dream></dream>
     @endif
   </div>
 </div>
+@section('scripts')
+  <script src="{{asset('js/stretchy.js')}}" data-filter=".textarea" async></script>
+@endsection

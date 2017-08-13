@@ -34,23 +34,35 @@
               <th>Gender</th>
               <td>{{authUser.gender}}</td>
             </tr>
+            <tr>
+              <th></th>
+              <td><a href="javascript:void(0)" @click="showForm">Perbaharui password</a></td>
+            </tr>
           </table>
         </div>
       </div>
     </div>
+    <change-password-form></change-password-form>
   </div>
 </template>
 <script>
 import authUserData from '../../mixins/authUserData';
-import moment from 'moment'
+import moment from 'moment';
+import ChangePasswordForm from './ChangePasswordForm'
 export default {
   name: "profile_info_contact",
+  components: {
+    ChangePasswordForm
+  },
   data: () => ({
 
   }),
   methods: {
     contact_edit(){
       this.$emit('contact_edit');
+    },
+    showForm(){
+      window.eventBus.$emit('show-form');
     }
   },
   mixins: [authUserData]

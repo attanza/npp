@@ -5,6 +5,10 @@ namespace App;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Contracts\Auth\CanResetPassword;
+use App\Mail\ForgotPasswordMail;
+use Mail;
+use DB;
 
 class User extends Authenticatable
 {
@@ -35,5 +39,20 @@ class User extends Authenticatable
     public function receivesBroadcastNotificationsOn()
     {
         return 'npp-user.'.$this->username;
+    }
+
+    public function dream()
+    {
+        return $this->hasOne('App\Models\Dream');
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+        Mail::to($this)->send(new ForgotPasswordMail($token));
+    }
+
+    public function getFullname()
+    {
+        return $this->first_name.' '.$this->last_name;
     }
 }

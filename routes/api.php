@@ -8,7 +8,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::group(['middleware' => 'auth:api'], function(){
     Route::get('/user-data', 'UserController@getUser');
+    // Profile
     Route::put('/profile/{id}', 'ProfileController@update');
     Route::put('/profile/{id}/detail', 'ProfileController@updateDetail');
-    Route::post('/profile/upload/{id}', 'ProfileController@uploadAvatar');  
+    Route::post('/profile/upload/{id}', 'ProfileController@uploadAvatar');
+    // Password Utility
+    Route::post('/reset-password/{id}', 'PasswordUtilityController@resetPassword');
+    // Dream
+    Route::post('/dream/{id}', 'DreamController@storeDream');
+    Route::post('/dream/{id}/upload', 'DreamController@uploadDreamPhoto');
+
 });

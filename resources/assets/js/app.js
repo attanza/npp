@@ -33,6 +33,12 @@ Vue.component('avatar', require('./components/profile/avatar/Avatar.vue'));
 Vue.component('avatar-nav', require('./components/profile/avatar/AvatarNav.vue'));
 Vue.component('mobile-nav', require('./components/nav/MobileNav.vue'));
 
+// dream
+Vue.component('dream', require('./components/dream/Dream.vue'));
+Vue.component('dream-list', require('./components/dream/DreamList.vue'));
+
+
+
 import {
   store
 } from './store'

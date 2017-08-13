@@ -40,11 +40,12 @@ class LoginController extends Controller
                 $user = User::where('email', $request->email)->first();
                 $user->last_login = Carbon::now();
                 $user->save();
-            if ($request->ajax()) {
                 return response()->json(1, 200);
-            }
         } else {
-            return redirect('/login');
+            return response()->json([
+              'msg' => 'User tidak ditemukan'
+            ], 401);
+
         }
     }
 

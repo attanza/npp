@@ -11,18 +11,43 @@
       </div>
     </div>
     <div class="column is-one-third">
-      <div class="field">
+      <div class="field has-addons" v-show="!pasReveal">
         <p class="control has-icons-left">
           <input class="input" type="password" placeholder="password" name="password" id="password" v-model="password"   v-validate="'required'":class="{'input': true, 'is-danger': errors.has('password') }" data-vv-as="Password" >
           <span class="icon is-small is-left">
             <i class="fa fa-lock"></i>
           </span>
         </p>
+        <div class="control">
+          <a class="button is-primary" @click="pasReveal = true">
+            <span class="icon is-small is-left">
+              <i class="fa fa-eye"></i>
+            </span>
+          </a>
+        </div>
+      </div>
+      <div class="field has-addons" v-show="pasReveal">
+        <p class="control has-icons-left">
+          <input class="input" type="text" placeholder="password" name="password" id="password" v-model="password"   v-validate="'required'":class="{'input': true, 'is-danger': errors.has('password') }" data-vv-as="Password" >
+          <span class="icon is-small is-left">
+            <i class="fa fa-lock"></i>
+          </span>
+        </p>
+        <div class="control">
+          <a class="button is-primary" @click="pasReveal = false">
+            <span class="icon is-small is-left">
+              <i class="fa fa-eye-slash"></i>
+            </span>
+          </a>
+        </div>
       </div>
     </div>
     <div class="column is-one-third">
-      <button class="button is-warning is-fullwidth" v-bind:class="button_processing" @click="validateBeforeSubmit()">
-        Login
+      <button class="button is-warning" v-bind:class="button_processing" @click="validateBeforeSubmit()">
+        <span class="icon">
+          <i class="fa fa-sign-in"></i>
+        </span>
+        <span>Login</span>
       </button>
     </div>
     <div class="column is-one-third">
@@ -33,7 +58,7 @@
       </div>
     </div>
     <div class="column is-one-third">
-      <a href="javascript:void(0)"><span style="color: 00d1b2">Lupa password ?</span></a>
+      <a href="javascript:void(0)" @click="forgotPassword"><span style="color: 00d1b2">Lupa password ?</span></a>
     </div>
     <b-modal :active.sync="showModal" has-modal-card>
         <modal-form></modal-form>
@@ -51,13 +76,35 @@
       </div>
     </div>
     <div class="column">
-      <div class="field">
+      <div class="field has-addons" v-show="!pasReveal">
         <p class="control has-icons-left">
           <input class="input" type="password" placeholder="password" name="password" id="password" v-model="password"   v-validate="'required'":class="{'input': true, 'is-danger': errors.has('password') }" data-vv-as="Password" >
           <span class="icon is-small is-left">
             <i class="fa fa-lock"></i>
           </span>
         </p>
+        <div class="control">
+          <a class="button is-primary" @click="pasReveal = true">
+            <span class="icon is-small is-left">
+              <i class="fa fa-eye"></i>
+            </span>
+          </a>
+        </div>
+      </div>
+      <div class="field has-addons" v-show="pasReveal">
+        <p class="control has-icons-left">
+          <input class="input" type="text" placeholder="password" name="password" id="password" v-model="password"   v-validate="'required'":class="{'input': true, 'is-danger': errors.has('password') }" data-vv-as="Password" >
+          <span class="icon is-small is-left">
+            <i class="fa fa-lock"></i>
+          </span>
+        </p>
+        <div class="control">
+          <a class="button is-primary" @click="pasReveal = false">
+            <span class="icon is-small is-left">
+              <i class="fa fa-eye-slash"></i>
+            </span>
+          </a>
+        </div>
       </div>
     </div>
     <div class="columns is-mobile is-centered">
@@ -77,7 +124,10 @@
     </div>
     <div class="column">
       <button class="button is-warning is-fullwidth" v-bind:class="button_processing" @click="validateBeforeSubmit()">
-        Login
+        <span class="icon">
+          <i class="fa fa-sign-in"></i>
+        </span>
+        <span>Login</span>
       </button>
       <hr>
     </div>

@@ -8,6 +8,8 @@ export const store = new Vuex.Store({
 		user: {},
 		profile: {},
 		avatar: '',
+		dream: '',
+		dream_photo: '',
 	},
 
 	getters: {
@@ -23,6 +25,12 @@ export const store = new Vuex.Store({
 		},
 		avatar_mutation(state, avatar){
 			state.avatar = avatar
+		},
+		dream_mutation(state, dream){
+			state.dream = dream
+		},
+		dream_photo_mutation(state, dream_photo){
+			state.dream_photo = dream_photo
 		}
 	}
 })

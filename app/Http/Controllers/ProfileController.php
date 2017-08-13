@@ -49,8 +49,6 @@ class ProfileController extends Controller
 
     public function uploadAvatar(Request $request, $id)
     {
-        // return $request->all();
-
         $this->validate($request, [
             'file' => 'required|string'
         ]);
@@ -64,4 +62,6 @@ class ProfileController extends Controller
             'profile' => $profile
         ], 200);
     }
+
+
 }

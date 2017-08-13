@@ -21,8 +21,12 @@ export default {
     listen(){
       Echo.private('npp-user.'+ this.username)
           .listen('AvatarUploaded', (e) => {
-              console.log(e);
               this.$store.commit('avatar_mutation', e.avatar);
+          });
+      Echo.private('npp-user.'+ this.username)
+          .listen('UploadDreamEvent', (e) => {
+              this.$store.commit('dream_photo_mutation', e.dream.photo);
+              window.eventBus.$emit('new_dream_submited', e.dream);
           });
 
       // Echo.private('npp-user.'+ this.username)

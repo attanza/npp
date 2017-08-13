@@ -14876,6 +14876,10 @@ label.panel-block:hover {
   color: #fff;
 }
 
+body {
+  font-family: 'Maven Pro', sans-serif;
+}
+
 .navbar {
   background-color: #0a0a0a;
   border-bottom: 2px solid #ffcc2a;

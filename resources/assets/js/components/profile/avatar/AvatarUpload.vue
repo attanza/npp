@@ -8,7 +8,7 @@
       </div>
       <div class="modal-card">
           <p class="image" id="avatarImage">
-            <img :src="profile.photo_path" alt="">
+            <img :src="image" alt="">
           </p>
         <section class="modal-card-body">
           <div class="content">
@@ -53,10 +53,18 @@ export default {
     cropper: null,
     upload: false,
   }),
-  props: ['profile'],
+  props: ['imageUrl', 'uploadURL'],
+
+  watch: {
+    imageUrl(){
+      if (this.imageUrl != '') {
+        this.image = this.imageUrl;
+      }
+    }
+  },
 
   mounted(){
-    this.image = this.profile.photo_path;
+    this.image = this.imageUrl;
     window.eventBus.$on('showUploader', this.setUploader);
     this.setUpCropper();
     this.$on('imgUploaded', function (imageData) {
@@ -107,11 +115,11 @@ export default {
 		},
     uploadFile () {
       this.isLoading = true;
-      axios.post('/api/profile/upload/'+this.authUser.id, {file: this.cropper.getCroppedCanvas().toDataURL()})
-      this.$store.commit('avatar_mutation', this.cropper.getCroppedCanvas().toDataURL());
+      axios.post(this.uploadURL, {file: this.cropper.getCroppedCanvas().toDataURL()})
+      window.eventBus.$emit('after-upload', this.cropper.getCroppedCanvas().toDataURL())
       this.isLoading = false;
       this.showUploader = false;
-      this.toast_success('Photo diperbaharui');
+      this.upload = false;
 		},
   },
   mixins: [authUserData, catchJsonErrors]

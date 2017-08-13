@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Dream;
 
 class BmiController extends Controller
 {
@@ -10,4 +11,6 @@ class BmiController extends Controller
     {
         return view('bmi.index');
     }
+
+
 }

@@ -24,6 +24,7 @@ $factory->define(App\Models\Profile::class, function (Faker\Generator $faker) {
         'about' => $faker->paragraph,
         'lat' => $faker->latitude,
         'lng' => $faker->longitude,
+        'location' => $faker->city,
     ];
 });
 
@@ -32,5 +33,13 @@ $factory->define(App\Models\Activation::class, function (Faker\Generator $faker)
         'code' => str_random(40),
         'completed' => 1,
         'completed_at' => Carbon::now()
+    ];
+});
+
+$factory->define(App\Models\Dream::class, function (Faker\Generator $faker) {
+    return [
+      'dream' => $faker->sentence,
+      'keyword' => $faker->word,
+      'description' => $faker->paragraph,
     ];
 });

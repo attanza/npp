@@ -13,15 +13,14 @@ class InitialSeeder extends Seeder
      */
     public function run()
     {
-        $this->createUser();
         $this->role_seeder();
+        $this->createUser();
+        $this->seedOthers();
     }
 
     private function createUser()
     {
         App\User::truncate();
-        DB::table('role_user')->truncate();
-
         factory(App\User::class)->create([
             'first_name' => 'Superuser',
             'username' => 'superuser',
@@ -46,30 +45,13 @@ class InitialSeeder extends Seeder
           'is_active' => 1
         ]);
 
-        DB::table('role_user')->insert([
-          'user_id' => 1,
-          'role_id' => 1
+        factory(App\User::class)->create([
+          'first_name' => 'Customer Service',
+          'username' => 'customer-service',
+          'email' => 'customer@service.com',
+          'password' => bcrypt('password'),
+          'is_active' => 1
         ]);
-        DB::table('role_user')->insert([
-          'user_id' => 2,
-          'role_id' => 2
-        ]);
-        DB::table('role_user')->insert([
-          'user_id' => 3,
-          'role_id' => 3
-        ]);
-
-        for ($i=1; $i < 4 ; $i++) {
-            factory(App\Models\Activation::class)->create([
-                'user_id' => $i
-            ]);
-        }
-
-        for ($i=1; $i < 4 ; $i++) {
-            factory(App\Models\Profile::class)->create([
-                'user_id' => $i
-            ]);
-        }
     }
 
     private function role_seeder(){
@@ -83,8 +65,51 @@ class InitialSeeder extends Seeder
         'name' => 'Administrator'
       ]);
       DB::table('roles')->insert([
+        'slug' => 'cs',
+        'name' => 'Customer Service'
+      ]);
+      DB::table('roles')->insert([
         'slug' => 'user',
         'name' => 'User'
       ]);
+    }
+
+    private function seedOthers()
+    {
+        DB::table('role_user')->truncate();
+        App\Models\Profile::truncate();
+        App\Models\Activation::truncate();
+        App\Models\Dream::truncate();
+        App\Models\Media::truncate();
+
+        for ($i=1; $i < 5 ; $i++) {
+            DB::table('role_user')->insert([
+              'user_id' => $i,
+              'role_id' => $i
+            ]);
+
+            factory(App\Models\Profile::class)->create([
+                'user_id' => $i
+            ]);
+
+            factory(App\Models\Activation::class)->create([
+                'user_id' => $i
+            ]);
+
+            $dream = factory(App\Models\Dream::class)->create([
+                'user_id' => $i
+            ]);
+
+            App\Models\Media::create([
+              'mediable_id' => $dream->id,
+              'mediable_type' => 'App\Models\Dream',
+              'folder' => 'public/defaults/',
+              'filename' => 'default_dream.jpg',
+              'mime' => 'image/jpg',
+              'size' => '1000',
+              'extension' => 'jpg',
+              'caption' => str_slug($dream->dream)
+            ]);
+        }
     }
 }

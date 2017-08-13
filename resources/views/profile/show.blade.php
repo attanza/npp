@@ -13,9 +13,3 @@
     </div>{{-- container --}}
   </section>
 @endsection
-@section('scripts')
-  <script src="{{asset('js/stretchy.js')}}" data-filter=".textarea" async></script>
-@endsection
-@section('styles')
-  <link rel="stylesheet" href="{{asset('css/cropper.min.css')}}">
-@endsection

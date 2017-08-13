@@ -21,7 +21,7 @@
         </p>
       </footer>
     </div>
-    <avatar-upload :profile="profile"></avatar-upload>
+    <avatar-upload :imageUrl="profile.photo_path" :uploadURL="uploadURL"></avatar-upload>
   </div>
 </template>
 <script>
@@ -34,16 +34,23 @@ export default {
   },
   props: ['profile'],
   data: () => ({
-
+    uploadURL: '',
   }),
   mounted(){
+    this.uploadURL = '/api/profile/upload/'+this.profile.user_id;
+    window.eventBus.$on('after-upload', this.afterUpload)
+
   },
   methods: {
     showUploader(){
       window.eventBus.$emit('showUploader');
+    },
+    afterUpload(image){
+      this.$store.commit('avatar_mutation', image);
     }
   },
   mixins: [authUserData]
+
 }
 </script>
 <style lang="scss" scoped>

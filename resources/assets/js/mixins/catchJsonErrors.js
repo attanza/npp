@@ -2,8 +2,7 @@ export default {
   methods: {
     catchError(errorResponse){
       let vm = this;
-      errorResponse.data
-      if (errorResponse.status == 422) {
+      if (errorResponse.status == 422 || errorResponse.status == 401 || errorResponse.status == 403) {
         _.forEach(errorResponse.data, function(value, key) {
           vm.$toast.open({
             duration: 5000,

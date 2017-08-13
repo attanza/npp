@@ -19,6 +19,7 @@ export default {
     remember: false,
     button_processing: '',
     showModal: false,
+    pasReveal: false,
   }),
   mounted(){
     window.eventBus.$on('confirm_activation', this.confirm_activation);
@@ -30,15 +31,7 @@ export default {
           this.login();
           return;
         }
-        let errors = _.toArray(this.errors);
-        let vm = this;
-        _.forEach(errors, function(value) {
-          vm.$toast.open({
-            duration: 3000,
-            message: value[0].msg,
-            type: 'is-danger'
-          });
-        });
+        this.catchValidationErrors()
 	    });
 		},
 
@@ -101,6 +94,9 @@ export default {
       this.email = '',
       this.password = '',
       this.remember = false
+    },
+    forgotPassword(){
+      window.location.replace('/password/reset');
     }
   },
   mixins: [catchJsonErrors]

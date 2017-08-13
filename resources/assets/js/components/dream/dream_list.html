@@ -1,0 +1,92 @@
+<div id="dream_list">
+  <div class="box">
+    <div class="columns is-multiline">
+      <div class="column is-one-third" v-for="dream in dreams">
+          <div class="card">
+            <div class="card-image">
+              <figure class="image is-1by1">
+                <img :src="dream.photo" :alt="dream.dream">
+              </figure>
+              <div class="dream-title">
+                {{dream.dream}}
+              </div>
+            </div>
+            <div class="card-content">
+              <div class="media">
+                <div class="media-left">
+                  <figure class="image is-48x48">
+                    <img :src="dream.user.profile.photo_path" :alt="dream.user.first_name">
+                  </figure>
+                </div>
+                <div class="media-content">
+                  <p class="title is-5">{{dream.user.first_name}}</p>
+                  <p class="subtitle is-7">{{dream.user.email}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="columns">
+      <div class="column is-three-quarters">
+        <nav class="pagination">
+          <a class="pagination-previous" v-if="pagination.current_page > 1" @click.prevent="changePage(pagination.current_page = 1)">
+            <span class="icon">
+              <i class="fa fa-fast-backward"></i>
+            </span>
+          </a>
+          <a class="pagination-previous" v-if="pagination.current_page > 1" @click.prevent="changePage(pagination.current_page - 1)">
+            <span class="icon">
+              <i class="fa fa-step-backward"></i>
+            </span>
+          </a>
+
+          <a class="pagination-next" v-if="pagination.current_page < pagination.last_page" @click.prevent="changePage(pagination.current_page + 1)">
+            <span class="icon">
+              <i class="fa fa-step-forward"></i>
+            </span>
+          </a>
+          <a class="pagination-next" v-if="pagination.current_page < pagination.last_page" @click.prevent="changePage(pagination.current_page = pagination.last_page)">
+            <span class="icon">
+              <i class="fa fa-fast-forward"></i>
+            </span>
+          </a>
+
+          <ul class="pagination-list">
+            <li v-for="page in pagesNumber">
+              <a class="pagination-link" @click.prevent="changePage(page)" v-bind:class="[page == isActived ? 'is-current' : '']">{{page}}</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <div class="column">
+        <div class="field has-addons">
+          <div class="control is-expanded">
+            <div class="select is-fullwidth">
+              <select name="paginate" v-model="paginate" @change="get_dreams(1)">
+                <option value="9">9</option>
+                <option value="27">27</option>
+                <option value="45">45</option>
+              </select>
+            </div>
+          </div>
+          <div class="control">
+            <button class="button is-default" @click="get_dreams(1)">per halaman</button>
+          </div>
+          <div class="control">
+            <back-top>
+              <button class="button is-primary">
+                <span class="icon">
+                  <i class="fa fa-arrow-up"></i>
+                </span>
+              </button>
+            </back-top>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <b-loading :active.sync="isLoading"></b-loading>
+</div>

@@ -5,6 +5,11 @@
       @include('slots.home_head_section')
     </div>
   </section>
+  <section class="section">
+    <div class="container">
+      <dream-list></dream-list>
+    </div>
+  </section>
 @endsection
 @section('styles')
   <style>
