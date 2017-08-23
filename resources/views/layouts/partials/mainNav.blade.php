@@ -1,11 +1,30 @@
-<nav class="navbar">
+<nav class="navbar has-shadow">
   <div class="container">
     <div class="navbar-brand">
-      <a class="navbar-item" href="{{'/'}}">
+      <a class="navbar-item" href="{{url('/')}}">
         <img src="{{asset('images/resource/npp_logo.png')}}" alt="Negeri Para Pemimpi Logo">
       </a>
+
+      <a class="navbar-item is-hidden-desktop" href="https://github.com/jgthms/bulma" target="_blank">
+        <span class="icon" style="color: #333;">
+          <i class="fa fa-github"></i>
+        </span>
+      </a>
+
+      <a class="navbar-item is-hidden-desktop" href="https://twitter.com/jgthms" target="_blank">
+        <span class="icon" style="color: #55acee;">
+          <i class="fa fa-twitter"></i>
+        </span>
+      </a>
+
+      <div class="navbar-burger burger" data-target="navMenubd-example">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
     </div>
-    <div class="navbar-menu">
+
+    <div id="navMenubd-example" class="navbar-menu">
       <div class="navbar-start">
         <a href="{{'/'}}" class="nav-item is-tab is-hidden-mobile m-l-20 @if(Request::is('/')) is-active @endif">
           Home
@@ -19,20 +38,25 @@
             Tentang Kami
           </a>
         <a href="#" class="nav-item is-tab is-hidden-mobile">Kontak</a>
+        {{-- <a href="{{route('clear.db')}}" class="nav-item is-tab is-hidden-mobile">Clear DB</a> --}}
       </div>
+
       <div class="navbar-end">
         @if (Auth::check())
+          <unread-nots></unread-nots>
+
           <div class="navbar-item has-dropdown is-hoverable">
             <a class="navbar-link">
-              <avatar-nav></avatar-nav><span class="m-l-5">{{Auth::user()->first_name}}</span>
+              <avatar-nav></avatar-nav><span class="m-l-10">{{Auth::user()->first_name}}</span>
             </a>
+
             <div class="navbar-dropdown is-right">
               <a href="{{route('profile', Auth::user()->username)}}" class="navbar-item">
                 <span class="icon m-r-10">
                   <i class="fa fa-user"></i>
                 </span> Profile
               </a>
-              <a class="navbar-item">
+              <a class="navbar-item" href="{{route('dream.show', Auth::user()->dream->slug)}}">
                 <span class="icon m-r-10">
                   <i class="fa fa-cloud"></i>
                 </span> Mimpiku
@@ -49,8 +73,12 @@
               </a>
             </div>
           </div>
+        @else
+          <a href="{{url('/login')}}" class="nav-item is-tab is-hidden-mobile">Login / Register</a>
         @endif
+
       </div>
+
     </div>
   </div>
 </nav>

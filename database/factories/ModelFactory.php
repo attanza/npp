@@ -37,9 +37,45 @@ $factory->define(App\Models\Activation::class, function (Faker\Generator $faker)
 });
 
 $factory->define(App\Models\Dream::class, function (Faker\Generator $faker) {
+    $dream = $faker->sentence;
     return [
-      'dream' => $faker->sentence,
+      'dream' => $dream,
+      'slug' => str_slug(str_limit($dream, 50).'-'.uniqid()),
       'keyword' => $faker->word,
       'description' => $faker->paragraph,
+    ];
+});
+
+$factory->define(App\Models\DreamComment::class, function (Faker\Generator $faker) {
+    return [
+        'body' => $faker->sentence
+    ];
+});
+
+$factory->define(App\Models\Order::class, function (Faker\Generator $faker) {
+    $dream = $faker->sentence;
+    return [
+      'order_no' => uniqid(),
+      'name' => $faker->name,
+      'email' => $faker->unique()->safeEmail,
+      'phone' => $faker->e164PhoneNumber,
+      'qty' => rand(1,5),
+      'lat' => $faker->latitude,
+      'lng' => $faker->longitude,
+      'location' => $faker->city,
+      'status' => 1,
+      'code' => str_random(60),
+      'address' => $faker->address
+    ];
+});
+
+$factory->define(App\Models\Product::class, function (Faker\Generator $faker) {
+    $dream = $faker->sentence;
+    return [
+      'code' => $faker->ean8,
+      'name' => $faker->streetName,
+      'stock' => 100,
+      'price' => rand(100000, 500000),
+      'description' => $faker->sentence,
     ];
 });

@@ -52,7 +52,6 @@ class ActivationController extends Controller
             'email' => 'required|email',
             'password' => 'required'
         ]);
-
         // Find User
         $user = User::with('activation')->where('email', $request->email)->first();
         if (count($user) == 0) {
@@ -60,13 +59,8 @@ class ActivationController extends Controller
               'msg' => 'User tidak ditemukan '
             ], 422);
         }
-
-        Session::flash('success', 'Email aktifasi berhasil dikirmkan ulang');
-        
         // Send Activation Mail
         Mail::to($user)->send(new ActivationCodeMail($user));
-
-
         return response()->json([
           'msg' => 'Email akan dikirmkan dalam beberapa saat'
         ], 200);

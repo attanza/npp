@@ -25,6 +25,7 @@
     "pusher-js": "^4.1.0",
     "vee-validate": "^2.0.0-rc.12",
     "vue-google-autocomplete": "^1.0.12",
+    "vue-scrollto": "^2.7.2",
     "vuex": "^2.3.1"
   }
 }

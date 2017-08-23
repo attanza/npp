@@ -29,7 +29,7 @@ export default {
         this.showDreamCreate = true;
       }
 
-      if (this.authDream.medias.length == 0) {
+      if (!this.showDreamCreate && this.authDream.medias.length == 0) {
         this.showDreamUpload = true;
       }
     }

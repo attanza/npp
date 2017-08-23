@@ -1,0 +1,38 @@
+<div id="order_list">
+  <nav class="breadcrumb" aria-label="breadcrumbs">
+    <ul>
+      <li><a href="/admin/dashboard">Dashboard</a></li>
+      <li class="is-active"><a href="#" aria-current="page">Order List</a></li>
+    </ul>
+  </nav>
+  <table-search :pagination="pagination" @paginateChange="paginateChange"></table-search>
+  <table class="table is-bordered is-striped is-narrow is-fullwidth sortable">
+    <thead>
+      <tr>
+        <th>Nomor Order</th>
+        <th>Produk</th>
+        <th>Jumlah</th>
+        <th>Status</th>
+        <th>Tanggal Order</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="order in orders">
+        <td>{{order.order_no}}</td>
+        <td>{{order.product.name}}</td>
+        <td>{{order.qty}}</td>
+        <td>{{get_order_status(order.status)}}</td>
+        <td>{{ order.created_at | moment("DD MMMM YYYY") }}</td>
+        <td>
+          <button type="button" class="button is-primary is-small" @click="show_order(order.order_no)">
+            <span class="icon">
+              <i class="fa fa-eye"></i>
+            </span>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <paginator :pagination="pagination" :pagesNumber="pagesNumber" :isActived="isActived" @changePage="changePage"></paginator>
+</div>

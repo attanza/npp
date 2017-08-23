@@ -4,9 +4,11 @@
       <div class="column is-one-third" v-for="dream in dreams">
           <div class="card">
             <div class="card-image">
-              <figure class="image is-1by1">
-                <img :src="dream.photo" :alt="dream.dream">
-              </figure>
+              <a href="javascript:void(0)" @click="showDream(dream.slug)">
+                <figure class="image is-1by1">
+                  <img :src="dream.photo" :alt="dream.dream">
+                </figure>
+              </a>
               <div class="dream-title">
                 {{dream.dream}}
               </div>

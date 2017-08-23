@@ -4,29 +4,33 @@ export default {
       let vm = this;
       if (errorResponse.status == 422 || errorResponse.status == 401 || errorResponse.status == 403) {
         _.forEach(errorResponse.data, function(value, key) {
-          vm.$toast.open({
-            duration: 5000,
-            message: _.trim(value),
-            type: 'is-danger'
-          });
+          // vm.$toast.open({
+          //   duration: 5000,
+          //   message: _.trim(value),
+          //   type: 'is-danger'
+          // });
+          vm.throw_noty('error', _.trim(value));
         });
       } else {
-        vm.$toast.open({
-          duration: 5000,
-          message: 'So sorry for this Internal Server Error, please contact our administrator',
-          type: 'is-info'
-        });
+        // vm.$toast.open({
+        //   duration: 5000,
+        //   message: 'So sorry for this Internal Server Error, please contact our administrator',
+        //   type: 'is-info'
+        // });
+        vm.throw_noty('error', 'So sorry for this Internal Server Error, please contact our administrator');
+
       }
     },
     catchValidationErrors(){
       let errors = _.toArray(this.errors);
       let vm = this;
       _.forEach(errors, function(value) {
-        vm.$toast.open({
-          duration: 3000,
-          message: value[0].msg,
-          type: 'is-danger',
-        });
+        // vm.$toast.open({
+        //   duration: 3000,
+        //   message: value[0].msg,
+        //   type: 'is-danger',
+        // });
+        vm.throw_noty('error', value[0].msg);
       });
     },
     toast_success(msg){
@@ -35,6 +39,16 @@ export default {
         type: 'is-success',
         message: msg,
       });
+    },
+    throw_noty(type, msg){
+      new Noty({
+        type: type,
+        text: msg,
+        layout: 'topCenter',
+        theme: 'metroui',
+        timeout: 5000,
+        progressBar: true,
+      }).show();
     }
 
   }

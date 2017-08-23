@@ -5,11 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Storage;
 use App\Models\Media;
+use App\Models\DreamComment;
 
 class Dream extends Model
 {
     protected $fillable = [
-        'user_id', 'dream', 'keyword', 'description', 'publish', 'photo'
+        'user_id', 'dream', 'keyword', 'description', 'publish', 'photo', 'slug'
     ];
 
     public $with = ['user', 'medias'];
@@ -27,11 +28,21 @@ class Dream extends Model
     public function getPhotoAttribute($value)
     {
         if ($value == null) {
-            return asset(Storage::url('public/defaults/default_dream.jpg'));
+            return asset('images/resource/default_dream.jpg');
         } elseif (!Storage::disk('local')->exists($value)) {
-            return asset(Storage::url('public/defaults/default_dream.jpg'));
+            return asset('images/resource/default_dream.jpg');
         } else {
             return asset(Storage::url($value));
         }
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(DreamComment::class);
+    }
+
+    public function parentComments()
+    {
+        return $this->comments()->where('parent_id', 0);
     }
 }

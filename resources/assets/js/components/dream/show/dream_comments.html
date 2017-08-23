@@ -1,0 +1,55 @@
+<div id="dream_comments">
+  <!--  if it's owner -->
+  <div class="dream-head-title"  v-if="dream.user.id == authUser.id">
+    <p class="title is-3">{{authDream.dream}}</p>
+    <p class="subtitle is-5 m-t-10">{{authDream.description}}</p>
+  </div>
+  <!--  if it's public -->
+  <div class="dream-head-title"  v-else>
+    <p class="title is-3">{{dream.dream}}</p>
+    <p class="subtitle is-5 m-t-10">{{dream.description}}</p>
+  </div>
+
+  <div class="comment-input-wrapper m-t-20" v-show="isAuth">
+    <!--  Comment input -->
+    <div class="field">
+      <div class="control">
+        <textarea class="textarea" placeholder="Tanggapan anda..." rows="1" v-model="body"></textarea>
+      </div>
+    </div>
+    <!--  Comment send Button -->
+    <div class="field is-grouped is-grouped-right">
+      <p class="control">
+        <a class="button is-primary" :disabled="disabled" @click="sendFromRoot">
+          <span class="icon is-small m-r-5"><i class="fa fa-paper-plane"></i></span>Kirim
+        </a>
+      </p>
+    </div>
+  </div><!--  End of comment-input-wrapper-->
+
+  <!--  Paginator -->
+  <div class="columns is-mobile m-t-10" v-if="pagination.total > 2 && pagination.to !== pagination.total">
+    <div class="column">
+      <a href="javascript:void(0)" @click="next_page">
+        sebelumnya ...
+      </a>
+      <span class="icon is-small" v-show="nextPageLoading">
+        <i class="fa fa-spinner fa-spin"></i>
+      </span>
+    </div>
+    <div class="column">
+      <div class="is-pulled-right">
+        <span class="m-r-10">
+          <small>{{pagination.to}} dari {{pagination.total}}</small>
+        </span>
+      </div>
+    </div>
+  </div>
+  <!-- End of Paginator -->
+
+  <!--  All Root Comments goes here -->
+  <div class="comment-wrapper m-t-20">
+      <comment-slot :comment_data="comments"></comment-slot>
+  </div>
+
+</div><!--  dream_comments -->

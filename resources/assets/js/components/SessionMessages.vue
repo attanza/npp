@@ -17,16 +17,27 @@ export default {
       console.log(this.message);
       let type;
       if (this.type == 'success') {
-        type = 'is-success';
+        type = 'success';
       } else {
-        type = 'is-danger';
+        type = 'error';
       }
-      this.$toast.open({
-        duration: 5000,
-        message: this.message,
-        type: type
-      })
-
+      // this.$toast.open({
+      //   duration: 5000,
+      //   message: this.message,
+      //   type: type
+      // })
+      this.throw_noty(type, this.message);
+    },
+    throw_noty(type, msg){
+      console.log('throw_noty');
+      new Noty({
+        type: type,
+        text: msg,
+        layout: 'topCenter',
+        theme: 'metroui',
+        timeout: 5000,
+        progressBar: true,
+      }).show();
     }
   }
 }

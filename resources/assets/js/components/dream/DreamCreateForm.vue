@@ -62,7 +62,9 @@ export default {
   },
   watch: {
     authDream(){
-      // this.fill_form();
+      if (this.authDream) {
+        // this.fill_form();
+      }
     }
   },
   methods: {
@@ -72,7 +74,9 @@ export default {
     fill_form(){
       this.dream = this.authDream.dream;
       this.keyword = this.authDream.keyword;
-      this.description = this.strippedContent(this.authDream.description);
+      if (this.authDream.description != '' || this.authDream.description != null) {
+        this.description = this.strippedContent(this.authDream.description);
+      }
     },
     validateBeforeSubmit(){
       this.$validator.validateAll().then((result) => {

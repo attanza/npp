@@ -17,5 +17,13 @@ Route::group(['middleware' => 'auth:api'], function(){
     // Dream
     Route::post('/dream/{id}', 'DreamController@storeDream');
     Route::post('/dream/{id}/upload', 'DreamController@uploadDreamPhoto');
+    // Comments
+    Route::post('comment', 'DreamCommentController@store');
+    // orders
+    Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function(){
+      Route::group(['prefix' => 'orders'], function(){
+        Route::post('/listing', 'OrderController@listing');
+      });
+    });
 
 });

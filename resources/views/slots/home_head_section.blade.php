@@ -7,7 +7,7 @@
         </center>
       </figure>
       <article class="tile is-child">
-        <h2 class="title is-2 has-text-centered is-text-yellow">Total mimpi:</h2>
+        <h2 class="title is-2 has-text-centered has-text-warning">Total mimpi:</h2>
       </article>
     </div>
   </div>
@@ -28,6 +28,3 @@
     @endif
   </div>
 </div>
-@section('scripts')
-  <script src="{{asset('js/stretchy.js')}}" data-filter=".textarea" async></script>
-@endsection

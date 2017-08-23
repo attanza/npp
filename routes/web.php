@@ -19,6 +19,9 @@ Route::post('/password/reset', 'Auth\ResetPasswordController@reset');
 
 // Dream without middleware
 Route::post('/dream/listing', 'DreamController@dreamList');
+Route::get('/dream/{slug}', 'DreamController@dreamShow')->name('dream.show');
+Route::get('/dream/{slug}/{id}', 'DreamController@dreamRedirector')->name('dream.show_redirector');
+Route::get('/comments/{id}', 'DreamCommentController@dreamComments')->name('comments');
 
 // NPP Auth
 Route::group(['namespace' => 'NppAuth'], function () {
@@ -34,12 +37,41 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('profile/{username}', 'ProfileController@show')->name('profile');
 });
 
-Route::get('/test/email/layout', function(){
-    $user = App\User::with('activation')->find(1);
-    return view('mails.after_change_password_mail')->withUser($user);
+// Orders
+Route::group(['prefix' => 'order'], function(){
+  Route::post('/', 'OrderController@store')->name('order.store');
+  Route::get('/{email}/{code}', 'OrderController@orderComplete')->name('order.complete');
 });
 
-Route::get('/test/data', function(){
-    $dream = App\Models\Dream::find(4);
-    return $dream;
+// Admin Middleware
+Route::group(['middleware' => 'admin', 'prefix' => 'admin', 'namespace' => 'Admin'], function(){
+  Route::get('/', 'DashboardController@index')->name('dashboard.index');
+  Route::get('/dashboard', 'DashboardController@index')->name('dashboard.index');
+
+  Route::group(['prefix' => 'orders'], function(){
+    Route::get('/', 'OrderController@index')->name('orders.index');
+    Route::get('/{order_no}', 'OrderController@show')->name('orders.show');
+    Route::put('/{order_no}', 'OrderController@update')->name('orders.update');
+  });
 });
+
+Route::get('/test/email/layout', function(){
+    $product = App\Models\Product::find(1);
+    $order = App\Models\Order::find(1);
+
+    return view('mails.orders.delivery_to_customer')->with([
+      'product' => $product,
+      'order' => $order
+    ]);
+});
+
+Route::get('/clear/db', function(){
+    DB::table('jobs')->truncate();
+    DB::table('notifications')->truncate();
+    DB::table('dream_comments')->truncate();
+    return redirect('/berjuta-mimpi-indonesia');
+})->name('clear.db');
+
+Route::get('/test/data', function(){
+
+})->name('test.data');

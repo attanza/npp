@@ -42,12 +42,45 @@
       </div>
     </div>
   </section>
+  <section class="section bg-transparent product">
+    <div class="container">
+      <figure class="image">
+        <img src="{{asset('images/resource/logo_produk.png')}}" alt="">
+      </figure>
+      <figure class="image npp-book m-t-50">
+        <img src="{{asset('images/resource/buku.jpg')}}" alt="">
+      </figure>
+    </div>
+  </section>
+
+  <section class="section bg-transparent order">
+    <div class="container">
+      <div class="columns">
+       <div class="column">
+         <div class="is-size-4-desktop is-size-6-mobile is-size-5-tablet has-text-warning m-t-20">
+           <p class="content">
+             Buku ini adalah buku berjenis workbook, jadi pemilik buku ini akan mengisikan mimpi - mimpi yang ingin diwujudkan. Dengan metode yang kami rancang, buku ini akan membantu anda cara yang tepat untuk menyiapkan warisan yang sesungguhnya (”The True Legacy”).
+           </p>
+           <p class="content">
+             Segera miliki buku NPP “50 First Dreams”, dapatkan harga khusus hanya Rp. 175.000,- (belum termasuk ongkos kirim).
+           </p>
+         </div>
+       </div>
+       <div class="column">
+         <order-form></order-form>
+       </div>
+     </div>
+    </div>
+  </section>
 </div>
 @endsection
 @section('styles')
   <style>
     strong{
       color: #ffcc2a;
+    }
+    .npp-book img {
+      border-radius: 3px;
     }
   </style>
 @endsection

@@ -16,6 +16,7 @@ class InitialSeeder extends Seeder
         $this->role_seeder();
         $this->createUser();
         $this->seedOthers();
+        $this->call(DreamSeeder::class);
     }
 
     private function createUser()
@@ -38,17 +39,17 @@ class InitialSeeder extends Seeder
         ]);
 
         factory(App\User::class)->create([
-          'first_name' => 'User',
-          'username' => 'user',
-          'email' => 'user@user.com',
+          'first_name' => 'Customer Service',
+          'username' => 'customer-service',
+          'email' => 'customer@service.com',
           'password' => bcrypt('password'),
           'is_active' => 1
         ]);
 
         factory(App\User::class)->create([
-          'first_name' => 'Customer Service',
-          'username' => 'customer-service',
-          'email' => 'customer@service.com',
+          'first_name' => 'User',
+          'username' => 'user',
+          'email' => 'user@user.com',
           'password' => bcrypt('password'),
           'is_active' => 1
         ]);
@@ -99,17 +100,12 @@ class InitialSeeder extends Seeder
             $dream = factory(App\Models\Dream::class)->create([
                 'user_id' => $i
             ]);
-
-            App\Models\Media::create([
-              'mediable_id' => $dream->id,
-              'mediable_type' => 'App\Models\Dream',
-              'folder' => 'public/defaults/',
-              'filename' => 'default_dream.jpg',
-              'mime' => 'image/jpg',
-              'size' => '1000',
-              'extension' => 'jpg',
-              'caption' => str_slug($dream->dream)
-            ]);
         }
+
+        factory(App\Models\Product::class)->create([
+          'name' => 'NPP Book',
+          'stock' => 50,
+          'price' => 175000
+        ]);
     }
 }

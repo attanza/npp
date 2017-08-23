@@ -45,7 +45,6 @@ class LoginController extends Controller
             return response()->json([
               'msg' => 'User tidak ditemukan'
             ], 401);
-
         }
     }
 

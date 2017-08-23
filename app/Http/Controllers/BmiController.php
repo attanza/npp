@@ -11,6 +11,4 @@ class BmiController extends Controller
     {
         return view('bmi.index');
     }
-
-
 }

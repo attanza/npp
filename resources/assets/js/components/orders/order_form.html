@@ -1,0 +1,66 @@
+<div id="order_form" class="box">
+  <h3 class="title is-3">Form pemesanan: </h3>
+  <div class="field">
+    <label class="label">Nama </label>
+    <p class="control">
+      <input name="name" v-model="name" type="text"  v-validate="'required|max:200'" data-vv-as="Nama" :class="{'input': true, 'is-danger': errors.has('name') }">
+      <span v-show="errors.has('name')" class="help is-danger">{{ errors.first('name') }}</span>
+    </p>
+  </div>
+  <div class="field">
+    <label class="label">Alamat email </label>
+    <p class="control">
+      <input name="email" v-model="email" type="text"  v-validate="'required|max:200|email'" data-vv-as="Alamat email" :class="{'input': true, 'is-danger': errors.has('email') }">
+      <span v-show="errors.has('email')" class="help is-danger">{{ errors.first('email') }}</span>
+    </p>
+  </div>
+  <div class="field">
+    <label class="label">Nomor telepon </label>
+    <p class="control">
+      <input name="phone" v-model="phone" type="text"  v-validate="'required|max:30'" data-vv-as="Nomor telepon" :class="{'input': true, 'is-danger': errors.has('phone') }">
+      <span v-show="errors.has('phone')" class="help is-danger">{{ errors.first('phone') }}</span>
+    </p>
+  </div>
+  <div class="field">
+    <label class="label">Jumlah </label>
+    <p class="control">
+      <input name="qty" v-model="qty" type="text"  v-validate="'required|max:30'" data-vv-as="Jumlah" :class="{'input': true, 'is-danger': errors.has('qty') }">
+      <span v-show="errors.has('qty')" class="help is-danger">{{ errors.first('qty') }}</span>
+    </p>
+  </div>
+  <div class="field">
+    <label class="label">Alamat kirim </label>
+    <p class="control">
+      <textarea name="address" v-model="address" data-vv-as="Alamat kirim" :class="{'textarea': true, 'is-danger': errors.has('address') }" rows="3"></textarea>
+      <span v-show="errors.has('address')" class="help is-danger">{{ errors.first('address') }}</span>
+    </p>
+  </div>
+  <!-- <div class="field is-grouped is-grouped-right">
+    <p class="control">
+      <a class="button is-primary" @click="validateBeforeSubmit">
+        Order
+      </a>
+    </p>
+  </div> -->
+  <div class="level">
+    <div class="level-left">
+      <div class="level-item">
+        <p class="control">
+          <label class="checkbox">
+            <input type="checkbox" v-model="is_check" @click="handelCheckbox">
+            Pemesan sama dengan pengguna</a>
+          </label>
+        </p>
+      </div>
+    </div>
+    <div class="level-right">
+      <div class="level-item">
+        <p class="control">
+          <a class="button is-primary" @click="validateBeforeSubmit">
+            Order
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

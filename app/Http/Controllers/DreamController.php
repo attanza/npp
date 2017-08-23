@@ -10,14 +10,17 @@ use Purifier;
 use Mail;
 use App\Mail\CreateDreamMail;
 use App\Jobs\UploadDreamJob;
+use Auth;
 
 class DreamController extends Controller
 {
     public function storeDream(DreamUpdateRequest $request, $id)
     {
         // return $request->all();
+        $dream_title = $request->dream;
         $dream = Dream::where('user_id', $id)->first();
-        $dream->dream = $request->dream;
+        $dream->dream = $dream_title;
+        $dream->slug = str_slug(str_limit($dream_title, 50).'-'.Auth::user()->username);
         $dream->keyword = $request->keyword;
         $dream->description = clean($request->description);
         $dream->save();
@@ -48,7 +51,8 @@ class DreamController extends Controller
         $this->validate($request, [
           'paginate' => 'required|integer',
         ]);
-        $dreams = Dream::with('user')->whereHas('medias')
+        $dreams = Dream::with('user')
+            ->whereHas('medias')->orderBy('id', 'desc')
             ->paginate($request->paginate);
         $response = [
             'pagination' => [
@@ -65,5 +69,25 @@ class DreamController extends Controller
         if ($request->ajax()) {
             return response()->json($response, 200);
         }
+    }
+
+    public function dreamShow($slug)
+    {
+        $dream = Dream::with('user')
+        ->where('slug', $slug)->first();
+        if (count($dream) == 0) {
+            return redirect()->route('bmi.index')->withError('Mimpi tidak ditemukan');
+        }
+
+        return view('dream.show')->withDream($dream);
+    }
+
+    public function dreamRedirector($slug, $id)
+    {
+        $dream = Dream::where('slug', $slug)->first();
+        return view('dream.redirector')->with([
+          'dream' => $dream,
+          'commentId' => $id
+        ]);
     }
 }

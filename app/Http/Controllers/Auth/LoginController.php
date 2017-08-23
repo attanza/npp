@@ -39,8 +39,8 @@ class LoginController extends Controller
 
     public function authenticate()
     {
-       if (Auth::attempt(['email' => $email, 'password' => $password, 'is_active' => 1])) {
-           return redirect()->intended($redirectTo);
-       }
+        if (Auth::attempt(['email' => $email, 'password' => $password, 'is_active' => 1])) {
+            return redirect()->intended($redirectTo);
+        }
     }
 }

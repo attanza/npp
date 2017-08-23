@@ -181,6 +181,8 @@ return [
         // Third Parties
         Intervention\Image\ImageServiceProvider::class,
         Mews\Purifier\PurifierServiceProvider::class,
+        Unicodeveloper\Emoji\EmojiServiceProvider::class,
+        Baum\Providers\BaumServiceProvider::class,
 
     ],
 
@@ -232,6 +234,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Purifier' => Mews\Purifier\Facades\Purifier::class,
+        'Emoji' => Unicodeveloper\Emoji\Facades\Emoji::class,
 
     ],
 

@@ -126,8 +126,8 @@ return [
         'description' => 'Deskripsi',
         'video_link' => 'Link Video',
         'old_password' => 'Password lama',
-        'password_confirmation' => 'Konfirmasi Password'
-
+        'password_confirmation' => 'Konfirmasi Password',
+        'address' => 'Alamat',
     ],
 
 ];

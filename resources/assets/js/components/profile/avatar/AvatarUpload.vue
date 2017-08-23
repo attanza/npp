@@ -131,9 +131,10 @@ export default {
   background-color: #fff;
 }
 .image img {
-  max-width: 100%;
+  // max-width: 100%;
+  // height: auto;
+  max-height: 80vh !important;
   height: auto;
-  max-height: 600px !important;
   overflow: scroll;
 }
 </style>

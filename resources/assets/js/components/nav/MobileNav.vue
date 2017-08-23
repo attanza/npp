@@ -48,7 +48,7 @@
           </span>
           Profile
         </a>
-        <a class="panel-block">
+        <a class="panel-block" @click="getRedirect('/dream/'+authDream.slug)">
           <span class="panel-icon">
             <i class="fa fa-cloud"></i>
           </span>

@@ -21,6 +21,10 @@ export default {
           this.$store.commit('avatar_mutation', resp.data.user.profile.photo_path);
           this.$store.commit('dream_mutation', resp.data.user.dream);
           this.$store.commit('dream_photo_mutation', resp.data.user.dream.photo);
+          this.$store.commit('is_auth_mutation', true);
+          resp.data.unreads.forEach((unread)=>{
+            this.$store.commit('unread_nots_mutation', unread);
+          })
         }
       });
     }

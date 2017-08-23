@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Artisan;
 use Faker\Factory;
 use App\User;
 use App\Models\Activation;
+use Mail;
+use App\Mail\ActivationCodeMail;
 
 class ActivationTest extends TestCase
 {
@@ -69,6 +71,8 @@ class ActivationTest extends TestCase
      */
     public function test_resend_user_activation()
     {
+        Mail::fake();
+
         $user = factory(User::class)->create([
           'email' => 'test@test.com',
           'password' => 'password'
@@ -78,8 +82,16 @@ class ActivationTest extends TestCase
           'email' => 'test@test.com',
           'password' => 'password'
         ];
+        
         $this->json('post', '/npp-activation/resend', $postData)
-            ->assertSessionHas('success', 'Email aktifasi berhasil dikirmkan ulang');
-
+            ->assertResponseStatus(200);
+        // Perform ActivationCodeMail
+        Mail::assertSent(ActivationCodeMail::class, function ($mail) use ($user) {
+            return $mail->user->id === $user->id;
+        });
+        // Assert a message was sent to the given users...
+        Mail::assertSent(ActivationCodeMail::class, function ($mail) use ($user) {
+            return $mail->hasTo($user->email);
+        });
     }
 }

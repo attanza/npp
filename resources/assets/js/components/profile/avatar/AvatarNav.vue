@@ -1,5 +1,5 @@
 <template>
-  <img :src="authAvatar" :alt="authUser.first_name">
+  <img :src="authAvatar" :alt="authUser.first_name" style="border-radius: 50%">
 </template>
 <script>
 import authUserData from '../../../mixins/authUserData';

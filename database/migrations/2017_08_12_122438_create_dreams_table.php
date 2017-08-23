@@ -17,6 +17,7 @@ class CreateDreamsTable extends Migration
           $table->increments('id');
           $table->integer('user_id')->unsigned();
           $table->string('dream')->nullable();
+          $table->string('slug')->nullable();
           $table->string('keyword')->nullable();
           $table->text('description')->nullable();
           $table->boolean('publish')->default(1);

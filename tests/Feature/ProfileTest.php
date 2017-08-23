@@ -27,13 +27,15 @@ class ProfileTest extends TestCase
      */
     public function test_user_can_access_own_profile()
     {
-        $user = factory(User::class)->create();
+        $user = factory(User::class)->create([
+          'is_active' => 1
+        ]);
         $profile = factory(Profile::class)->create([
-          'user_id' => $user->id
+          'user_id' => $user->id,
         ]);
         $this->actingAs($user)
           ->get('/profile/'.$user->username)
-          ->assertResponseStatus(200);
+          ->assertSessionHas('success', 'User ditemukan');
     }
 
     /**

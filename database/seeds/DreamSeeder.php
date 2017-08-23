@@ -11,7 +11,12 @@ class DreamSeeder extends Seeder
      */
     public function run()
     {
-        for ($i=1; $i < 500; $i++) {
+        $this->dreamSeed();
+    }
+
+    private function dreamSeed()
+    {
+        for ($i=1; $i < 3; $i++) {
             $user = factory(App\User::class)->create([
               'is_active' => 1
             ]);

@@ -1,4 +1,8 @@
 // Body
-$body-background: whitesmoke;
+// $body-background: whitesmoke;
 $npp-yellow: #ffcc2a;
-$navbar-background-color: #000;
+$navbar-background-color: $black !default;
+$navbar-height: 4rem;
+$navbar-item-hover-background-color: $black !default;
+$navbar-item-color: #fff !default;
+// $navbar-dropdown-item-hover-background-color: $npp-yellow;

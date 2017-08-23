@@ -13,7 +13,9 @@
         "laravel/tinker": "~1.0",
         "mews/purifier": "^2.0",
         "pusher/pusher-php-server": "^2.6",
-        "squizlabs/php_codesniffer": "3.*"
+        "squizlabs/php_codesniffer": "3.*",
+        "unicodeveloper/laravel-emoji": "1.0.*",
+        "baum/baum": "~1.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

@@ -15,5 +15,11 @@ export default {
     authDreamPhoto(){
       return this.$store.state.dream_photo;
     },
+    isAuth(){
+      return this.$store.state.is_auth;
+    },
+    authUnreads(){
+      return this.$store.state.unread_nots;
+    }
   }
 }

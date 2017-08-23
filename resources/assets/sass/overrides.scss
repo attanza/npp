@@ -2,57 +2,51 @@ body {
   font-family: 'Maven Pro', sans-serif;
 }
 .navbar{
-  background-color: $black;
-  border-bottom: 2px solid $npp-yellow;
-  height: 4.5rem;
   .has-shadow{
     box-shadow: 0 2px 3px rgba($black, 0.1);
   }
 }
-.navbar{
-  max-height: 4.5rem;
-}
 .navbar-item img {
-    max-height: 2.8rem;
+    max-height: 3rem;
 }
 .nav-item a:not(.button),
-a.nav-item:not(.button){
-  color: $white;
-  &:hover{
-    color: $npp-yellow;
-  }
-  &.is-tab{
-    &:hover{
-      border-bottom: 3px solid $npp-yellow;
-    }
-  }
-  &.is-active{
-    border-bottom: 3px solid $npp-yellow;
-    color: $npp-yellow;
-  }
-}
-.nav-item a:not(.button).is-tab.is-active, a.nav-item:not(.button).is-tab.is-active {
-    border-bottom: 3px solid $npp-yellow;
-    color: $npp-yellow;
+a.nav-item:not(.button) {
+  color: #fff;
 }
 
-.is-text-yellow{
+.nav-item a:not(.button):hover,
+a.nav-item:not(.button):hover {
   color: $npp-yellow;
 }
-.footer{
-  background-color: $npp-yellow;
-  padding: 3rem 1.5rem 6rem;
 
-  a {
-    color: #00d1b2;
-  }
-  a:hover {
-    color: #000;
-  }
+.nav-item a:not(.button).is-active,
+a.nav-item:not(.button).is-active {
+  color: $npp-yellow;
+}
+.nav-item a:not(.button).is-tab.is-active, a.nav-item:not(.button).is-tab.is-active {
+    color: $npp-yellow;
+}
+.nav-item a:not(.button).is-tab:hover,
+a.nav-item:not(.button).is-tab:hover {
+  border-bottom: 3px solid $npp-yellow;
+}
+.nav-item a:not(.button).is-tab.is-active,
+a.nav-item:not(.button).is-tab.is-active {
+  color: $npp-yellow;
+  border-bottom: 3px solid $npp-yellow;
 }
 
-.navbar-burger span {
-    background-color: $white;
+a.navbar-item:hover,
+a.navbar-item.is-active,
+.navbar-link:hover,
+.navbar-link.is-active {
+  color: $npp-yellow;
+}
+.navbar-dropdown{
+  a.navbar-item {
+    color: $black;
+
+  }
 }
 .card{
   border-radius: 8px;
@@ -63,45 +57,6 @@ a.nav-item:not(.button){
     background: linear-gradient(rgba(255, 204, 42,0.5),rgba(255, 204, 42,0.5));
   }
 }
-.section{
-  &.bg-transparent{
-    background-color: transparent;
-  }
-}
-
 .has-text-warning {
     color: $npp-yellow;
-}
-
-.navbar-link {
-    color: #fff;
-
-    img {
-      border-radius: 50%;
-    }
-}
-.navbar-item.has-dropdown{
-  &:hover,
-  &.is-active {
-    .navbar-link {
-      background-color: #000;
-      color: $npp-yellow;
-    }
-  }
-}
-
-.dropdown {
-  &.is-right {
-    .dropdown-menu {
-      left: auto;
-      right: 0;
-    }
-  }
-}
-
-.navbar-dropdown{
-  &.is-right {
-    left: auto;
-    right: 0;
-  }
 }

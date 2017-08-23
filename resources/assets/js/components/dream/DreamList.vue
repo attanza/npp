@@ -84,6 +84,10 @@ export default {
 
     addDream(dream){
       this.dreams.push(dream);
+    },
+
+    showDream(slug){
+      window.location.replace('/dream/'+slug);
     }
   }
 }

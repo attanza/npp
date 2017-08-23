@@ -53,7 +53,7 @@
               <strong>- Negeri Para Pemimpi -</strong>
             </p>
             <figure class="m-t-20">
-              <img src="{{asset('images/resource/dream_card_on_apps.png')}}" alt="Dream Card on Apps">
+              <img src="{{asset('images/resource/dream_card_on_apps.jpg')}}" alt="Dream Card on Apps">
             </figure>
           </div>
         </div>
