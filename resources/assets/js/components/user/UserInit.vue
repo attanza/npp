@@ -24,7 +24,7 @@ export default {
           this.$store.commit('is_auth_mutation', true);
           resp.data.unreads.forEach((unread)=>{
             this.$store.commit('unread_nots_mutation', unread);
-          })
+          });
         }
       });
     }

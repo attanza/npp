@@ -46,6 +46,7 @@ class DreamCommentController extends Controller
         ]);
         $data = DreamComment::find($comment->id);
         dispatch(new DreamCommentJob($data, $index));
+
         return response()->json([
           'comment' => $data
         ], 200);

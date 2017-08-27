@@ -90,4 +90,16 @@ class DreamController extends Controller
           'commentId' => $id
         ]);
     }
+
+    public function dreamCount(Request $request)
+    {
+        if ($request->ajax()) {
+            $dreams = Dream::all()->count();
+            return response()->json([
+              'dream_count' => $dreams
+            ], 200);
+        } else {
+            return redirect('/');
+        }
+    }
 }

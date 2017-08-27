@@ -12,11 +12,12 @@ class DreamSeeder extends Seeder
     public function run()
     {
         $this->dreamSeed();
+        $this->seedBoost();
     }
 
     private function dreamSeed()
     {
-        for ($i=1; $i < 3; $i++) {
+        for ($i=1; $i < 51; $i++) {
             $user = factory(App\User::class)->create([
               'is_active' => 1
             ]);
@@ -47,6 +48,16 @@ class DreamSeeder extends Seeder
               'size' => '1000',
               'extension' => 'jpg',
               'caption' => str_slug($dream->dream)
+            ]);
+        }
+    }
+
+    private function seedBoost()
+    {
+        for ($i=1; $i < 50; $i++) {
+            factory(App\Models\Boost::class)->create([
+              'boostable_id' => 5,
+              'user_id' => $i
             ]);
         }
     }

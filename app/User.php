@@ -65,4 +65,14 @@ class User extends Authenticatable
     {
         return $this->roles()->first()->slug;
     }
+
+    public function notifications()
+    {
+        return $this->hasMany('App\Models\Notification');
+    }
+
+    public function boosts()
+    {
+        return $this->hasMany('App\Models\Boost');
+    }
 }

@@ -16,7 +16,7 @@ class InitialSeeder extends Seeder
         $this->role_seeder();
         $this->createUser();
         $this->seedOthers();
-        $this->call(DreamSeeder::class);
+        // $this->call(DreamSeeder::class);
     }
 
     private function createUser()

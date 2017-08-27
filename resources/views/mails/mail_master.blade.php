@@ -29,7 +29,7 @@
   <div class="container">
     <p><i>Email ini dikirim secara otomatis, mohon untuk tidak membalas email ini.</i></p>
     <p>
-      Jika anda membutuhkan bantuan silahkan hubungi kami di <a href="#">cs@negeriparapemimpi.com</a>
+      Jika anda membutuhkan bantuan silahkan hubungi kami di <a href="{{route('contact.index')}}">Kontak Kami</a>
     </p>
   </div>
 </footer>

@@ -48,6 +48,8 @@ Vue.component('dream', require('./components/dream/Dream.vue'));
 Vue.component('dream-list', require('./components/dream/DreamList.vue'));
 Vue.component('dream-photo', require('./components/dream/show/DreamPhoto.vue'));
 Vue.component('dream-redirector', require('./components/dream/DreamRedirector.vue'));
+Vue.component('dream-counter', require('./components/dream/DreamCounter.vue'));
+
 
 // comments
 Vue.component('dream-comments', require('./components/dream/show/DreamComments.vue'));
@@ -55,6 +57,8 @@ Vue.component('dream-comments', require('./components/dream/show/DreamComments.v
 // Orders
 Vue.component('order-form', require('./components/orders/OrderForm.vue'));
 
+// Boost
+Vue.component('boost', require('./components/boost/Boost.vue'));
 
 import {
   store

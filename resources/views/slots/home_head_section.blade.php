@@ -8,6 +8,7 @@
       </figure>
       <article class="tile is-child">
         <h2 class="title is-2 has-text-centered has-text-warning">Total mimpi:</h2>
+        <dream-counter></dream-counter>
       </article>
     </div>
   </div>

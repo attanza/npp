@@ -14,22 +14,15 @@ export default {
   },
   methods: {
     send_notification(){
-      console.log(this.message);
       let type;
       if (this.type == 'success') {
         type = 'success';
       } else {
         type = 'error';
       }
-      // this.$toast.open({
-      //   duration: 5000,
-      //   message: this.message,
-      //   type: type
-      // })
       this.throw_noty(type, this.message);
     },
     throw_noty(type, msg){
-      console.log('throw_noty');
       new Noty({
         type: type,
         text: msg,

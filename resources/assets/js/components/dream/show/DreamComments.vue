@@ -1,6 +1,7 @@
 <template src="./dream_comments.html"></template>
 <script>
 import authUserData from '../../../mixins/authUserData';
+import commitNotification from '../../../mixins/commitNotification';
 import CommentSlot from './CommentSlot';
 import moment from 'moment';
 import BackTop from './../../BackTop';
@@ -22,7 +23,6 @@ export default {
       to: 0,
       current_page: 1,
     },
-    username: '',
   }),
   props: ['dream', 'anchor'],
   watch: {
@@ -31,12 +31,6 @@ export default {
         this.disabled = false;
       } else {
         this.disabled = true;
-      }
-    },
-    authUser(){
-      if (this.authUser != null) {
-        this.username = this.authUser.username;
-        this.listen(this.username);
       }
     },
   },
@@ -52,6 +46,7 @@ export default {
       this.pagination = pagination;
       this.nextPageLoading = false;
     });
+    this.listen();
   },
 
   methods: {
@@ -96,19 +91,24 @@ export default {
       this.pagination.current_page = page
       this.get_comments(page)
     },
-    listen(username){
-        Echo.private('npp-user.'+username)
-        .notification((notification) => {
-            if (notification.index != 'index') {
-              let data = {
-                index: notification.index,
-                comment: notification.comment
-              }
-              this.$store.commit('dream_comments_mutation_with_index', data);
-            } else {
-              this.$store.commit('dream_comments_add_mutation', notification.comment);
+    listen(){
+      Echo.private('npp-dream.'+this.dream.slug)
+      .listen('NewCommentEvent', (e) => {
+        if (e.comment.owner.id != this.authUser.id) {
+          this.commitNots(e.comment, this.dream, this.authDream)
+        }
+        if (e.comment.owner.id != this.authUser.id) {
+          if (e.index != 'index') {
+            let data = {
+              index: e.index,
+              comment: e.comment
             }
-        });
+            this.$store.commit('dream_comments_mutation_with_index', data);
+          } else {
+            this.$store.commit('dream_comments_add_mutation', e.comment);
+          }
+        }
+      });
     }
   },
   computed: {
@@ -116,7 +116,7 @@ export default {
       return this.$store.state.dream_comments;
     },
   },
-  mixins: [authUserData],
+  mixins: [authUserData, commitNotification],
 
 }
 </script>

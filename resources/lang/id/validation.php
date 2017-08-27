@@ -116,6 +116,7 @@ return [
     'attributes'           => [
         'first_name' => 'Nama Depan',
         'last_name' => 'Nama Belakang',
+        'name' => 'Nama',
         'email' => 'Alamat Email',
         'dob' => 'Tanggal Lahir',
         'gender' => 'Jenis Kelamin',

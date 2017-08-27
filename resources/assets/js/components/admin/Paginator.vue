@@ -1,6 +1,6 @@
 <template>
   <div id="paginator">
-    <nav class="pagination">
+    <nav class="pagination is-small">
       <a class="pagination-previous" v-if="pagination.current_page > 1" @click.prevent="changePage(pagination.current_page = 1)">
         <span class="icon">
           <i class="fa fa-fast-backward"></i>

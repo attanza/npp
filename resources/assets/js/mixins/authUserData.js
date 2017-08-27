@@ -20,6 +20,15 @@ export default {
     },
     authUnreads(){
       return this.$store.state.unread_nots;
+    },
+    authBoostCount(){
+      return this.$store.state.boost_count;
+    },
+    authBooster(){
+      return this.$store.state.booster;
+    },
+    authIsBooster(){
+      return this.$store.state.is_booster;
     }
   }
 }

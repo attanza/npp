@@ -4,6 +4,9 @@
       <span class="icon">
         <i class="fa fa-bell"></i>
       </span>
+      <span class="tag is-warning is-rounded m-b-20">
+        {{authUnreads.length}}
+      </span>
     </div>
     <div class="navbar-dropdown is-right">
       <div class="navbar-item " v-for="not in authUnreads">

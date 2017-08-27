@@ -45,4 +45,9 @@ class Dream extends Model
     {
         return $this->comments()->where('parent_id', 0);
     }
+
+    public function boosts()
+    {
+        return $this->morphMany('App\Models\Boost', 'boostable');
+    }
 }

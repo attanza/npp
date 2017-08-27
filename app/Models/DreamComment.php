@@ -30,4 +30,9 @@ class DreamComment extends Model
     {
         return $this->belongsTo('App\Models\Dream');
     }
+
+    public function notifications()
+    {
+        return $this->morphMany('App\Models\Notification', 'notifiable');
+    }
 }

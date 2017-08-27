@@ -79,3 +79,20 @@ $factory->define(App\Models\Product::class, function (Faker\Generator $faker) {
       'description' => $faker->sentence,
     ];
 });
+$factory->define(App\Models\Boost::class, function (Faker\Generator $faker) {
+    $dream = $faker->sentence;
+    return [
+      'boostable_type' => 'App\Models\Dream'
+    ];
+});
+
+$factory->define(App\Models\Contact::class, function (Faker\Generator $faker) {
+    $dream = $faker->sentence;
+    return [
+      'name' => $faker->name,
+      'email' => $faker->unique()->safeEmail,
+      'phone' => $faker->e164PhoneNumber,
+      'subject' => $faker->sentence,
+      'message' => $faker->paragraph
+    ];
+});

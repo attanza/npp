@@ -25,5 +25,7 @@ Route::group(['middleware' => 'auth:api'], function(){
         Route::post('/listing', 'OrderController@listing');
       });
     });
+    // Boost
+    Route::get('boost/{id}', 'BoostController@giveBoost');
 
 });

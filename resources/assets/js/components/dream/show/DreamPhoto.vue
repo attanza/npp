@@ -4,9 +4,11 @@
       <div class="card-content">
         <div class="media">
           <div class="media-left">
+            <!--  if auth -->
             <figure class="image is-48x48" v-if="dream.user.id == authUser.id">
               <img :src="authAvatar" alt="authUser.first_name">
             </figure>
+            <!--  if public -->
             <figure class="image is-48x48" v-else>
               <img :src="dream.user.profile.photo_path" alt="dream.user.first_name">
             </figure>

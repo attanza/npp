@@ -12,7 +12,10 @@ export const store = new Vuex.Store({
 		dream_photo: '',
 		is_auth: false,
 		dream_comments: [],
-		unread_nots: []
+		unread_nots: [],
+		boost_count: 0,
+		booster: [],
+		is_booster: false,
 	},
 
 	getters: {
@@ -48,7 +51,19 @@ export const store = new Vuex.Store({
 			state.dream_comments[data.index].all_replies_with_owner.push(data.comment)
 		},
 		unread_nots_mutation(state, nots){
-			state.unread_nots.unshift(nots)
+			state.unread_nots.push(nots)
+		},
+		boost_count_mutation(state, boost_count){
+			state.boost_count = boost_count
+		},
+		boost_add_mutation(state){
+			state.boost_count = state.boost_count + 1
+		},
+		booster_mutation(state, boost){
+			state.booster.push(boost)
+		},
+		is_booster_mutation(state, p){
+			state.is_booster = p
 		},
 	}
 })

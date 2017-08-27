@@ -8,6 +8,8 @@
     <title>Negeri Para Pemimpi</title>
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('css/cropper.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/animate.min.css')}}">
+
     @yield('styles')
 
 </head>

@@ -5,6 +5,11 @@
     <div class="columns">
       <div class="column">
         <dream-photo :dream="{{$dream}}"></dream-photo>
+        <div class="columns m-t-10">
+          <div class="column">
+            <boost :dream_id="{{$dream->id}}"></boost>
+          </div>{{-- column --}}
+        </div>{{-- columns m-t-1 --}}
       </div>{{-- column --}}
 
       <div class="column">

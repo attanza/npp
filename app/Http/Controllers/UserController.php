@@ -6,9 +6,10 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Models\Profile;
 use App\Models\Media;
+use App\Models\DreamComment;
+use App\Models\Notification;
 use Auth;
 use Storage;
-use App\Models\DreamComment;
 
 class UserController extends Controller
 {
@@ -19,39 +20,24 @@ class UserController extends Controller
 
         return response()->json([
             'user' => $user,
-            'unreads' => $unreads
+            'unreads' => $unreads,
         ], 200);
     }
 
     private function getUnreads($user)
     {
-        $notifications = [];
-        foreach ($user->unreadNotifications as $not) {
-            // find comment
-            $comment_id = $not->data['comment_id'];
-            $comment = DreamComment::find($comment_id);
-            // find owner photo
-            $avatar = $comment->owner->profile->photo_path;
-            // find Dream
-            $dreamPhoto = $comment->dream->photo;
-            // find owners
-            $comment_onwer_id = $comment->owner->id;
-            $dream_owner_id = $comment->dream->user->id;
-            if ($comment_onwer_id == $dream_owner_id) {
-                $msg = 'membalas tanggapan mimpinya';
-            } else {
-                $msg = 'menanggapi mimpi '.$comment->dream->user->getFullname();
-            }
+        $unreadData = Notification::where('user_id', Auth::id())
+            ->where('read', 0)->orderBy('created_at', 'desc')
+            ->get();
+        $unreads = [];
+        foreach ($unreadData as $not) {
+            $msgData = json_decode($not->data);
             $data = [
-                'avatar' => $avatar,
-                'msg' => $msg,
-                'dream_photo' => $dreamPhoto,
-                'comment_owner' => $comment->owner->getFullname(),
-                'dream_owner' => $comment->dream->user->getFullname()
+              'avatar' => $not->user->profile->photo_path,
+              'msg' => $msgData->msg
             ];
-            array_push($notifications, $data);
+            array_push($unreads, $data);
         }
-
-        return $notifications;
+        return collect($unreads);
     }
 }

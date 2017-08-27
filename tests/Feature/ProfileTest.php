@@ -34,8 +34,8 @@ class ProfileTest extends TestCase
           'user_id' => $user->id,
         ]);
         $this->actingAs($user)
-          ->get('/profile/'.$user->username)
-          ->assertSessionHas('success', 'User ditemukan');
+        ->get('/profile/'.$user->username)
+        ->assertSessionHas('success', 'Hallo '.$user->first_name);
     }
 
     /**

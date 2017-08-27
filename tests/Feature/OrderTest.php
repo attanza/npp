@@ -31,7 +31,7 @@ class OrderTest extends TestCase
      */
     public function test_user_can_accses_about_page()
     {
-        $uri = '/tentang-negeri-para-pemimmpi';
+        $uri = '/tentang-negeri-para-pemimpi';
         $this->get($uri)
             ->assertResponseStatus(200);
     }
@@ -42,7 +42,7 @@ class OrderTest extends TestCase
     {
         $postData = $this->postData(5);
         Bus::fake();
-        $this->get('/tentang-negeri-para-pemimmpi')
+        $this->get('/tentang-negeri-para-pemimpi')
             ->assertResponseOk()
             ->json('post','/order', $postData)
             ->assertResponseStatus(422);
@@ -54,7 +54,7 @@ class OrderTest extends TestCase
     {
         $postData = $this->postData(1);
         Bus::fake();
-        $this->get('/tentang-negeri-para-pemimmpi')
+        $this->get('/tentang-negeri-para-pemimpi')
             ->assertResponseOk()
             ->json('post','/order', $postData)
             ->assertResponseStatus(200);

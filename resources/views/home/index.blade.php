@@ -58,10 +58,70 @@
           </div>
         </div>
       </div>
+
+
+      {{-- <div class="npp-video">
+        <div class="columns">
+          <div class="column">
+            <div class="embed-responsive embed-responsive-16by9">
+              <iframe class="embed-responsive-item" src="//www.youtube.com/embed/qa90lAgfKxM"></iframe>
+            </div>
+          </div>
+        </div>
+        <div class="columns">
+          <div class="column">
+            <div class="embed-responsive embed-responsive-4by3">
+              <iframe class="embed-responsive-item" src="//www.youtube.com/embed/qa90lAgfKxM"></iframe>
+            </div>
+          </div>
+          <div class="column">
+            <div class="embed-responsive embed-responsive-4by3">
+              <iframe class="embed-responsive-item" src="//www.youtube.com/embed/qa90lAgfKxM"></iframe>
+            </div>
+          </div>
+          <div class="column">
+            <div class="embed-responsive embed-responsive-4by3">
+              <iframe class="embed-responsive-item" src="//www.youtube.com/embed/qa90lAgfKxM"></iframe>
+            </div>
+          </div>
+        </div>
+      </div> --}}
+
+
     </div>
   </section>
 </div>
 @endsection
 @section('styles')
   <link rel="stylesheet" href="{{asset('css/home_page.css')}}">
+  <style>
+  .embed-responsive {
+    position: relative;
+    display: block;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  .embed-responsive .embed-responsive-item,
+  .embed-responsive iframe,
+  .embed-responsive embed,
+  .embed-responsive object {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+  .embed-responsive.embed-responsive-16by9 {
+    padding-bottom: 56.25%;
+  }
+  .embed-responsive.embed-responsive-4by3 {
+    padding-bottom: 75%;
+  }
+  .npp-video {
+    margin: 0 10%;
+  }
+  </style>
 @endsection

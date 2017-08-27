@@ -36,7 +36,7 @@ window.Echo = new Echo({
     cluster: 'ap1',
     encrypted: true,
 });
-
+// 
 // Pusher.log = function(message){
 //     window.console.log(message)
 // }

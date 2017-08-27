@@ -4,9 +4,12 @@
 // Main Menu
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/rumah-negeri-para-pemimmpi', 'HomeController@index')->name('home');
+Route::get('/rumah-negeri-para-pemimpi', 'HomeController@index')->name('home');
 Route::get('/berjuta-mimpi-indonesia', 'BmiController@index')->name('bmi.index');
-Route::get('/tentang-negeri-para-pemimmpi', 'AboutController@index')->name('about.index');
+Route::get('/tentang-negeri-para-pemimpi', 'AboutController@index')->name('about.index');
+Route::get('/kontak-negeri-para-pemimpi', 'ContactController@index')->name('contact.index');
+Route::post('/kontak-negeri-para-pemimpi', 'ContactController@store')->name('contact.store');
+
 
 // Auths
 Route::get('/login', 'HomeController@index')->name('login');
@@ -18,10 +21,16 @@ Route::get('/password/reset/{token}', 'Auth\ResetPasswordController@showResetFor
 Route::post('/password/reset', 'Auth\ResetPasswordController@reset');
 
 // Dream without middleware
-Route::post('/dream/listing', 'DreamController@dreamList');
+Route::post('/dream/listing', 'DreamController@dreamList')->name('dream.listing');
+Route::get('/dream/count', 'DreamController@dreamCount')->name('dream.count');
+
 Route::get('/dream/{slug}', 'DreamController@dreamShow')->name('dream.show');
 Route::get('/dream/{slug}/{id}', 'DreamController@dreamRedirector')->name('dream.show_redirector');
 Route::get('/comments/{id}', 'DreamCommentController@dreamComments')->name('comments');
+
+// Boost
+Route::get('/boost/{id}', 'BoostController@getBoosts')->name('boost.get_boosts');
+Route::post('/boost/{id}/listing', 'BoostController@listing')->name('boost.listing');
 
 // NPP Auth
 Route::group(['namespace' => 'NppAuth'], function () {
@@ -56,12 +65,10 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin', 'namespace' => 'Admi
 });
 
 Route::get('/test/email/layout', function(){
-    $product = App\Models\Product::find(1);
-    $order = App\Models\Order::find(1);
+    $message = App\Models\Contact::find(2);
 
-    return view('mails.orders.delivery_to_customer')->with([
-      'product' => $product,
-      'order' => $order
+    return view('mails.contacts.new_contact_to_sender')->with([
+      'message' => $message,
     ]);
 });
 
@@ -69,7 +76,8 @@ Route::get('/clear/db', function(){
     DB::table('jobs')->truncate();
     DB::table('notifications')->truncate();
     DB::table('dream_comments')->truncate();
-    return redirect('/berjuta-mimpi-indonesia');
+    DB::table('boosts')->truncate();
+    return redirect()->back();
 })->name('clear.db');
 
 Route::get('/test/data', function(){
