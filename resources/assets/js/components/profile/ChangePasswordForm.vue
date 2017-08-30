@@ -69,7 +69,8 @@ export default {
     resetPassword(){
       axios.post('/api/reset-password/'+this.authUser.id, this.getData()).then((resp)=>{
         if (resp.status == 200) {
-            this.toast_success(resp.data.msg);
+            this.throw_noty('success', resp.data.msg);
+            this.clear_form();
             this.showModal = false;
         }
       }).catch(error => {
@@ -84,6 +85,12 @@ export default {
         password: this.password,
         password_confirmation: this.password_confirmation,
       }
+    },
+    clear_form(){
+      this.old_password = '';
+      this.password = '';
+      this.password_confirmation = '';
+
     }
   },
   mixins: [catchJsonErrors, authUserData],

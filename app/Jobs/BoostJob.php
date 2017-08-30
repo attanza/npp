@@ -16,53 +16,51 @@ use Mail;
 use App\Mail\BoostMail;
 use App\Events\BoostEvent;
 use Carbon\Carbon;
+use App\Events\UnreadNotsEvent;
 
 class BoostJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     public $dream;
-    public $booster_id;
+    public $boost;
     public $subject;
 
 
-    public function __construct(Dream $dream, $booster_id)
+    public function __construct(Dream $dream, Boost $boost)
     {
         $this->dream = $dream;
-        $this->booster_id = $booster_id;
+        $this->boost = $boost;
     }
 
     public function handle()
     {
-        // Save Notification in DB
-        $boost = $this->getBoostData();
         // Log::info($boost);
-        $this->subject = $this->getFulname($boost->user).' memberikan Boost untuk mimpimu';
+        $this->subject = $this->getFulname($this->boost->user).' memberikan Boost untuk mimpimu';
         $data = [
           'msg' => $this->subject
         ];
 
-        Notification::create([
+        $not = Notification::create([
           'user_id' => $this->dream->user_id,
-          'notifiable_id' => $boost->id,
+          'notifiable_id' => $this->boost->id,
           'notifiable_type' => 'App\Models\Boost',
           'data' => json_encode($data)
         ]);
+        $bData = [
+          'avatar' => $this->boost->user->profile->photo_path,
+          'msg' => $this->subject,
+          'id' => $not->id,
+          'url' => route('dream.show', $this->dream->slug),
+          'username' => $this->dream->user->username
+        ];
+        event(new UnreadNotsEvent($bData));
         // Send Email
         $when = Carbon::now()->addMinutes(5);
         Mail::to($this->dream->user)->later($when, new BoostMail($this->dream, $this->subject));
         // Broadcast Notification
-        $avatar = $boost->user->profile->photo_path;
+        $avatar = $this->boost->user->profile->photo_path;
         event(new BoostEvent($this->dream->user, $this->subject, $avatar));
-    }
-
-    private function getBoostData()
-    {
-        $boost = Boost::where('boostable_id', $this->dream->id)
-            ->where('boostable_type', 'App\Models\Dream')
-            ->where('user_id', $this->booster_id)
-            ->first();
-        return $boost;
     }
 
     private function getFulname($user)

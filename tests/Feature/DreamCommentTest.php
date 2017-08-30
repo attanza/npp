@@ -45,7 +45,7 @@ class DreamCommentTest extends TestCase
         Bus::fake();
         $this->actingAs($user, 'api')
             ->json('POST', '/api/comment', $postData)
-            ->assertResponseStatus(200);
+            ->assertStatus(200);
     }
 
     /**

@@ -1,5 +1,6 @@
 <template src="./register.html"></template>
 <script>
+import catchJsonErrors from '../../mixins/catchJsonErrors';
 import id from 'vee-validate/dist/locale/id';
 import VeeValidate, { Validator } from 'vee-validate';
 Validator.addLocale(id);
@@ -25,37 +26,20 @@ export default {
           this.register();
           return;
         }
-        let errors = _.toArray(this.errors);
-        let vm = this;
-        _.forEach(errors, function(value) {
-          vm.$toast.open({
-            duration: 3000,
-            message: value[0].msg,
-          });
-        });
+        this.catchValidationErrors()
       });
     },
     register(){
       this.button_processing = 'is-loading';
       axios.post('/npp-register', this.get_data()).then((resp)=>{
         if (resp.status == 200) {
-          this.$toast.open({
-            duration: 5000,
-            type: 'is-success',
-            message: resp.data.msg,
-          });
+          this.throw_noty('success', resp.data.msg)
           this.clear_form();
           this.button_processing = '';
         }
       }).catch(error => {
         if (error.response) {
-          let vm = this;
-          _.forEach(error.response.data, function(value, key) {
-            vm.$toast.open({
-              duration: 3000,
-              message: _.trim(value),
-            });
-          });
+          this.catchError(error.response);
           this.button_processing = ''
         }
       });
@@ -117,7 +101,8 @@ export default {
       }
       return month_births;
     }
-  }
+  },
+  mixins: [catchJsonErrors]
 }
 </script>
 <style lang="scss" scoped>

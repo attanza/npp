@@ -79,7 +79,7 @@ export default {
     get_boosts(){
         axios.get('/boost/'+this.dream_id).then((resp)=>{
           if (resp.status == 200) {
-            console.log(resp);
+            // console.log(resp);
             this.$store.commit('boost_count_mutation', resp.data.boost_count);
             resp.data.boosterData.forEach((boost)=>{
               this.$store.commit('booster_mutation', boost);
@@ -109,7 +109,6 @@ export default {
     listen(username){
       Echo.private('npp-user.'+ username)
           .listen('BoostEvent', (e) => {
-              this.storeNots(e.avatar, e.subject);
               this.add_booster(e);
           });
     },
@@ -146,11 +145,17 @@ export default {
   color: #fff;
   border-radius: 50%;
 }
+.boost a {
+  color: #fff;
+}
+.boost a:hover {
+  color: #00d1b2;
+}
 .boosted {
   background-color: #ffcc2a;
   color: #fff;
   border-radius: 50%;
-  border: 1px solid #00d1b2;
+  border: 2px solid #00d1b2;
 }
 .booster img {
   border-radius: 50%;

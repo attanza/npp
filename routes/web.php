@@ -44,6 +44,8 @@ Route::group(['namespace' => 'NppAuth'], function () {
 Route::group(['middleware' => 'auth'], function(){
     // Profile
     Route::get('profile/{username}', 'ProfileController@show')->name('profile');
+    // Notifications
+    Route::get('notifikasi', 'NotificationController@index')->name('notification.index');
 });
 
 // Orders

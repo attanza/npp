@@ -46,14 +46,14 @@ class BoostController extends Controller
     public function giveBoost($id)
     {
         $dream = Dream::find($id);
-        $dream->boosts()->create([
+        $boost = $dream->boosts()->create([
           'user_id' => Auth::id()
         ]);
         $booster = [
           'name' => Auth::user()->getFullname(),
           'avatar' => Auth::user()->profile->photo_path
         ];
-        $this->dispatchJob($dream);
+        $this->dispatchJob($dream, $boost);
         return response()->json([
           'booster' => $booster
         ], 200);
@@ -103,10 +103,10 @@ class BoostController extends Controller
         return response()->json($response, 200);
     }
 
-    private function dispatchJob($dream)
+    private function dispatchJob($dream, $boost)
     {
         if ($dream->user->id != Auth::id()) {
-            dispatch(new BoostJob($dream, Auth::id()));
+            dispatch(new BoostJob($dream, $boost));
         }
     }
 

@@ -3,6 +3,7 @@
   </div>
 </template>
 <script>
+import commitNotification from '../../mixins/commitNotification';
 export default {
   name: "notification_listener",
   data: function data() {
@@ -28,8 +29,14 @@ export default {
               this.$store.commit('dream_photo_mutation', e.dream.photo);
               window.eventBus.$emit('new_dream_submited', e.dream);
           });
-    }
-  }
+      Echo.private('npp-user.'+ this.username)
+          .listen('UnreadNotsEvent', (e) => {
+            this.storeNots(e.data)
+          });
+    },
+
+  },
+  mixins: [commitNotification]
 }
 </script>
 <style lang="scss">

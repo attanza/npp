@@ -34,7 +34,7 @@ class ActivationTest extends TestCase
           'user_id' => $user->id,
         ]);
         $this->get('/npp-activation/'.$user->email.'/'.$activation->code)
-          ->assertRedirectedTo('/')
+          ->assertRedirect('/')
           ->assertSessionHas('success', 'Akun anda telah diaktifkan, silahkan login.');
     }
 
@@ -48,7 +48,7 @@ class ActivationTest extends TestCase
           'user_id' => $user->id,
         ]);
         $this->get('/npp-activation/test@test.com/'.$activation->code)
-          ->assertRedirectedTo('/')
+          ->assertRedirect('/')
           ->assertSessionHas('error', 'User tidak ditemukan');
     }
 
@@ -62,7 +62,7 @@ class ActivationTest extends TestCase
           'user_id' => $user->id,
         ]);
         $this->get('/npp-activation/'.$user->email.'/hjdkslhf9879pehjhjalkjdfh')
-          ->assertRedirectedTo('/')
+          ->assertRedirect('/')
           ->assertSessionHas('error', 'Kode tidak valid');
     }
 
@@ -82,9 +82,9 @@ class ActivationTest extends TestCase
           'email' => 'test@test.com',
           'password' => 'password'
         ];
-        
+
         $this->json('post', '/npp-activation/resend', $postData)
-            ->assertResponseStatus(200);
+            ->assertStatus(200);
         // Perform ActivationCodeMail
         Mail::assertSent(ActivationCodeMail::class, function ($mail) use ($user) {
             return $mail->user->id === $user->id;

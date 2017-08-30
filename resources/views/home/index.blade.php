@@ -60,7 +60,7 @@
       </div>
 
 
-      {{-- <div class="npp-video">
+      <div class="npp-video">
         <div class="columns">
           <div class="column">
             <div class="embed-responsive embed-responsive-16by9">
@@ -85,7 +85,7 @@
             </div>
           </div>
         </div>
-      </div> --}}
+      </div>
 
 
     </div>

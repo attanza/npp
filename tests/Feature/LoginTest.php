@@ -26,10 +26,10 @@ class LoginTest extends TestCase
      */
     public function test_uncomplete_credential_cannot_login()
     {
-        $this->visit('/')
-          ->see('Login')
-          ->json('post', '/npp-login')
-          ->assertResponseStatus(422);
+        $this->get('/login')
+          ->assertSee('Login');
+        $response = $this->json('post', '/npp-login');
+        $response->assertStatus(422);
     }
 
     /**
@@ -41,10 +41,10 @@ class LoginTest extends TestCase
             'email' => 'test@test.com',
             'password' => 'password'
         ];
-        $this->visit('/')
-          ->see('Login')
-          ->json('post', '/npp-login', $postData)
-          ->assertResponseStatus(422);
+        $this->get('/login')
+          ->assertSee('Login');
+        $response = $this->json('post', '/npp-login', $postData);
+        $response->assertStatus(422);
     }
 
     /**
@@ -57,10 +57,10 @@ class LoginTest extends TestCase
           'email' => $user->email,
           'password' => 'password'
         ];
-        $this->visit('/')
-          ->see('Login')
-          ->json('post', '/npp-login', $postData)
-          ->assertResponseStatus(201);
+        $this->get('/login')
+          ->assertSee('Login');
+        $response = $this->json('post', '/npp-login', $postData);
+        $response->assertStatus(201);
     }
 
     /**
@@ -75,10 +75,9 @@ class LoginTest extends TestCase
           'email' => $user->email,
           'password' => 'password',
         ];
-        $this->get('/')
-          ->see('Login')
-          ->json('post', '/npp-login', $postData)
-          ->assertResponseStatus(200);
-          // ->assertResponseStatus(200);
+        $this->get('/login')
+          ->assertSee('Login');
+        $response = $this->json('post', '/npp-login', $postData);
+        $response->assertStatus(200);
     }
 }

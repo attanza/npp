@@ -27,5 +27,8 @@ Route::group(['middleware' => 'auth:api'], function(){
     });
     // Boost
     Route::get('boost/{id}', 'BoostController@giveBoost');
+    // Notifiction
+    Route::get('notification/{id}', 'NotificationController@getRead');
+    Route::post('notification/listing', 'NotificationController@listing');
 
 });

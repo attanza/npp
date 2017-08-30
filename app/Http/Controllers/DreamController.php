@@ -11,6 +11,7 @@ use Mail;
 use App\Mail\CreateDreamMail;
 use App\Jobs\UploadDreamJob;
 use Auth;
+use Carbon\Carbon;
 
 class DreamController extends Controller
 {
@@ -27,7 +28,9 @@ class DreamController extends Controller
 
         $user = User::with('dream')->find($id);
         // Send Email;
-        Mail::to($user)->send(new CreateDreamMail($user));
+        $when = Carbon::now()->addMinutes(5);
+
+        Mail::to($user)->queue(new CreateDreamMail($user));
 
         return response()->json([
             'dream' => $dream

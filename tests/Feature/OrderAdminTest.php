@@ -29,8 +29,8 @@ class OrderAdminTest extends TestCase
       public function test_non_admin_cannot_access_orders_panel()
       {
           $user = User::find(4);
-          $this->get('/admin/orders')
-              ->assertRedirectedTo('/login');
+          $response = $this->get('/admin/orders')
+              ->assertRedirect('/login');
 
           $this->actingAs($user)
               ->get('/admin/orders')
@@ -46,7 +46,7 @@ class OrderAdminTest extends TestCase
 
           $this->actingAs($user)
               ->get('/admin/orders')
-              ->see('Orders');
+              ->assertSee('Orders');
       }
 
       /**
@@ -59,7 +59,7 @@ class OrderAdminTest extends TestCase
 
           $this->actingAs($user)
               ->get('/admin/orders/'.$order->order_no)
-              ->assertResponseOk();
+              ->assertSee('Detail Order');
       }
 
       /**

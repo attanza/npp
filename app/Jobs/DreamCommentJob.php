@@ -14,6 +14,8 @@ use App\Models\Notification;
 use App\Events\NewCommentEvent;
 use Mail;
 use App\Mail\DreamCommentMail;
+use App\Events\UnreadNotsEvent;
+use Carbon\Carbon;
 
 class DreamCommentJob implements ShouldQueue
 {
@@ -103,12 +105,20 @@ class DreamCommentJob implements ShouldQueue
                 $data = [
                   'msg' => $subject
                 ];
-                Notification::create([
+                $not = Notification::create([
                     'user_id' => $user->id,
                     'notifiable_id' => $this->comment->id,
                     'notifiable_type' => 'App\Models\DreamComment',
                     'data' => json_encode($data)
                 ]);
+                $bData = [
+                  'avatar' => $this->commentOwner->profile->photo_path,
+                  'msg' => $subject,
+                  'id' => $not->id,
+                  'url' => route('dream.show', $this->comment->dream->slug),
+                  'username' => $user->username
+                ];
+                event(new UnreadNotsEvent($bData));
             }
         }
     }
@@ -120,7 +130,8 @@ class DreamCommentJob implements ShouldQueue
 
     private function sendMail($users, $comment, $subject)
     {
-        Mail::to($users)->send(new DreamCommentMail($comment, $subject));
+        $when = Carbon::now()->addMinutes(5);
+        Mail::to($users)->later($when, new DreamCommentMail($comment, $subject));
     }
 }
 

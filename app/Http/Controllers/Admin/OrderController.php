@@ -96,12 +96,7 @@ class OrderController extends Controller
 
     private function deliveryMail($order)
     {
-        // $admins = User::whereHas('roles', function($query){
-        //   $query->where('slug', 'admin')->orWhere('slug', 'cs');
-        // })->get();
-
         Mail::to($order->email)
-          // ->bcc($admins)
           ->send(new OrderDelivery($order, $order->product));
     }
 }

@@ -29,6 +29,8 @@ Vue.component('login', require('./components/auth/Login.vue'));
 
 // Notifications
 Vue.component('notification-listener', require('./components/notifications/NotificationListener.vue'));
+Vue.component('notification-list', require('./components/notifications/NotificationList.vue'));
+
 
 // User
 Vue.component('user-init', require('./components/user/UserInit.vue'));

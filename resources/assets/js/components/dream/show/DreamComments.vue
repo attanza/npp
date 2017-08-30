@@ -95,9 +95,6 @@ export default {
       Echo.private('npp-dream.'+this.dream.slug)
       .listen('NewCommentEvent', (e) => {
         if (e.comment.owner.id != this.authUser.id) {
-          this.commitNots(e.comment, this.dream, this.authDream)
-        }
-        if (e.comment.owner.id != this.authUser.id) {
           if (e.index != 'index') {
             let data = {
               index: e.index,

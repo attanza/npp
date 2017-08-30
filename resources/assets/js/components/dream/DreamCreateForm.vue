@@ -92,7 +92,7 @@ export default {
         if (resp.status == 200) {
           this.$store.commit('dream_mutation', resp.data.dream);
           this.modalShow = false;
-          this.toast_success('Mimpimu telah disimpan');
+          this.throw_noty('success','Mimpimu telah disimpan lanjutkan dengan mengupload gambar mimpimu');
           window.eventBus.$emit('dream_created');
         }
       });

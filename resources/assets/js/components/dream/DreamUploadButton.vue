@@ -14,6 +14,7 @@
   </div>
 </template>
 <script>
+import catchJsonErrors from '../../mixins/catchJsonErrors';
 import authUserData from '../../mixins/authUserData';
 import avatarUpload from '../profile/avatar/AvatarUpload';
 export default {
@@ -49,9 +50,10 @@ export default {
     },
     afterUpload(image){
       this.$store.commit('dream_photo_mutation', image);
+      this.throw_noty('success', 'Photo mimpimu akan segera di upload');
     }
   },
-  mixins: [authUserData]
+  mixins: [authUserData, catchJsonErrors]
 }
 </script>
 <style lang="scss" scoped>

@@ -12,12 +12,12 @@ class DreamSeeder extends Seeder
     public function run()
     {
         $this->dreamSeed();
-        $this->seedBoost();
+        // $this->seedBoost();
     }
 
     private function dreamSeed()
     {
-        for ($i=1; $i < 51; $i++) {
+        for ($i=1; $i < 4; $i++) {
             $user = factory(App\User::class)->create([
               'is_active' => 1
             ]);

@@ -63,6 +63,7 @@ export default {
 
     confirm_activation(resend_mail){
       this.showModal = false;
+      console.log(resend_mail);
       if (resend_mail) {
           this.request_resend_mail();
       }
@@ -70,23 +71,13 @@ export default {
     request_resend_mail(){
       axios.post('/npp-activation/resend', this.get_data()).then((resp)=>{
         if (resp.status == 200) {
-            this.$toast.open({
-              duration: 3000,
-              message: resp.data.msg,
-              type: 'is-success',
-            });
+            this.throw_noty('success', resp.data.msg)
             this.clear_form();
         }
       }).catch(error => {
         if (error.response) {
-          let vm = this;
-          _.forEach(error.response.data, function(value, key) {
-            vm.$toast.open({
-              duration: 3000,
-              type: 'is-danger',
-              message: _.trim(value),
-            });
-          });
+          this.catchError(error.response);
+          this.button_processing = ''
         }
       });
     },

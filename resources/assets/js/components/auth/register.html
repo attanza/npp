@@ -75,15 +75,24 @@
               <span class="help is-danger" v-show="errors.has('gender')">{{ errors.first('gender') }}</span>
             </p>
 
-            <p class="control">
+            <!-- <p class="control">
               <b-checkbox name="terms" v-model="terms" v-validate="'required'">
                 Saya setuju dengan <a href="javascript:void(0)"><span style="color: #00d1b2;">Syarat & ketentuan</span></a>
               </b-checkbox>
               <span class="help is-danger" v-show="errors.has('terms')">{{ errors.first('terms') }}</span>
-            </p>
+            </p> -->
+            <div class="field">
+              <div class="control">
+                <label class="checkbox">
+                  <input type="checkbox" name="terms" v-model="terms" v-validate="'required'" data-vv-as="Syarat dan Ketentuan">
+                  Saya setuju dengan <a href="javascript:void(0)"><span style="color: #00d1b2;">Syarat & ketentuan</span></a>
+                </label>
+              </div>
+              <span class="help is-danger" v-show="errors.has('terms')">{{ errors.first('terms') }}</span>
+            </div>
           </div><!-- content -->
           <center>
-            <button type="button" class="button is-dark is-hovered" v-bind:class="button_processing" @click="validateBeforeSubmit()">
+            <button type="button" class="button is-dark" v-bind:class="button_processing" @click="validateBeforeSubmit()">
               <span style="color: #00d1b2;">Bergabung</span>
             </button>
           </center>

@@ -115,9 +115,6 @@
       <div class="column">
         <a href="javascript:void(0)"><span style="color: 00d1b2">Lupa password ?</span></a>
       </div>
-      <b-modal :active.sync="showModal" has-modal-card>
-          <modal-form></modal-form>
-      </b-modal>
     </div>
     <div class="column">
       <button class="button is-warning is-fullwidth" v-bind:class="button_processing" @click="validateBeforeSubmit()">
@@ -129,4 +126,6 @@
       <hr>
     </div>
   </div>
+  <modal-form :showModal="showModal" @onClose="showModal = false" @confirm_activation="confirm_activation"></modal-form>
+
 </div>

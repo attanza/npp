@@ -32,8 +32,8 @@ class ContactTest extends TestCase
      */
     public function test_user_can_access_contact_page()
     {
-        $this->visit('/kontak-negeri-para-pemimpi')
-        ->see('Nama Anda');
+        $this->get('/kontak-negeri-para-pemimpi')
+        ->assertSee('Nama Anda');
     }
 
     /**
@@ -89,9 +89,9 @@ class ContactTest extends TestCase
         Mail::assertSent(NewContactToAdmins::class, function ($mail) use ($contact) {
             return $mail->contact->id === $contact->id;
         });
-        // Mail::assertSent(NewContactToAdmins::class, function ($mail) use ($contact) {
-        //     return $mail->hasTo($contact->email);
-        // });
+        Mail::assertSent(NewContactToAdmins::class, function ($mail) use ($contact) {
+            return $mail->hasTo($contact->email);
+        });
     }
 
     /**

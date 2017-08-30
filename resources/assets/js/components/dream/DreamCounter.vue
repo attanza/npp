@@ -3,7 +3,7 @@
     <center>
       <ul class="list-inline">
         <li v-for="value in dreamCounts">
-          <div class="box">
+          <div class="box-npp">
             <p class="is-size-4 has-text-centered">{{value}}</p>
           </div>
         </li>
@@ -27,7 +27,6 @@ export default {
         if (resp.status == 200) {
           let dreams = resp.data.dream_count.toString();
           this.dreamCounts = Array.from(dreams);
-          console.log(this.dreamCounts);
         }
       })
     }
@@ -45,7 +44,9 @@ export default {
   padding-right: 3px;
   padding-left: 3px;
 }
-.box {
-  padding: 8px;
+.box-npp {
+  padding: 4px 8px;
+  border: 2px solid #000;
+  background-color: #fff;
 }
 </style>

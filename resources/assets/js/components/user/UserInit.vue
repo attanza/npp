@@ -16,6 +16,7 @@ export default {
     get_user(){
       axios.get('/api/user-data').then((resp) => {
         if (resp.status == 200) {
+          // console.log(resp.data.unreads);
           this.$store.commit('user_mutation', resp.data.user);
           this.$store.commit('profile_mutation', resp.data.user.profile);
           this.$store.commit('avatar_mutation', resp.data.user.profile.photo_path);

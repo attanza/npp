@@ -59,11 +59,14 @@
                   <i class="fa fa-user"></i>
                 </span> Profile
               </a>
-              <a class="navbar-item" href="{{route('dream.show', Auth::user()->dream->slug)}}">
-                <span class="icon m-r-10">
-                  <i class="fa fa-cloud"></i>
-                </span> Mimpiku
-              </a>
+              @if (Auth::user()->dream->dream != '')
+                <a class="navbar-item" href="{{route('dream.show', Auth::user()->dream->slug)}}">
+                  <span class="icon m-r-10">
+                    <i class="fa fa-cloud"></i>
+                  </span> Mimpiku
+                </a>
+              @endif
+
               <hr class="navbar-divider">
               <a href="{{route('logout')}}" class="navbar-item" onclick="event.preventDefault();
                        document.getElementById('logout-form').submit();">

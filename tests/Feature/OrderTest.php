@@ -14,6 +14,8 @@ use Faker\Factory;
 use App\Models\Order;
 use App\Models\Product;
 use App\Jobs\NewOrderJob;
+use App\Mail\orders\OrderCompleteToCustomer;
+use App\Mail\orders\OrderCompleteToAdmin;
 
 class OrderTest extends TestCase
 {
@@ -32,8 +34,10 @@ class OrderTest extends TestCase
     public function test_user_can_accses_about_page()
     {
         $uri = '/tentang-negeri-para-pemimpi';
-        $this->get($uri)
-            ->assertResponseStatus(200);
+        // $this->get($uri)
+        //     ->assertResponseStatus(200);
+        $response = $this->get($uri);
+        $response->assertStatus(200);
     }
     /**
      * @group order
@@ -42,10 +46,10 @@ class OrderTest extends TestCase
     {
         $postData = $this->postData(5);
         Bus::fake();
-        $this->get('/tentang-negeri-para-pemimpi')
-            ->assertResponseOk()
-            ->json('post','/order', $postData)
-            ->assertResponseStatus(422);
+        $response = $this->get('/tentang-negeri-para-pemimpi');
+        $response->assertStatus(200);
+        $response = $this->json('post','/order', $postData);
+        $response->assertStatus(422);
     }
     /**
      * @group order
@@ -54,23 +58,28 @@ class OrderTest extends TestCase
     {
         $postData = $this->postData(1);
         Bus::fake();
-        $this->get('/tentang-negeri-para-pemimpi')
-            ->assertResponseOk()
-            ->json('post','/order', $postData)
-            ->assertResponseStatus(200);
+        $response = $this->get('/tentang-negeri-para-pemimpi');
+        $response->assertStatus(200);
+        $response = $this->json('post','/order', $postData);
+        $response->assertStatus(200);
+        $product = factory(Product::class)->create();
+        $order = factory(Order::class)->create([
+          'product_id' => $product->id
+        ]);
+        Bus::assertDispatched(NewOrderJob::class);
     }
     /**
      * @group order
      */
     public function test_customer_can_complete_order()
     {
+        Mail::fake();
         $product = factory(Product::class)->create();
         $order = factory(Order::class)->create([
           'product_id' => $product->id
         ]);
-        Mail::fake();
-        $this->get('order/'.$order->email.'/'.$order->code)
-            ->assertSessionHas('success', 'Terimakasih atas verifikasi anda');
+        $response = $this->get('order/'.$order->email.'/'.$order->code);
+        $response->assertSessionHas('success', 'Terimakasih atas verifikasi anda');
 
     }
 

@@ -13,7 +13,10 @@
       </div>{{-- column --}}
 
       <div class="column">
-        <dream-comments :dream="{{$dream}}"></dream-comments>
+        <div class="box">
+          <dream-comments :dream="{{$dream}}"></dream-comments>
+          
+        </div>
       </div>{{-- card --}}
     </div>{{-- column --}}
   </div>{{-- container --}}

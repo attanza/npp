@@ -20,7 +20,7 @@
         </div>
         <nav class="level is-mobile">
           <div class="level-left">
-            <a class="level-item">
+            <a class="level-item" v-show="isAuth">
               <span class="icon is-small" @click="showForm(index)"><i class="fa fa-reply"></i></span>
             </a>
             <span class="level-item">

@@ -10,37 +10,55 @@
     </div>
     <div class="navbar-dropdown is-right">
       <div class="navbar-item " v-for="not in authUnreads">
-        <a href="#" class="media">
-          <div class="media-left">
-            <figure class="image is-64x64">
-              <img :src="not.avatar">
-            </figure>
-          </div>
-          <div class="media-content">
-              <p style="word-wrap: break-word;" class="is-black">
-                <strong>{{not.comment_owner}}</strong>
-                <br>
+        <a @click="setRead(not.id, not.url)">
+          <div class="columns is-mobile">
+            <div class="column is-narrow">
+              <figure class="image is-64x64">
+                <img :src="not.avatar">
+              </figure>
+            </div>
+            <div class="column">
+              <p style="word-wrap: break-word; color: #000;">
                 {{not.msg}}
               </p>
+            </div>
           </div>
         </a>
       </div>
       <div class="navbar-item">
-          <a href="#">Lihat semua</a>
+        <center>
+          <a @click="toNotificationsPage">Lihat semua</a>
+        </center>
       </div>
     </div>
   </div>
 </template>
 <script>
 import authUserData from '../../mixins/authUserData';
+import catchJsonErrors from '../../mixins/catchJsonErrors';
 
 export default {
   name: "unread_nots",
   data: () => ({
 
   }),
-  mixins: [authUserData],
-
+  methods: {
+    setRead(id, url) {
+      axios.get('/api/notification/'+id).then((resp) =>{
+        if (resp.status == 200) {
+          window.location.replace(url);
+        }
+      }).catch(error => {
+        if (error.response) {
+          this.catchError(error.response);
+        }
+      });
+    },
+    toNotificationsPage(){
+      window.location.replace('/notifikasi');
+    }
+  },
+  mixins: [authUserData, catchJsonErrors],
 }
 </script>
 <style lang="scss" scoped>
@@ -67,17 +85,21 @@ export default {
     }
   }
 }
-.navbar-item:first-child {
-  border-bottom: none;
-}
-.navbar-item:last-child {
-  border-bottom: none;
-}
-.navbar-item:hover {
-  background-color: #f5f5f5;
-}
-figure img {
-  border-radius: 3px;
+// .navbar-item:first-child {
+//   border-bottom: none;
+// }
+// .navbar-item:last-child {
+//   border-bottom: none;
+// }
+// .navbar-item:hover {
+//   background-color: #f5f5f5;
+// }
+// .media-left figure img {
+//   border-radius: 0px;
+//   box-shadow: 3px 3px 3px #acacac;
+// }
+.image img {
+  // border-radius: 50%;
   box-shadow: 3px 3px 3px #acacac;
 }
 </style>

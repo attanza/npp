@@ -28,7 +28,7 @@
       </tr>
     </table>
     <p>
-      Silahkan proses pesanan tersebut dengan mengakses <a href="#">Admin Panel</a>.
+      Silahkan proses pesanan tersebut dengan mengakses <a href="{{route('orders.show', $order->order_no)}}">Admin Panel</a>.
     </p>
   </div>
 @endsection

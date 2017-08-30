@@ -17,7 +17,7 @@
         </div>
         <nav class="level is-mobile">
           <div class="level-left">
-            <a class="level-item" @click="showForm">
+            <a class="level-item" @click="showForm" v-show="isAuth">
               <span class="icon is-small"><i class="fa fa-reply"></i></span>
             </a>
             <span class="level-item">
