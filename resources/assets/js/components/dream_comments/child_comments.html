@@ -1,0 +1,51 @@
+<div id="child_comments">
+  <div class="child-comment-wrapper">
+    <a @click="cur_parent_comment = comment"><small>Selengkapnya...</small></a>
+    <article class="media animated fadeIn" v-for="comment in comment.replies" :id="'child_article_'+comment.id">
+      <figure class="media-left">
+        <p class="image is-32x32">
+          <img :src="comment.avatar">
+        </p>
+      </figure>
+      <div class="media-content">
+        <div class="content" :id="'child_'+comment.id">
+          <p>
+            <strong>{{comment.name}}</strong>
+            <br>
+            <span v-html="comment.body" :id="'unstrike_'+comment.id"></span>
+            <strike :id="'strike_'+comment.id" style="display: none;"><span v-html="comment.body"></span></strike>
+
+          </p>
+        </div>
+        <nav class="level is-mobile">
+          <div class="level-left" v-if="isAuth">
+            <tooltip label="Balas tanggapan" placement="top-right">
+              <a class="level-item" @click="show_form(comment.parent_id)">
+                <span class="icon is-small"><i class="fa fa-reply"></i></span>
+              </a>
+            </tooltip>
+            <div class="level-item">
+              <p class="is-size-7">{{comment.created_at | moment("from", "now") }}</p>
+            </div>
+          </div>
+          <div class="level-right">
+            <div class="level-item" v-if="isAuth && dream_id == authDream.id || comment.owner_id == authUser.id" :id="'delete_child_'+comment.id">
+              <tooltip label="Hapus tanggapan" placement="top-left">
+                <a class="level-item" @click="markDelete(comment.id)">
+                  <span class="icon is-small"><i class="fa fa-trash"></i></span>
+                </a>
+              </tooltip>
+            </div>
+            <div class="level-item" :id="'undo_delete_child_'+comment.id" style="display: none;">
+              <ul class="list-inline small">
+                <li>Hapus ?</li>
+                <li><a @click="deleteComment(comment)">Ya</a></li>
+                <li><a @click="undoDeleteChild(comment.id)">Tidak</a></li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </article>
+  </div>
+</div>

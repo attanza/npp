@@ -17,7 +17,6 @@ class DreamController extends Controller
 {
     public function storeDream(DreamUpdateRequest $request, $id)
     {
-        // return $request->all();
         $dream_title = $request->dream;
         $dream = Dream::where('user_id', $id)->first();
         $dream->dream = $dream_title;
@@ -29,9 +28,7 @@ class DreamController extends Controller
         $user = User::with('dream')->find($id);
         // Send Email;
         $when = Carbon::now()->addMinutes(5);
-
         Mail::to($user)->queue(new CreateDreamMail($user));
-
         return response()->json([
             'dream' => $dream
         ], 200);

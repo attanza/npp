@@ -23,7 +23,7 @@ class ProfileController extends Controller
         if (count($user) == 0) {
             return redirect('/')->withError('User tidak ditemukan');
         }
-        Session::flash('success', 'Hallo '.$user->first_name);
+        // Session::flash('success', 'Hallo '.$user->first_name);
         return view('profile.show')->withUser($user);
     }
 

@@ -1,0 +1,68 @@
+<div>
+  <nav class="navbar ">
+    <div class="container">
+      <div class="navbar-brand">
+        <a class="navbar-item" :href="siteLink.home">
+          <img :src="npp_logo" alt="Negeri Para Pemimpi Logo">
+        </a>
+
+        <div class="navbar-burger burger" data-target="navMenubd-example"
+        :class="{'is-active':menuActive}" @click="menuActive = !menuActive">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+
+      <div id="navMenubd-example" class="navbar-menu" :class="{'is-active':menuActive}">
+        <div class="navbar-start">
+          <a class="navbar-item is-tab" :href="siteLink.home" :class="{'is-active' : location == '/'}">
+            Home
+          </a>
+          <a class="navbar-item is-tab" :href="siteLink.bmi" :class="{'is-active' : location == '/berjuta-mimpi-indonesia'}">
+            Berjuta Mimpi Indonesia
+          </a>
+          <a class="navbar-item is-tab" :href="siteLink.about" :class="{'is-active' : location == '/tentang-negeri-para-pemimpi'}">
+            Tentang Kami
+          </a>
+          <a class="navbar-item is-tab" :href="siteLink.contact" :class="{'is-active' : location == '/kontak-negeri-para-pemimpi'}">
+            Kontak Kami
+          </a>
+        </div>
+
+        <div class="navbar-end">
+          <div v-if="isAuth">
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link">
+                <avatar-nav></avatar-nav><span class="m-l-10">{{authUser.first_name}}</span>
+              </a>
+
+              <div class="navbar-dropdown is-right">
+                <a :href="siteLink.profile+authUser.username" class="navbar-item">
+                  <span class="icon m-r-10">
+                    <i class="fa fa-user"></i>
+                  </span> Profile
+                </a>
+                <a class="navbar-item" :href="siteLink.showDream+authDream.slug" v-if="authDream.dream != ''">
+                  <span class="icon m-r-10">
+                    <i class="fa fa-cloud"></i>
+                  </span> Mimpiku
+                </a>
+
+                <hr class="navbar-divider">
+                <a class="navbar-item" :href="siteLink.logout">
+                  <span class="icon m-r-10">
+                    <i class="fa fa-sign-out"></i>
+                  </span> Logout
+                </a>
+              </div>
+            </div>
+          </div>
+          <div v-else>
+            <a :href="siteLink.login" class="navbar-item is-tab">Login / Register</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</div>

@@ -1,11 +1,11 @@
 <template>
   <div id="notification_list">
     <div class="panel">
-      <a class="panel-block" v-for="not in notifications" :class="{'is-active' : !not.read}" @click="show(not.id, not.url)">
+      <a class="panel-block animated fadeIn" v-for="not in notifications" :class="{'is-active' : !not.read}" @click="setRead(not.id, not.url)">
         <div class="columns is-mobile">
           <div class="column is-narrow">
             <figure class="image is-64x64">
-              <img :src="not.avatar">
+              <img :src="not.avatar" style="border-radius: 50%;">
             </figure>
           </div>
           <div class="column">
@@ -16,6 +16,7 @@
         </div>
       </a>
     </div>
+    <paginator :pagination="pagination" :pagesNumber="pagesNumber" :isActived="isActived" @changePage="changePage"></paginator>
   </div>
 </template>
 <script>
@@ -77,8 +78,8 @@ export default {
       this.get_notifications(this.pagination.current_page);
     },
 
-    show(id, url){
-      axios.get('/api/notification/'+id).then((resp) =>{
+    setRead(id, url) {
+      axios.put('/api/notification/'+id).then((resp) =>{
         if (resp.status == 200) {
           window.location.replace(url);
         }
@@ -87,7 +88,7 @@ export default {
           this.catchError(error.response);
         }
       });
-    }
+    },
   },
   mixins: [paginationData, catchJsonErrors]
 }

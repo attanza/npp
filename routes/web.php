@@ -9,7 +9,9 @@ Route::get('/berjuta-mimpi-indonesia', 'BmiController@index')->name('bmi.index')
 Route::get('/tentang-negeri-para-pemimpi', 'AboutController@index')->name('about.index');
 Route::get('/kontak-negeri-para-pemimpi', 'ContactController@index')->name('contact.index');
 Route::post('/kontak-negeri-para-pemimpi', 'ContactController@store')->name('contact.store');
-
+Route::get('/syarat-ketentuan', function(){
+  return view('terms');
+})->name('terms');
 
 // Auths
 Route::get('/login', 'HomeController@index')->name('login');
@@ -58,7 +60,6 @@ Route::group(['prefix' => 'order'], function(){
 Route::group(['middleware' => 'admin', 'prefix' => 'admin', 'namespace' => 'Admin'], function(){
   Route::get('/', 'DashboardController@index')->name('dashboard.index');
   Route::get('/dashboard', 'DashboardController@index')->name('dashboard.index');
-
   Route::group(['prefix' => 'orders'], function(){
     Route::get('/', 'OrderController@index')->name('orders.index');
     Route::get('/{order_no}', 'OrderController@show')->name('orders.show');
@@ -66,22 +67,11 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin', 'namespace' => 'Admi
   });
 });
 
-Route::get('/test/email/layout', function(){
-    $message = App\Models\Contact::find(2);
-
-    return view('mails.contacts.new_contact_to_sender')->with([
-      'message' => $message,
-    ]);
+// Dream Comments
+Route::group(['prefix' => 'dream-comments'], function(){
+  Route::get('/parent-comments/{dreamId}', 'ParentCommentController@getParentComments')->name('comments.parent');
+  Route::get('/child-comments/{parentId}', 'ChildCommentController@getChildComments')->name('comments.child');
 });
 
-Route::get('/clear/db', function(){
-    DB::table('jobs')->truncate();
-    DB::table('notifications')->truncate();
-    DB::table('dream_comments')->truncate();
-    DB::table('boosts')->truncate();
-    return redirect()->back();
-})->name('clear.db');
-
-Route::get('/test/data', function(){
-
-})->name('test.data');
+// Dream Search
+Route::post('/dream-search', 'DreamSearchController@search');

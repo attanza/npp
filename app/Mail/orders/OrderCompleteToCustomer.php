@@ -24,7 +24,7 @@ class OrderCompleteToCustomer extends Mailable implements ShouldQueue
 
     public function build()
     {
-        $subject = 'Order #'.$this->order->order_no.' sudah diterima';
-        return $this->subject($subject)->view('mails.orders.new_order_to_customer');
+        $subject = 'Order #'.$this->order->order_no.' telah diterima';
+        return $this->subject($subject)->view('mails.orders.complete_to_customer');
     }
 }

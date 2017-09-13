@@ -3,9 +3,6 @@ require('./bootstrap');
 window.Vue = require('vue');
 window.eventBus = new Vue({})
 
-// Bulma Vue - Buefy
-import Buefy from 'buefy';
-Vue.use(Buefy);
 // Moment
 import moment from 'moment';
 import 'moment/locale/id';
@@ -22,7 +19,6 @@ Vue.component('session-messages', require('./components/SessionMessages.vue'));
 // Admin
 require('./admin_components');
 
-
 // Auth
 Vue.component('register', require('./components/auth/Register.vue'));
 Vue.component('login', require('./components/auth/Login.vue'));
@@ -30,7 +26,6 @@ Vue.component('login', require('./components/auth/Login.vue'));
 // Notifications
 Vue.component('notification-listener', require('./components/notifications/NotificationListener.vue'));
 Vue.component('notification-list', require('./components/notifications/NotificationList.vue'));
-
 
 // User
 Vue.component('user-init', require('./components/user/UserInit.vue'));
@@ -43,25 +38,27 @@ Vue.component('avatar', require('./components/profile/avatar/Avatar.vue'));
 Vue.component('avatar-nav', require('./components/profile/avatar/AvatarNav.vue'));
 Vue.component('mobile-nav', require('./components/nav/MobileNav.vue'));
 Vue.component('unread-nots', require('./components/nav/UnreadNots.vue'));
-
+// Vue.component('main-nav', require('./components/nav/MainNav.vue'));
 
 // dream
 Vue.component('dream', require('./components/dream/Dream.vue'));
 Vue.component('dream-list', require('./components/dream/DreamList.vue'));
-Vue.component('dream-photo', require('./components/dream/show/DreamPhoto.vue'));
-Vue.component('dream-redirector', require('./components/dream/DreamRedirector.vue'));
+Vue.component('dream-photo', require('./components/dream/DreamPhoto.vue'));
+// Vue.component('dream-redirector', require('./components/dream/DreamRedirector.vue'));
 Vue.component('dream-counter', require('./components/dream/DreamCounter.vue'));
 
-
 // comments
-Vue.component('dream-comments', require('./components/dream/show/DreamComments.vue'));
+Vue.component('dream-comments', require('./components/dream_comments/controllers/DreamComments.vue'));
+// Vue.component('child-comments-all', require('./components/dream_comments/ChildCommentsAll.vue'));
+
+// Confirm Dialog
+// Vue.component('confirm-modal', require('./components/ConfirmModal.vue'));
 
 // Orders
 Vue.component('order-form', require('./components/orders/OrderForm.vue'));
 
 // Boost
 Vue.component('boost', require('./components/boost/Boost.vue'));
-
 import {
   store
 } from './store'

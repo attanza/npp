@@ -3,7 +3,7 @@
     <center>
       <ul class="list-inline">
         <li v-for="value in dreamCounts">
-          <div class="box-npp">
+          <div class="box-npp animated fadeInDown">
             <p class="is-size-4 has-text-centered">{{value}}</p>
           </div>
         </li>
@@ -25,10 +25,31 @@ export default {
       axios.get('/dream/count').then((resp)=>{
         // console.log(resp);
         if (resp.status == 200) {
-          let dreams = resp.data.dream_count.toString();
-          this.dreamCounts = Array.from(dreams);
+          let num = resp.data.dream_count.toString();
+          // let num = '123456789';
+          let text_num = this.form_counter(num)
+          this.dreamCounts = Array.from(text_num);
         }
       })
+    },
+    form_counter(num){
+      if (num < 10) {
+        return '0000000'+num;
+      } else if (num < 100) {
+        return '000000'+num;
+      } else if (num < 1000) {
+        return '00000'+num;
+      } else if (num < 10000) {
+        return '0000'+num;
+      } else if (num < 100000) {
+        return '000'+num;
+      } else if (num < 1000000) {
+        return '00'+num;
+      } else if (num < 10000000) {
+        return '0'+num;
+      } else {
+        return num;
+      }
     }
   }
 }

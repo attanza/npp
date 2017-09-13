@@ -2,7 +2,7 @@
   <div id="boost">
     <ul class="list-inline">
       <li v-show="this.isAuth && this.authIsBooster">
-        <div class="boosted">
+        <div class="boosted" :class="{'animated rubberBand':isBoost}">
           <a>
             <span class="icon is-medium">
               <i class="fa fa-bolt"></i>
@@ -28,7 +28,7 @@
         <h4 class="subtitle is-4">{{this.authBoostCount}} Boost</h4>
       </li>
     </ul>
-    <div class="box m-t-10" v-show="authBoostCount > 0">
+    <div class="box m-t-10 animated fadeInLeft" v-show="authBoostCount > 0">
       <ul class="list-inline">
         <li v-for="user in this.authBooster">
           <tooltip :label="user.name" placement="top-right">
@@ -37,7 +37,7 @@
                 <img :src="user.avatar" alt="user.name">
               </figure>
             </a>
-        </tooltip>
+          </tooltip>
         </li>
         <li>
           <a @click="showModal = true" v-show="authBoostCount > 10">Lihat semua</a>
@@ -52,7 +52,7 @@ import authUserData from '../../mixins/authUserData';
 import catchJsonErrors from '../../mixins/catchJsonErrors';
 import commitNotification from '../../mixins/commitNotification';
 import BoosterList from './BoosterList';
-import Tooltip from 'vue-bulma-tooltip'
+import Tooltip from 'vue-bulma-tooltip';
 export default {
   name: "boost",
   components: {
@@ -60,20 +60,20 @@ export default {
   },
   data: () => ({
     showModal: false,
+    isBoost: false,
   }),
   props: ['dream_id'],
+
   watch: {
     isAuth(){
       if (this.isAuth) {
-        this.listen(this.authUser.username);
-      } else {
-        console.log('not auth');
+        this.listen(this.authUser.username)
       }
     }
   },
+
   mounted(){
     this.get_boosts();
-
   },
   methods: {
     get_boosts(){
@@ -85,6 +85,8 @@ export default {
               this.$store.commit('booster_mutation', boost);
             });
             this.$store.commit('is_booster_mutation', resp.data.is_booster);
+            isBoost: false,
+            this.isBoost = true;
           }
         }).catch(error => {
           if (error.response) {

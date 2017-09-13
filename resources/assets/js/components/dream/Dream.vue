@@ -8,6 +8,7 @@
 import DreamCreateButton from './DreamCreateButton';
 import DreamUploadButton from './DreamUploadButton';
 import authUserData from '../../mixins/authUserData';
+import catchJsonErrors from '../../mixins/catchJsonErrors';
 export default {
   name: "dream",
   components: {
@@ -37,18 +38,14 @@ export default {
   methods: {
     afterUpload(){
       this.showDreamUpload = false;
-      this.$toast.open({
-        duration: 5000,
-        type: 'is-success',
-        message: 'Gambar mimpi akan segera di upload',
-      });
+      this.throw_noty('success', 'Gambar mimpi akan segera di upload');
     },
     dream_created(){
       this.showDreamCreate = false;
       this.showDreamUpload = true;
     }
   },
-  mixins: [authUserData],
+  mixins: [authUserData, catchJsonErrors],
 }
 </script>
 <style lang="scss" scoped>

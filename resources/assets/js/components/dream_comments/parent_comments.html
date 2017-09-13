@@ -1,0 +1,96 @@
+<div id="parent_comments">
+  <div class="dream-comment-wrapper m-t-20">
+    <div id="loader" v-show="loader.parent">
+      <span class="icon is-large" id="loading-el">
+        <i class="fa fa-spinner fa-spin"></i>
+      </span>
+    </div>
+    <nav class="level is-mobile" style="border-bottom: 1px solid #ccc;">
+      <div class="level-left">
+        <div class="level-item">
+          <tooltip label="Lihat tanggapan sebelumnya" placement="top-right">
+            <a v-if="pagination.current_page < pagination.last_page" @click.prevent="changePage(pagination.current_page + 1)">
+              <span><small>Sebelumnya...</small></span>
+            </a>
+          </tooltip>
+          <span class="icon is-small" v-show="loader.morePage">
+            <i class="fa fa-spinner fa-spin"></i>
+          </span>
+        </div>
+      </div>
+      <div class="level-right">
+        <div class="level-item">
+          <tooltip label="Refresh tanggapan" placement="top-left">
+            <a @click.prevent="get_refresh">
+              <span class="icon is-small">
+                <i class="fa fa-refresh"></i>
+              </span>
+            </a>
+          </tooltip>
+          <span class="icon is-small" v-show="loader.refresh">
+            <i class="fa fa-spinner fa-spin"></i>
+          </span>
+        </div>
+
+        <div class="level-item">
+          <small v-if="pagination.total !== 0">
+            {{pagination.to}} dari {{pagination.total}}
+          </small>
+        </div>
+      </div>
+    </nav>
+    <article class="media animated fadeIn" v-for="(comment, index) in comments">
+      <figure class="media-left">
+        <p class="image is-48x48">
+          <img :src="comment.avatar">
+        </p>
+      </figure>
+      <div class="media-content">
+        <div class="content" :id="'parent_'+comment.id">
+          <p>
+            <strong>{{comment.name}}</strong>
+            <br>
+            <span v-html="comment.body"></span>
+          </p>
+        </div>
+        <nav class="level is-mobile">
+          <div class="level-left">
+            <div class="level-item" v-if="isAuth">
+              <tooltip label="Balas tanggapan" placement="top-right">
+                <a class="level-item" @click="show_form(comment)">
+                  <span class="icon is-small"><i class="fa fa-reply"></i></span>
+                </a>
+              </tooltip>
+            </div>
+            <div class="level-item">
+              <p class="is-size-7">{{comment.created_at | moment("from", "now") }}</p>
+            </div>
+          </div>
+          <div class="level-right" v-if="isAuth && dream.id == authDream.id || comment.owner_id == authUser.id">
+            <div class="level-item">
+              <tooltip label="Edit tanggapan" placement="top-left">
+                <a class="level-item" @click="currentComment = comment">
+                  <span class="icon is-small"><i class="fa fa-pencil"></i></span>
+                </a>
+              </tooltip>
+            </div>
+            <div class="level-item">
+              <tooltip label="Hapus tanggapan" placement="top-left">
+                <a class="level-item">
+                  <span class="icon is-small"><i class="fa fa-trash"></i></span>
+                </a>
+              </tooltip>
+            </div>
+          </div>
+        </nav>
+        <!-- <div v-if="comment.replies.length > 0" style="margin-top: -20px;">
+          <child-comments :index="index" :dream_id="dream.id"></child-comments>
+        </div> -->
+        <!--  Child Comment input -->
+        <reply-child :dream_id="dream.id" :parent_id="comment.id" @pushChildComment="pushChildComment"></reply-child>
+      </div>
+    </article>
+  </div>
+  {{showEdit}}
+  <edit-comment :showEdit="showEdit" :comment="currentComment" @editClose="closeEdit"></edit-comment>
+</div>

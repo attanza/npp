@@ -15,7 +15,6 @@
       <div class="column">
         <div class="box">
           <dream-comments :dream="{{$dream}}"></dream-comments>
-          
         </div>
       </div>{{-- card --}}
     </div>{{-- column --}}

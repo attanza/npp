@@ -4,24 +4,6 @@
       <a class="navbar-item" href="{{url('/')}}">
         <img src="{{asset('images/resource/npp_logo.png')}}" alt="Negeri Para Pemimpi Logo">
       </a>
-
-      {{-- <a class="navbar-item is-hidden-desktop" href="https://github.com/jgthms/bulma" target="_blank">
-        <span class="icon" style="color: #333;">
-          <i class="fa fa-github"></i>
-        </span>
-      </a>
-
-      <a class="navbar-item is-hidden-desktop" href="https://twitter.com/jgthms" target="_blank">
-        <span class="icon" style="color: #55acee;">
-          <i class="fa fa-twitter"></i>
-        </span>
-      </a> --}}
-
-      {{-- <div class="navbar-burger burger" data-target="navMenubd-example">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div> --}}
     </div>
 
     <div id="navMenubd-example" class="navbar-menu">
@@ -34,14 +16,14 @@
           Berjuta Mimpi Indonesia
         </a>
           <a href="{{route('about.index')}}" class="nav-item is-tab is-hidden-mobile
-            @if(Request::is('tentang-negeri-para-pemimmpi*')) is-active @endif">
+            @if(Request::is('tentang-negeri-para-pemimpi*')) is-active @endif">
             Tentang Kami
           </a>
         <a href="{{route('contact.index')}}" class="nav-item is-tab is-hidden-mobile
         @if(Request::is('kontak-negeri-para-pemimpi*')) is-active @endif">
           Kontak
         </a>
-        <a href="{{route('clear.db')}}" class="nav-item is-tab is-hidden-mobile">Clear DB</a>
+        {{-- <a href="{{route('clear.db')}}" class="nav-item is-tab is-hidden-mobile">Clear DB</a> --}}
       </div>
 
       <div class="navbar-end">

@@ -14,8 +14,8 @@ export default {
       ModalForm
   },
   data: () => ({
-    email: 'dani.lesmiadi@gmail.com',
-    password: 'password',
+    email: '',
+    password: '',
     remember: false,
     button_processing: '',
     showModal: false,
@@ -63,7 +63,6 @@ export default {
 
     confirm_activation(resend_mail){
       this.showModal = false;
-      console.log(resend_mail);
       if (resend_mail) {
           this.request_resend_mail();
       }
@@ -102,5 +101,8 @@ a {
 }
 a:hover {
   color: #ffcc2a;
+}
+.checkbox{
+  color: #00d1b2;
 }
 </style>

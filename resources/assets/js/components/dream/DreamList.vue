@@ -1,10 +1,11 @@
 <template src="./dream_list.html"></template>dani.lesmiadi@gma
 <script>
 import BackTop from './../BackTop';
+import DreamSearch from './DreamSearch'
 export default {
   name: 'DreamList',
   components: {
-    BackTop
+    BackTop, DreamSearch
   },
   data() {
     return {

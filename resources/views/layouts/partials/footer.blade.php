@@ -2,7 +2,7 @@
   <div class="container">
     <div class="has-text-centered">
       <p>
-        Powered by <a href="https://magnificom-id.com">Magnificom-id.com</a> {{date('Y')}}
+        <a href="https://negeriparapemimpi.com">negeriparapemimpi {{date('Y')}}</a>
       </p>
     </div>
   </div>

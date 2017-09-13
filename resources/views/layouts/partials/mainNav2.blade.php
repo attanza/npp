@@ -1,11 +1,12 @@
-<nav class="navbar has-shadow">
+<nav class="navbar ">
   <div class="container">
     <div class="navbar-brand">
       <a class="navbar-item" href="{{url('/')}}">
         <img src="{{asset('images/resource/npp_logo.png')}}" alt="Negeri Para Pemimpi Logo">
       </a>
+    </div>
 
-    <div class="navbar-menu">
+    <div id="navMenubd-example" class="navbar-menu">
       <div class="navbar-start">
         <a href="{{'/'}}" class="nav-item is-tab is-hidden-mobile m-l-20 @if(Request::is('/')) is-active @endif">
           Home
@@ -18,8 +19,11 @@
             @if(Request::is('tentang-negeri-para-pemimmpi*')) is-active @endif">
             Tentang Kami
           </a>
-        <a href="#" class="nav-item is-tab is-hidden-mobile">Kontak</a>
-        <a href="{{route('clear.db')}}" class="nav-item is-tab is-hidden-mobile">Clear DB</a>
+        <a href="{{route('contact.index')}}" class="nav-item is-tab is-hidden-mobile
+        @if(Request::is('kontak-negeri-para-pemimpi*')) is-active @endif">
+          Kontak
+        </a>
+        {{-- <a href="{{route('clear.db')}}" class="nav-item is-tab is-hidden-mobile">Clear DB</a> --}}
       </div>
 
       <div class="navbar-end">
@@ -37,11 +41,14 @@
                   <i class="fa fa-user"></i>
                 </span> Profile
               </a>
-              <a class="navbar-item" href="{{route('dream.show', Auth::user()->dream->slug)}}">
-                <span class="icon m-r-10">
-                  <i class="fa fa-cloud"></i>
-                </span> Mimpiku
-              </a>
+              @if (Auth::user()->dream->dream != '')
+                <a class="navbar-item" href="{{route('dream.show', Auth::user()->dream->slug)}}">
+                  <span class="icon m-r-10">
+                    <i class="fa fa-cloud"></i>
+                  </span> Mimpiku
+                </a>
+              @endif
+
               <hr class="navbar-divider">
               <a href="{{route('logout')}}" class="navbar-item" onclick="event.preventDefault();
                        document.getElementById('logout-form').submit();">
@@ -59,7 +66,6 @@
         @endif
 
       </div>
-
     </div>
   </div>
 </nav>

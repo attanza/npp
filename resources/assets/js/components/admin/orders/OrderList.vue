@@ -2,7 +2,6 @@
 <script>
 import Paginator from '../Paginator'
 import TableSearch from '../TableSearch'
-
 import paginationData from '../../../mixins/paginationData'
 export default {
   name: "order_list",

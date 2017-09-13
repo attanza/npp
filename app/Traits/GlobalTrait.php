@@ -14,7 +14,7 @@ trait GlobalTrait
         $size = Storage::size($folder.$filename);
         $mime = Storage::mimeType($folder.$filename);
         $ext = pathinfo(storage_path().$folder.$filename, PATHINFO_EXTENSION);
-        
+
         $data = [
           'mediable_id' => $id,
           'mediable_type' => $model,

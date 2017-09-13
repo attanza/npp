@@ -1,0 +1,85 @@
+<div id="child_comments_all">
+  <div class="modal" :class="{'is-active' : showModal}">
+    <div class="modal-background" @click="closeModal"></div>
+    <div class="modal-card">
+      <section class="modal-card-body">
+        <article class="media" v-if="currentParentComment">
+          <figure class="media-left">
+            <p class="image is-48x48">
+              <img :src="currentParentComment.avatar">
+            </p>
+          </figure>
+          <div class="media-content">
+            <div class="content">
+              <p>
+                <strong>{{currentParentComment.name}}</strong>
+                <br>
+                <span v-html="currentParentComment.body"></span>
+              </p>
+            </div>
+          </div>
+          <div class="media-right">
+            <button class="delete" @click="closeModal"></button>
+          </div>
+        </article>
+        <hr>
+        <tooltip label="Lihat tanggapan sebelumnya" placement="right">
+          <a v-if="pagination.current_page < pagination.last_page" @click.prevent="changePage(pagination.current_page + 1)">
+            <span><small>Sebelumnya...</small></span>
+          </a>
+        </tooltip>
+        <article class="media animated fadeIn is-marginless is-paddingless" v-for="comment in comments" :id="'child_article_'+comment.id">
+          <figure class="media-left">
+            <p class="image is-32x32">
+              <img :src="comment.avatar">
+            </p>
+          </figure>
+          <div class="media-content">
+            <div class="content" :id="'parent_'+comment.id">
+              <p>
+                <strong>{{comment.name}}</strong>
+                <br>
+                <span v-html="comment.body" :id="'unstrike_'+comment.id"></span>
+                <strike :id="'strike_'+comment.id" style="display: none;"><span v-html="comment.body"></span></strike>
+              </p>
+            </div>
+            <nav class="level is-mobile">
+              <div class="level-left">
+                <div class="level-item">
+                  <p class="is-size-7">{{comment.created_at | moment("from", "now") }}</p>
+                </div>
+              </div>
+              <div class="level-right">
+                <div class="level-item" v-if="isAuth && dream_id == authDream.id || comment.owner_id == authUser.id" :id="'delete_child_'+comment.id">
+                  <tooltip label="Hapus tanggapan" placement="top-left">
+                    <a class="level-item" @click="markDelete(comment.id)">
+                      <span class="icon is-small"><i class="fa fa-trash"></i></span>
+                    </a>
+                  </tooltip>
+                </div>
+                <div class="level-item" :id="'undo_delete_child_'+comment.id" style="display: none;">
+                  <ul class="list-inline small">
+                    <li>Hapus ?</li>
+                    <li><a @click="deleteComment(comment)">Ya</a></li>
+                    <li><a @click="undoDeleteChild(comment.id)">Tidak</a></li>
+                  </ul>
+                </div>
+              </div>
+            </nav>
+          </div>
+        </article>
+        <hr>
+        <reply-child :dream_id="dream_id" :parent_id="currentParentComment.id" style="display: block" @pushChildComment="pushChildComment" v-if="currentParentComment && isAuth"></reply-child>
+        <p class="has-text-centered m-t-10">
+          <a @click="closeModal">
+            <small>Tutup</small>
+          </a>
+        </p>
+      </section>
+      <!-- <footer class="modal-card-foot">
+
+        <button class="button is-warning is-right" @click="closeModal">Cancel</button>
+      </footer> -->
+    </div>
+  </div>
+</div>

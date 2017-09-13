@@ -21,5 +21,8 @@
         <td>{{$order->address}}</td>
       </tr>
     </table>
+    <p>
+      Untuk melihat detail pesanan tersebut silahkan mengakses <a href="{{route('orders.show', $order->order_no)}}">Admin Panel</a>.
+    </p>
   </div>
 @endsection

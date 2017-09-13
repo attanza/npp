@@ -87,9 +87,9 @@ class NotificationController extends Controller
         $url = route('dream.show', $dream->slug);
 
         if ($type == 'App\Models\Boost') {
-            $type = "<span class='icon'><i class='fa fa-bolt'></i></span>";
+            $type = "<span class='icon is-small'><i class='fa fa-bolt'></i></span>";
         } elseif ($type == 'App\Models\DreamComment') {
-            $type = '<span class="icon"><i class="fa fa-comment"></i></span>';
+            $type = '<span class="icon is-small"><i class="fa fa-comment"></i></span>';
         }
         return [
             'type' => $type,

@@ -60,3 +60,25 @@ a.navbar-item.is-active,
 .has-text-warning {
     color: $npp-yellow;
 }
+.modal-card-head {
+  background-color: #000;
+}
+.modal-card-title{
+  color: $npp-yellow;
+}
+.modal-card-foot {
+  background-color: #000;
+  color: $npp-yellow;
+  justify-content: space-between;
+}
+.tabs:not(:last-child) {
+  margin-bottom: 0rem;
+}
+.tag {
+  padding: 5px;
+}
+.noty_theme__metroui.noty_bar .noty_body {
+    padding: 1em;
+    font-size: 14px;
+    text-align: center;
+}

@@ -85,7 +85,9 @@
               <div class="control">
                 <label class="checkbox">
                   <input type="checkbox" name="terms" v-model="terms" v-validate="'required'" data-vv-as="Syarat dan Ketentuan">
-                  Saya setuju dengan <a href="javascript:void(0)"><span style="color: #00d1b2;">Syarat & ketentuan</span></a>
+                  Saya setuju dengan <a href="/syarat-ketentuan" target="_blank">
+                    <span style="color: #00d1b2;">Syarat & ketentuan</span>
+                  </a>
                 </label>
               </div>
               <span class="help is-danger" v-show="errors.has('terms')">{{ errors.first('terms') }}</span>
@@ -100,4 +102,5 @@
       </div><!-- card bg-yellow -->
     </div><!-- column -->
   </div><!-- columns -->
+  <!-- <terms :termsShow="termsShow" @onClose="termsShow = false"></terms> -->
 </div>

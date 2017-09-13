@@ -1,4 +1,7 @@
 <div id="dream_list">
+  <section class="section" style="margin-top: -50px;">
+    <dream-search></dream-search>
+  </section>
   <div class="box">
     <div class="columns is-multiline">
       <div class="column is-one-third" v-for="dream in dreams">
@@ -90,5 +93,4 @@
       </div>
     </div>
   </div>
-  <b-loading :active.sync="isLoading"></b-loading>
 </div>

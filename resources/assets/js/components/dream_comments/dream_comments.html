@@ -1,0 +1,32 @@
+<div id="dream_comments">
+  <!-- Dream  -->
+  <!-- <div class="animated fadeIn m-b-20" v-if="isAuth && authDream.user_id == authUser.id">
+    <p class="title is-4 is-spaced">{{authDream.dream}}</p>
+    <p class="subtitle is-6" v-html="authDream.description"></p>
+    <span>is Auth</span>
+  </div> -->
+  <!-- <div class="animated fadeIn m-b-20" v-else>
+    <p class="title is-4 is-spaced">{{dream.dream}}</p>
+    <p class="subtitle is-6" v-html="dream.description"></p>
+  </div> -->
+
+  <!--  Parrent Comment input -->
+  <div class="parent-input-wrapper" v-if="isAuth">
+    <div class="field">
+      <div class="control">
+        <textarea class="textarea" rows="2" name="body" v-model="body" placeholder="Tanggapan..."></textarea>
+      </div>
+    </div>
+    <div class="field is-grouped is-grouped-right">
+      <p class="control">
+        <button class="button is-primary is-small" @click="send_comment" :disabled="disabled">
+          <span class="icon is-small"><i class="fa fa-paper-plane"></i></span>
+          <span>Kirim</span>
+        </button>
+      </p>
+    </div>
+  </div>
+
+  <!--  Parent Comment List -->
+  <parent-comments :dream="dream"></parent-comments>
+</div>

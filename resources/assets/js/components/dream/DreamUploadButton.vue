@@ -41,7 +41,6 @@ export default {
     }
   },
   mounted (){
-
     window.eventBus.$on('after-upload', this.afterUpload);
   },
   methods: {
@@ -50,7 +49,6 @@ export default {
     },
     afterUpload(image){
       this.$store.commit('dream_photo_mutation', image);
-      this.throw_noty('success', 'Photo mimpimu akan segera di upload');
     }
   },
   mixins: [authUserData, catchJsonErrors]

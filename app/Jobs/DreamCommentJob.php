@@ -26,16 +26,14 @@ class DreamCommentJob implements ShouldQueue
     public $users;
     public $commentOwner;
     public $dreamOwner;
-    public $index;
 
-    public function __construct(DreamComment $comment, $index)
+    public function __construct(DreamComment $comment)
     {
         $this->comment = $comment;
         $this->parent_id = $comment->parent_id;
         $this->users = [];
         $this->commentOwner = $comment->owner;
         $this->dreamOwner = $comment->dream->user;
-        $this->index = $index;
     }
 
     public function handle()
@@ -78,7 +76,7 @@ class DreamCommentJob implements ShouldQueue
         | To Broadcast
         |--------------------------------------------------------------------------
         */
-        event(new NewCommentEvent($this->comment, $this->index));
+        event(new NewCommentEvent($this->comment));
     }
 
     private function getUsers()

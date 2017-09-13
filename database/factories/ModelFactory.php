@@ -96,3 +96,10 @@ $factory->define(App\Models\Contact::class, function (Faker\Generator $faker) {
       'message' => $faker->paragraph
     ];
 });
+
+$factory->define(App\Models\Notification::class, function (Faker\Generator $faker) {
+    $word = ['msg' => $faker->sentence];
+    return [
+      'data' => json_encode($word)
+    ];
+});

@@ -21,7 +21,7 @@
       </tr>
     </table>
     <p>
-      Mohon verifikasi jika barang sudah diterima. Untuk memverifikasi barang sudah diterima silahkan klik tombol dibawah ini
+      Mohon verifikasi jika barang sudah diterima. Untuk memferifikasi barang sudah diterima silahkan klik tombol dibawah ini
     </p>
     <p class="has-text-centered">
       <a href="{{route('order.complete', ['email'=>$order->email, 'code'=>$order->code])}}" class="button is-primary">Barang sudah diterima</a>

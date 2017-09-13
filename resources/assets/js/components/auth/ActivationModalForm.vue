@@ -21,7 +21,7 @@
               </label>
             </div>
           </div>
-          <button class="button" @click="next_process">Tutup</button>
+          <button class="button is-warning" @click="next_process">Tutup</button>
         </footer>
       </div>
     </div>
@@ -46,7 +46,7 @@ export default {
 </script>
 
 <style scoped>
-.modal-card-foot {
-  justify-content: space-between;
+.delete:hover {
+  background-color: #ffcc2a;
 }
 </style>

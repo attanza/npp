@@ -1,0 +1,17 @@
+<div id="parent_comments">
+  <div class="m-b-20">
+    <simple-paginator :pagination="pagination" :loader="loader" @changePage="changePage"
+    @onRefresh="onRefresh"></simple-paginator>
+  </div>
+  <div v-for="comment in parentComments" class="m-b-10">
+    <comment :avatarSize="'is-48x48'" :comment="comment"
+    :dream_id="dream_id" @onUpdate="onUpdate" :el="'parent'">
+      <img slot="avatar" :src="comment.avatar">
+      <strong slot="userName">{{comment.name}}</strong>
+      <p slot="body" v-html="comment.body"></p>
+      <p slot="created" class="is-size-7">{{comment.created_at | moment("from", "now") }}</p>
+      <child-comments slot="childComments" :parent="comment" :dream_id="dream_id" v-if="comment.replies.length > 0"></child-comments>
+    </comment>
+    <reply-child-input :comment_id="comment.id" :dream_id="dream_id" :el_id="'reply_parent_'+comment.id"></reply-child-input>
+  </div>
+</div>

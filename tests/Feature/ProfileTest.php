@@ -31,15 +31,11 @@ class ProfileTest extends TestCase
      */
     public function test_user_can_access_own_profile()
     {
-        $user = factory(User::class)->create([
-          'is_active' => 1
-        ]);
-        $profile = factory(Profile::class)->create([
-          'user_id' => $user->id,
-        ]);
+        $user = User::find(1);
+        $url = 'profile/'.$user->username;
         $this->actingAs($user)
-        ->get('/profile/'.$user->username)
-        ->assertSessionHas('success', 'Hallo '.$user->first_name);
+          ->get($url)
+          ->assertStatus(200);
     }
 
     /**

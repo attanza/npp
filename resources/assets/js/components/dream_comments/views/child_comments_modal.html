@@ -1,0 +1,46 @@
+<div id="child_comments_all">
+  <div class="modal" :class="{'is-active' : showModal}">
+    <div class="modal-background" @click="closeModal"></div>
+    <div class="modal-card">
+      <section class="modal-card-body">
+        <article class="media" v-if="parent">
+          <figure class="media-left">
+            <p class="image is-48x48">
+              <img :src="parent.avatar">
+            </p>
+          </figure>
+          <div class="media-content">
+            <div class="content">
+              <p>
+                <strong>{{parent.name}}</strong>
+                <br>
+                <span v-html="parent.body"></span>
+              </p>
+            </div>
+          </div>
+          <div class="media-right">
+            <a @click="closeModal">
+              <span class="icon">
+                <i class="fa fa-times-circle-o"></i>
+              </span>
+            </a>
+          </div>
+        </article>
+        <simple-paginator :pagination="pagination" :loader="loader" @changePage="changePage"
+        @onRefresh="onRefresh"></simple-paginator>
+        <div v-for="comment in comments" class="m-b-10">
+          <comment :avatarSize="'is-32x32'" :comment="comment" :el="'modal'"
+          :dream_id="dream_id" @onUpdate="onUpdate">
+            <img slot="avatar" :src="comment.avatar">
+            <strong slot="userName">{{comment.name}}</strong>
+            <p slot="body" v-html="comment.body"></p>
+            <p slot="created" class="is-size-7">{{comment.created_at | moment("from", "now") }}</p>
+          </comment>
+        </div>
+        <div class="reply-child">
+          <reply-child-input :comment_id="parent.id" :dream_id="dream_id" v-if="parent" :el_id="'reply_modal_'+parent.id"></reply-child-input>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>

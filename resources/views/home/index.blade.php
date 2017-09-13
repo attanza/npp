@@ -3,7 +3,7 @@
 <div class="body-bg-black">
   <div class="body-bg-home-image">
     <section class="section">
-      <div class="columns is-centered ">
+      <div class="columns is-centered animated fadeInDown">
         <div class="column is-one-third is-narrow">
           <center>
             <img src="{{asset('images/resource/npp_logo_small_wide.png')}}" alt="Npp Logo Small Wide" width="60%">
@@ -17,18 +17,18 @@
       </div>
     </section>
   </div>
-  <section class="section">
-    <div class="container bg-white">
-      <div class="columns">
+  <section class="section" style="z-index: 10;">
+    <div class="container bg-white p-b-30" style="border-radius: 3px;">
+      <div class="columns animated fadeIn">
         <div class="column">
-          <figure>
+          <figure class="m-t-50">
             <center>
               <img src="{{asset('images/resource/apamimpimu.png')}}" alt="Apa Mimpimu" width="70%">
             </center>
           </figure>
         </div>
         <div class="column">
-          <div class="panel" style="padding: 15px">
+          <div class="panel m-t-20" style="padding: 15px">
             <div class="has-text-centered">
               <p class="title is-4">SATU PERTANYAAN SEDERHANA</p>
               <p class="subtitle is-6">namun sulit untuk dijawab <br> karena setiap orang pasti memiliki <br> begitu banyak mimpi yang ingin diwujudkan</p>
@@ -41,7 +41,7 @@
           </div>
         </div>
       </div>
-      <div class="columns" style="padding: 0 20px;">
+      <div class="columns animated fadeIn" style="padding: 0 20px;">
         <div class="column">
           <div class="has-text-centered is-size-4 is-size-6-mobile is-size-5-tablet">
             <p>
@@ -60,7 +60,7 @@
       </div>
 
 
-      <div class="npp-video">
+      {{-- <div class="npp-video">
         <div class="columns">
           <div class="column">
             <div class="embed-responsive embed-responsive-16by9">
@@ -85,7 +85,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> --}}
 
 
     </div>

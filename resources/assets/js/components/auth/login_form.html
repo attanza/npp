@@ -1,6 +1,7 @@
 <div id="login">
   <div class="columns is-hidden-mobile is-multiline">
-    <div class="column is-5">
+    <!--  Email -->
+    <div class="column is-6">
       <div class="field">
         <p class="control has-icons-left">
           <input name="email" id="email"  v-model="email" v-validate="'required|email'" :class="{'input': true, 'is-danger': errors.has('email') }" data-vv-as="Alamat Email" type="text" placeholder="alamat email">
@@ -10,7 +11,8 @@
         </p>
       </div>
     </div>
-    <div class="column is-5">
+    <!--  Password -->
+    <div class="column is-6">
       <div class="field has-addons" v-show="!pasReveal">
         <p class="control has-icons-left">
           <input class="input" type="password" placeholder="password" name="password" id="password" v-model="password"   v-validate="'required'":class="{'input': true, 'is-danger': errors.has('password') }" data-vv-as="Password" >
@@ -21,7 +23,7 @@
         <div class="control">
           <a class="button is-primary" @click="pasReveal = true">
             <span class="icon is-small is-left">
-              <i class="fa fa-eye"></i>
+              <i class="fa fa-eye-slash"></i>
             </span>
           </a>
         </div>
@@ -36,32 +38,36 @@
         <div class="control">
           <a class="button is-primary" @click="pasReveal = false">
             <span class="icon is-small is-left">
-              <i class="fa fa-eye-slash"></i>
+              <i class="fa fa-eye"></i>
             </span>
           </a>
         </div>
       </div>
     </div>
-    <div class="column is-2">
-      <button class="button is-warning is-fullwidth" v-bind:class="button_processing" @click="validateBeforeSubmit()">
+    <!--  Remeber -->
+    <div class="column is-6"  style="margin-top: -20px;">
+      <div class="field">
+        <div class="control">
+          <label class="checkbox">
+            <input type="checkbox" v-model="remember" name="remember">
+            Ingat saya
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="column is-6" style="margin-top: -20px;">
+      <a href="javascript:void(0)" @click="forgotPassword"><span style="color: 00d1b2">Lupa password ?</span></a>
+    </div>
+
+    <div class="column is-12">
+      <button class="button is-warning is-outlined is-fullwidth" v-bind:class="button_processing" @click="validateBeforeSubmit()">
         <span class="icon">
           <i class="fa fa-sign-in"></i>
         </span>
+        <span>Login</span>
       </button>
     </div>
-    <div class="column is-one-third">
-      <div class="field">
-        <b-checkbox v-model="remember" name="remember">
-          <span style="color: #00d1b2;">Ingat saya</span>
-        </b-checkbox>
-      </div>
-    </div>
-    <div class="column is-one-third">
-      <a href="javascript:void(0)" @click="forgotPassword"><span style="color: 00d1b2">Lupa password ?</span></a>
-    </div>
-    <b-modal :active.sync="showModal" has-modal-card>
-        <modal-form></modal-form>
-    </b-modal>
+
   </div>
   <div class="columns is-hidden-desktop is-hidden-tablet">
     <div class="column">
@@ -75,7 +81,6 @@
       </div>
     </div>
     <div class="column">
-
       <div class="field has-addons" v-show="!pasReveal">
         <p class="control is-expanded">
           <input class="input" type="password" placeholder="password" name="password" id="password" v-model="password"   v-validate="'required'":class="{'input': true, 'is-danger': errors.has('password') }" data-vv-as="Password" >
@@ -107,9 +112,12 @@
     <div class="columns is-mobile is-centered">
       <div class="column">
         <div class="field">
-          <b-checkbox v-model="remember" name="remember">
-            <span style="color: #00d1b2;">Ingat saya</span>
-          </b-checkbox>
+          <div class="control m-l-10">
+            <label class="checkbox">
+              <input type="checkbox" v-model="remember" name="remember">
+              <span style="color: #00d1b2;">Ingat saya</span>
+            </label>
+          </div>
         </div>
       </div>
       <div class="column">
@@ -117,15 +125,13 @@
       </div>
     </div>
     <div class="column">
-      <button class="button is-warning is-fullwidth" v-bind:class="button_processing" @click="validateBeforeSubmit()">
+      <button class="button is-warning is-outlined is-fullwidth" v-bind:class="button_processing" @click="validateBeforeSubmit()">
         <span class="icon">
           <i class="fa fa-sign-in"></i>
         </span>
         <span>Login</span>
       </button>
-      <hr>
     </div>
   </div>
   <modal-form :showModal="showModal" @onClose="showModal = false" @confirm_activation="confirm_activation"></modal-form>
-
 </div>

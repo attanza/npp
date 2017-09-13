@@ -59,6 +59,8 @@ export default {
   }),
   created() {
     window.eventBus.$on('show-form', this.showForm);
+
+
   },
   watch: {
     authDream(){
@@ -126,5 +128,8 @@ export default {
 .card-image {
   background-color: #000;
   height: auto;
+}
+.modal{
+  z-index: 999;
 }
 </style>

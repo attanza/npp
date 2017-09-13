@@ -6414,15 +6414,15 @@ a.navbar-item.is-active,
 
 .navbar-item.is-tab:hover {
   background-color: transparent;
-  border-bottom-color: #00d1b2;
+  border-bottom-color: #ffcc2a;
 }
 
 .navbar-item.is-tab.is-active {
   background-color: transparent;
-  border-bottom-color: #00d1b2;
+  border-bottom-color: #ffcc2a;
   border-bottom-style: solid;
   border-bottom-width: 3px;
-  color: #00d1b2;
+  color: #ffcc2a;
   padding-bottom: calc(0.5rem - 3px);
 }
 
@@ -14030,6 +14030,36 @@ a.navbar-item.is-active,
   color: #ffcc2a;
 }
 
+.modal-card-head {
+  background-color: #000;
+}
+
+.modal-card-title {
+  color: #ffcc2a;
+}
+
+.modal-card-foot {
+  background-color: #000;
+  color: #ffcc2a;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.tabs:not(:last-child) {
+  margin-bottom: 0rem;
+}
+
+.tag {
+  padding: 5px;
+}
+
+.noty_theme__metroui.noty_bar .noty_body {
+  padding: 1em;
+  font-size: 14px;
+  text-align: center;
+}
+
 .m-t-5 {
   margin-top: 5px !important;
 }
@@ -14419,10 +14449,36 @@ a.navbar-item.is-active,
   margin: 0px;
   padding: 0px;
   min-height: 90vh;
+  border-radius: 3px;
 }
 
 .npp-tr {
   background-color: #000;
   color: #fff;
+}
+
+.footer {
+  background-color: #ffcc2a;
+  padding: 3rem 1.5rem 6rem;
+}
+
+.footer a {
+  color: #000;
+}
+
+.list-inline {
+  padding-left: 0;
+  margin-left: -5px;
+  list-style: none;
+}
+
+.list-inline.small {
+  font-size: 12px;
+}
+
+.list-inline > li {
+  display: inline-block;
+  padding-right: 5px;
+  padding-left: 5px;
 }
 

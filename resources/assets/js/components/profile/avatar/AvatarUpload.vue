@@ -27,7 +27,7 @@
         </section>
       </div>
     </div>
-    <b-loading :active.sync="isLoading"></b-loading>
+    <!-- <b-loading :active.sync="isLoading"></b-loading> -->
   </div>
 </template>
 <script>
@@ -48,7 +48,6 @@ export default {
   name: "upload_avatar",
   data: () => ({
     showUploader: false,
-    isLoading: false,
     image: null,
     cropper: null,
     upload: false,
@@ -117,7 +116,6 @@ export default {
       this.isLoading = true;
       axios.post(this.uploadURL, {file: this.cropper.getCroppedCanvas().toDataURL()})
       window.eventBus.$emit('after-upload', this.cropper.getCroppedCanvas().toDataURL())
-      this.isLoading = false;
       this.showUploader = false;
       this.upload = false;
 		},

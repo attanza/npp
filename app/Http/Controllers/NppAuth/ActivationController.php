@@ -59,6 +59,7 @@ class ActivationController extends Controller
               'msg' => 'User tidak ditemukan '
             ], 422);
         }
+        
         // Send Activation Mail
         Mail::to($user)->send(new ActivationCodeMail($user));
         return response()->json([

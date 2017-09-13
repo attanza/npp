@@ -19,6 +19,13 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::post('/dream/{id}/upload', 'DreamController@uploadDreamPhoto');
     // Comments
     Route::post('comment', 'DreamCommentController@store');
+    Route::post('parent-comments', 'ParentCommentController@saveComment');
+    Route::put('parent-comments/{id}', 'ParentCommentController@updateComment');
+
+    Route::post('child-comments', 'ChildCommentController@saveComment');
+    Route::delete('comment/{id}', 'ParentCommentController@destroy');
+
+
     // orders
     Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function(){
       Route::group(['prefix' => 'orders'], function(){
@@ -27,8 +34,9 @@ Route::group(['middleware' => 'auth:api'], function(){
     });
     // Boost
     Route::get('boost/{id}', 'BoostController@giveBoost');
-    // Notifiction
-    Route::get('notification/{id}', 'NotificationController@getRead');
+    // Notification
+    Route::put('notification/{id}', 'NotificationController@getRead');
     Route::post('notification/listing', 'NotificationController@listing');
+
 
 });

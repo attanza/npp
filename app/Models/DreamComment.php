@@ -9,7 +9,7 @@ class DreamComment extends Model
 {
     protected $fillable = ['user_id', 'dream_id', 'parent_id', 'body'];
 
-    public $with = ['owner', 'allRepliesWithOwner'];
+    public $with = ['owner'];
 
     public function replies()
     {

@@ -1,28 +1,50 @@
-<template>
-  <div id="dream_comments">
-    <div class="box">
-      <p class="title is-3">{{dream.dream}}</p>
-      <p class="subtitle is-5">{{dream.description}}</p>
-    </div>
-    <comment-input :dream_id="dream.id" :size="'is-48x48'"></comment-input>
-    <div class="comments-wrapper m-t-10">
-      <comment-list :dream_id="dream.id"></comment-list>
-    </div>
-  </div>
-</template>
+<template src="./dream_comments.html"></template>
 <script>
-import CommentInput from './CommentInput'
-import CommentList from './CommentList'
-
+import ParentComments from './ParentComments';
+import authUserData from '../../mixins/authUserData';
+import catchJsonErrors from '../../mixins/catchJsonErrors';
 export default {
   name: "dream_comments",
   components: {
-    CommentInput, CommentList
+    ParentComments
   },
   data: () => ({
-
+    body: '',
+    disabled: true,
   }),
   props: ['dream'],
+  watch: {
+    body(){
+      if (this.body.length > 1) {
+        this.disabled = false;
+      }
+    }
+  },
+  mounted(){
+    window.eventBus.$on('deleteComment', this.deleteComment);
+  },
+  methods: {
+    send_comment() {
+      axios.post('/api/parent-comments', this.get_data()).then((resp)=>{
+        window.eventBus.$emit('onNewComment', resp.data.comment)
+        this.body = '';
+        this.disabled = true;
+      }).catch(error => {
+        if (error.response) {
+          this.catchError(error.response);
+        }
+      });
+    },
+    get_data(){
+      return {
+        user_id: this.authUser.id,
+        dream_id: this.dream.id,
+        parent_id: 0,
+        body: this.body
+      }
+    },
+  },
+  mixins: [authUserData, catchJsonErrors]
 }
 </script>
 <style lang="scss" scoped>

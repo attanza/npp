@@ -10,20 +10,21 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use App\Models\DreamComment;
+use App\Traits\CommentTrait;
 
 class NewCommentEvent implements ShouldBroadcast
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use Dispatchable, InteractsWithSockets, SerializesModels, CommentTrait;
 
     public $comment;
-    public $index;
     private $slug;
+    public $owner_id;
 
-    public function __construct(DreamComment $comment, $index)
+    public function __construct(DreamComment $comment)
     {
-        $this->comment = $comment;
-        $this->index = $index;
+        $this->comment = $this->getArrayData($comment);
         $this->slug = $comment->dream->slug;
+        $this->owner_id = $comment->owner->id;
     }
 
     public function broadcastOn()
