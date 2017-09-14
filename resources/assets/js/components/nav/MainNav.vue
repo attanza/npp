@@ -15,8 +15,6 @@ export default {
       profile: baseUrl+'/profile/',
       showDream: baseUrl+'/dream/',
       logout: baseUrl+'/logout',
-
-
     },
     location: '',
   }),

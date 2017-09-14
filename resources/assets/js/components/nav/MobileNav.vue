@@ -28,6 +28,15 @@
             </span>
           </a>
         </li>
+
+        <li v-if="!isAuth">
+          <a :href="loginLink">
+            <span class="icon">
+              <i class="fa fa-sign-in"></i>
+            </span>
+          </a>
+        </li>
+
       </ul>
     </div>
     <main-menu-nav :showMainMenu="showMainMenu" @onClose="onClose"></main-menu-nav>
@@ -51,6 +60,7 @@ export default {
     showMainMenu: false,
     showProfileMenu: false,
     showUnreadMenu: false,
+    loginLink: baseUrl+'/login'
   }),
   methods: {
     onClose() {

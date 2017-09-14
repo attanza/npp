@@ -8,7 +8,7 @@
         {{authUnreads.length}}
       </span>
     </div>
-    <div class="navbar-dropdown is-right">
+    <div class="navbar-dropdown is-right" v-if="authUnreads.length > 0">
       <div v-for="not in authUnreads">
         <a @click="setRead(not.id, not.url)" class="navbar-item">
           <div class="media">

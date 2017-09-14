@@ -18,7 +18,7 @@ class AdminMiddleware
     {
         if (Auth::check()) {
             $role = Auth::user()->getRole();
-            if ($role == 'admin' || $role == 'cs') {
+            if ($role == 'administrator' || $role == 'costumer-service') {
                 return $next($request);
             } else {
                 return redirect('/')->withError('Akses tidak diizinkan');

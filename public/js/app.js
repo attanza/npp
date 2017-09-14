@@ -3128,18 +3128,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     form_counter: function form_counter(num) {
       if (num < 10) {
-        return '0000000' + num;
-      } else if (num < 100) {
         return '000000' + num;
-      } else if (num < 1000) {
+      } else if (num < 100) {
         return '00000' + num;
-      } else if (num < 10000) {
+      } else if (num < 1000) {
         return '0000' + num;
-      } else if (num < 100000) {
+      } else if (num < 10000) {
         return '000' + num;
-      } else if (num < 1000000) {
+      } else if (num < 100000) {
         return '00' + num;
-      } else if (num < 10000000) {
+      } else if (num < 1000000) {
         return '0' + num;
       } else {
         return num;
@@ -4792,6 +4790,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4807,7 +4814,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     return {
       showMainMenu: false,
       showProfileMenu: false,
-      showUnreadMenu: false
+      showUnreadMenu: false,
+      loginLink: baseUrl + '/login'
     };
   },
   methods: {
@@ -72829,7 +72837,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.showProfileMenu = true
       }
     }
-  }, [_vm._m(1)])]) : _vm._e()])]), _vm._v(" "), _c('main-menu-nav', {
+  }, [_vm._m(1)])]) : _vm._e(), _vm._v(" "), (!_vm.isAuth) ? _c('li', [_c('a', {
+    attrs: {
+      "href": _vm.loginLink
+    }
+  }, [_vm._m(2)])]) : _vm._e()])]), _vm._v(" "), _c('main-menu-nav', {
     attrs: {
       "showMainMenu": _vm.showMainMenu
     },
@@ -72862,6 +72874,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "icon"
   }, [_c('i', {
     staticClass: "fa fa-user"
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', {
+    staticClass: "icon"
+  }, [_c('i', {
+    staticClass: "fa fa-sign-in"
   })])
 }]}
 module.exports.render._withStripped = true
@@ -72907,7 +72925,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "navbar-link"
   }, [_vm._m(0), _vm._v(" "), _c('span', {
     staticClass: "tag is-warning is-rounded m-b-20"
-  }, [_vm._v("\n      " + _vm._s(_vm.authUnreads.length) + "\n    ")])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n      " + _vm._s(_vm.authUnreads.length) + "\n    ")])]), _vm._v(" "), (_vm.authUnreads.length > 0) ? _c('div', {
     staticClass: "navbar-dropdown is-right"
   }, [_vm._l((_vm.authUnreads), function(not) {
     return _c('div', [_c('a', {
@@ -72940,7 +72958,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('span', {
     staticClass: "has-text-centered"
-  }, [_vm._v("Lihat semua")])])], 2)])
+  }, [_vm._v("Lihat semua")])])], 2) : _vm._e()])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('span', {
     staticClass: "icon"
