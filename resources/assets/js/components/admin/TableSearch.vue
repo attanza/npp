@@ -16,6 +16,13 @@
             </div>
           </div>
         </div>
+        <div class="level-item">
+          <button class="button is-primary" @click="onAdd">
+            <span class="icon">
+              <i class="fa fa-plus"></i>
+            </span>
+          </button>
+        </div>
       </div>
       <div class="level-right">
         <div class="level-item">
@@ -47,6 +54,9 @@ export default {
         query: this.query
       }
       this.$emit('paginateChange', data)
+    },
+    onAdd(){
+      this.$emit('onAdd');
     }
   }
 }

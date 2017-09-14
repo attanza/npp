@@ -94,7 +94,7 @@ class DreamController extends Controller
     public function dreamCount(Request $request)
     {
         if ($request->ajax()) {
-            $dreams = Dream::all()->count();
+            $dreams = Dream::where('dream', '<>', '')->count();
             return response()->json([
               'dream_count' => $dreams
             ], 200);

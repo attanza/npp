@@ -65,6 +65,9 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin', 'namespace' => 'Admi
     Route::get('/{order_no}', 'OrderController@show')->name('orders.show');
     Route::put('/{order_no}', 'OrderController@update')->name('orders.update');
   });
+  Route::group(['prefix' => 'products'], function(){
+    Route::get('/', 'ProductController@index')->name('products.index');
+  });
 });
 
 // Dream Comments

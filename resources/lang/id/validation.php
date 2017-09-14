@@ -129,6 +129,7 @@ return [
         'old_password' => 'Password lama',
         'password_confirmation' => 'Konfirmasi Password',
         'address' => 'Alamat',
+        'code' => 'Kode'
     ],
 
 ];

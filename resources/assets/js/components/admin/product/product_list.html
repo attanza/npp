@@ -1,0 +1,37 @@
+<div id="product_list">
+  <nav class="breadcrumb" aria-label="breadcrumbs">
+    <ul>
+      <li><a href="/admin/dashboard">Dashboard</a></li>
+      <li class="is-active"><a aria-current="page">Product List</a></li>
+    </ul>
+  </nav>
+  <table-search :pagination="pagination" @paginateChange="paginateChange" @onAdd="onAdd"></table-search>
+  <table class="table is-bproducted is-striped is-narrow is-fullwidth sortable">
+    <thead>
+      <tr>
+        <th>Kode</th>
+        <th>Nama</th>
+        <th>Stock</th>
+        <th>Deskripsi</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="product in products">
+        <td>{{product.code}}</td>
+        <td>{{product.name}}</td>
+        <td>{{product.stock}}</td>
+        <td>{{product.description}}</td>
+        <td>
+          <button type="button" class="button is-primary is-small" @click="show_product(product.product_no)">
+            <span class="icon">
+              <i class="fa fa-eye"></i>
+            </span>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <paginator :pagination="pagination" :pagesNumber="pagesNumber" :isActived="isActived" @changePage="changePage"></paginator>
+  <product-add :showProductAdd="showProductAdd" @onClose="showProductAdd = false" @onSave="onSave"></product-add>
+</div>

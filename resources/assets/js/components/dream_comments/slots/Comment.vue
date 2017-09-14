@@ -1,11 +1,13 @@
 <template>
   <div :id="el+comment.id">
     <article class="media animated" :class="{'' : isDeleted}">
-      <figure class="media-left">
-        <p class="image" :class="avatarSize">
-          <slot name="avatar"></slot>
-        </p>
-      </figure>
+      <a :href="'/dream/'+comment.owner_dream_slug">
+        <figure class="media-left">
+          <p class="image" :class="avatarSize">
+            <slot name="avatar"></slot>
+          </p>
+        </figure>
+      </a>
       <div class="media-content">
         <div class="content">
           <slot name="userName"></slot>

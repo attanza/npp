@@ -128,7 +128,7 @@ class DreamCommentJob implements ShouldQueue
 
     private function sendMail($users, $comment, $subject)
     {
-        $when = Carbon::now()->addMinutes(5);
+        $when = Carbon::now()->addMinutes(1);
         Mail::to($users)->later($when, new DreamCommentMail($comment, $subject));
     }
 }

@@ -12,6 +12,14 @@
       </a>
     </li>
     <li>
+      <a @if (Request::is('admin/products*')) class="is-active" @endif href="{{route('products.index')}}">
+        <span class="icon">
+          <i class="fa fa-dropbox"></i>
+        </span>
+        Products
+      </a>
+    </li>
+    <li>
       <a @if (Request::is('admin/orders*')) class="is-active" @endif href="{{route('orders.index')}}">
         <span class="icon">
           <i class="fa fa-shopping-cart"></i>

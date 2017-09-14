@@ -49,10 +49,6 @@ Vue.component('dream-counter', require('./components/dream/DreamCounter.vue'));
 
 // comments
 Vue.component('dream-comments', require('./components/dream_comments/controllers/DreamComments.vue'));
-// Vue.component('child-comments-all', require('./components/dream_comments/ChildCommentsAll.vue'));
-
-// Confirm Dialog
-// Vue.component('confirm-modal', require('./components/ConfirmModal.vue'));
 
 // Orders
 Vue.component('order-form', require('./components/orders/OrderForm.vue'));

@@ -11,6 +11,9 @@
   <!--  Commet Input -->
   <br>
   <comment-input v-if="isAuth" @newText="saveComment"></comment-input>
+  <div class="notification is-primary animated rubberBand" v-if="!isAuth">
+    Untuk menulis komentar, mohon lakukan registrasi terlebih dahulu.
+  </div>
   <!--  Parent Comment -->
   <div class="parent-comments-wrapper m-t-10">
     <parent-comments :dream_id="dream.id"></parent-comments>

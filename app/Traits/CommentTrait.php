@@ -38,7 +38,8 @@ trait CommentTrait
           'created_at' => Carbon::parse($comment->created_at)->format('Y-m-d H:i:s'),
           'replies' => [],
           'parent_id' => $comment->parent_id,
-          'owner_id' => $comment->owner->id
+          'owner_id' => $comment->owner->id,
+          'owner_dream_slug' => $comment->owner->dream->slug
         ];
     }
 

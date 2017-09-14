@@ -96,9 +96,10 @@ export default {
       this.address = addressData;
     },
     setPlace(place){
+        let addr = place.address_components[0].long_name;
         this.lat = place.geometry.location.lat(),
         this.lng = place.geometry.location.lng()
-        this.location = place.formatted_address;
+        this.location = addr;
     },
     submit(){
       if (this.user_id != null) {

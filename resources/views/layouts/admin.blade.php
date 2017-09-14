@@ -14,6 +14,7 @@
 <body>
   <div id="app">
     @include('layouts.partials.mainNav')
+    <mobile-nav></mobile-nav>
     <section class="section" style="margin-top: -20px;">
       <div class="columns is-mobile">
         <div class="column is-one-quarter">

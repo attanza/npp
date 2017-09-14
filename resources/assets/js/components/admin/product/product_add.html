@@ -1,0 +1,52 @@
+<div id="product_add">
+  <div class="modal" :class="{'is-active' : showProductAdd}">
+    <div class="modal-background" @click="onClose"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Tambah Produk</p>
+        <button class="delete" aria-label="close" @click="onClose"></button>
+      </header>
+      <section class="modal-card-body">
+        <div class="field">
+          <label class="label">Kode</label>
+          <div class="control">
+            <input name="code" v-model="code" type="text" placeholder="Kode produk"  v-validate="'required|max:50'" data-vv-as="Kode produk" :class="{'input': true, 'is-danger': errors.has('code') }">
+            <span v-show="errors.has('code')" class="help is-danger">{{ errors.first('code') }}</span>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Nama</label>
+          <div class="control">
+            <input name="name" v-model="name" type="text" placeholder="Nama produk"  v-validate="'required|max:200'" data-vv-as="Nama produk" :class="{'input': true, 'is-danger': errors.has('name') }">
+            <span v-show="errors.has('name')" class="help is-danger">{{ errors.first('name') }}</span>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Stock</label>
+          <div class="control">
+            <input name="stock" v-model="stock" type="text" placeholder="Ketersediaan"  v-validate="'required|numeric'" data-vv-as="Stock" :class="{'input': true, 'is-danger': errors.has('stock') }">
+            <span v-show="errors.has('stock')" class="help is-danger">{{ errors.first('stock') }}</span>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Harga</label>
+          <div class="control">
+            <input name="price" v-model="price" type="text" placeholder="Harga"  v-validate="'required|numeric'" data-vv-as="Harga" :class="{'input': true, 'is-danger': errors.has('price') }">
+            <span v-show="errors.has('price')" class="help is-danger">{{ errors.first('price') }}</span>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Deskripsi</label>
+          <div class="control">
+            <input name="description" v-model="description" type="text" placeholder="Keterangan"  data-vv-as="Deskripsi" :class="{'input': true, 'is-danger': errors.has('description') }">
+            <span v-show="errors.has('description')" class="help is-danger">{{ errors.first('description') }}</span>
+          </div>
+        </div>
+      </section>
+      <footer class="modal-card-foot">
+        <a class="card-footer-item" @click="onClose">Batal</a>
+        <a class="card-footer-item" @click="validateBeforeSubmit()">Simpan</a>
+      </footer>
+    </div>
+  </div>
+</div>
