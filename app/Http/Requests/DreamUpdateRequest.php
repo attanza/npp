@@ -14,11 +14,7 @@ class DreamUpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        if ($this->id == Auth::id()) {
-            return true;
-        } else {
-            return false;
-        }
+        return true;
     }
 
     /**

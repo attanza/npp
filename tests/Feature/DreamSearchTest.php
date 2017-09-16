@@ -20,12 +20,15 @@ class DreamSearchTest extends TestCase
 {
     use DatabaseMigrations;
 
+    private $count;
+
     protected function setUp()
     {
         parent::setUp();
         Artisan::call('migrate');
         Artisan::call('db:seed');
         $this->seedDream();
+        $this->count = User::all()->count();
     }
 
     /**
@@ -33,7 +36,7 @@ class DreamSearchTest extends TestCase
      */
     public function test_search_by_first_name()
     {
-        for ($i=6; $i < 13; $i++) {
+        for ($i=5; $i <= $this->count; $i++) {
           $user = User::find($i);
           $postData = [
               'query' => $user->first_name
@@ -48,7 +51,7 @@ class DreamSearchTest extends TestCase
      */
     public function test_search_by_last_name()
     {
-        for ($i=6; $i < 13; $i++) {
+        for ($i=5; $i <= $this->count; $i++) {
           $user = User::find($i);
           $postData = [
               'query' => $user->last_name
@@ -63,7 +66,7 @@ class DreamSearchTest extends TestCase
      */
     public function test_search_by_email()
     {
-        for ($i=6; $i < 13; $i++) {
+        for ($i=5; $i <= $this->count; $i++) {
           $user = User::find($i);
           $postData = [
               'query' => $user->email
@@ -78,7 +81,7 @@ class DreamSearchTest extends TestCase
      */
     public function test_search_by_dream()
     {
-        for ($i=6; $i < 13; $i++) {
+        for ($i=5; $i <= $this->count; $i++) {
           $user = User::find($i);
           $postData = [
               'query' => $user->dream->dream
@@ -93,7 +96,7 @@ class DreamSearchTest extends TestCase
      */
     public function test_search_by_keyword()
     {
-        for ($i=6; $i < 13; $i++) {
+        for ($i=5; $i <= $this->count; $i++) {
           $user = User::find($i);
           $postData = [
               'query' => $user->dream->keyword
@@ -105,7 +108,7 @@ class DreamSearchTest extends TestCase
 
     private function seedDream()
     {
-        for ($i=1; $i < 6; $i++) {
+        for ($i=1; $i < 5; $i++) {
             $user = factory(User::class)->create([
               'is_active' => 1
             ]);

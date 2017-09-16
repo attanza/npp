@@ -1,6 +1,6 @@
 <div id="dream_comments">
   <!-- Dream  -->
-  <div class="animated fadeIn" v-if="isAuth && authDream.user_id == authUser.id">
+  <div class="animated fadeIn" v-if="isAuth && authDream.id == dream.id">
     <p class="title is-4 is-spaced">{{authDream.dream}}</p>
     <p class="subtitle is-6" v-html="authDream.description"></p>
   </div>

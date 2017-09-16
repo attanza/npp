@@ -15,7 +15,7 @@ Route::group(['middleware' => 'auth:api'], function(){
     // Password Utility
     Route::post('/reset-password/{id}', 'PasswordUtilityController@resetPassword');
     // Dream
-    Route::post('/dream/{id}', 'DreamController@storeDream');
+    Route::post('/dream/{userId}', 'DreamController@storeDream');
     Route::post('/dream/{id}/upload', 'DreamController@uploadDreamPhoto');
     // Comments
     Route::post('comment', 'DreamCommentController@store');

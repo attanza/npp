@@ -80,11 +80,16 @@ class ActivationTest extends TestCase
 
         $postData = [
           'email' => 'test@test.com',
-          'password' => 'password'
+          'password' => 'password',
+          '_token' => csrf_token()
         ];
+        $this->withoutMiddleware()
+            ->json('POST', '/npp-activation/resend', $postData)
+            ->assertStatus(200)
+            ->assertJson([
+                'msg' => 'Email akan dikirmkan dalam beberapa saat'
+            ]);
 
-        $this->json('post', '/npp-activation/resend', $postData)
-            ->assertStatus(200);
         // Perform ActivationCodeMail
         Mail::assertSent(ActivationCodeMail::class, function ($mail) use ($user) {
             return $mail->user->id === $user->id;

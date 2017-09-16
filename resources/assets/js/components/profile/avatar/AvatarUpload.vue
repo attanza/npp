@@ -18,7 +18,8 @@
                 <span v-show="errors.has('imageFile')" class="help is-danger">{{ errors.first('imageFile') }}</span>
               </p>
               <p class="control" v-else>
-                <button type="button" class="button is-primary" id="uploadFileCall" v-on:click="uploadFile">
+                <button type="button" class="button is-primary" :class="{'is-loadig':loading}"
+                id="uploadFileCall" v-on:click="uploadFile">
                   <span class="icon m-r-5"><i class="fa fa-upload"></i></span>Upload
                 </button>
               </p>
@@ -51,6 +52,7 @@ export default {
     image: null,
     cropper: null,
     upload: false,
+    loading:false,
   }),
   props: ['imageUrl', 'uploadURL'],
 
@@ -69,6 +71,7 @@ export default {
     this.$on('imgUploaded', function (imageData) {
       this.image = imageData
       this.cropper.replace(imageData)
+      this.loadig = false;
 		})
 
   },
@@ -79,6 +82,7 @@ export default {
     validateBeforeSubmit(e) {
 	    this.$validator.validateAll().then((result) => {
         if (result) {
+          this.loadig = true;
           this.onFileChange(e)
           return;
         }

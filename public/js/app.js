@@ -3476,15 +3476,14 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_3_vee_validate___default.a, {
       });
     },
     postDream: function postDream() {
-      var _this2 = this;
-
       axios.post('/api/dream/' + this.authUser.id, this.get_data()).then(function (resp) {
-        if (resp.status == 200) {
-          _this2.$store.commit('dream_mutation', resp.data.dream);
-          _this2.modalShow = false;
-          _this2.throw_noty('success', 'Mimpimu telah disimpan lanjutkan dengan mengupload gambar mimpimu');
-          window.eventBus.$emit('dream_created');
-        }
+        console.log(resp);
+        // if (resp.status == 200) {
+        //   this.$store.commit('dream_mutation', resp.data.dream);
+        //   this.modalShow = false;
+        //   this.throw_noty('success','Mimpimu telah disimpan lanjutkan dengan mengupload gambar mimpimu');
+        //   window.eventBus.$emit('dream_created');
+        // }
       });
     },
     get_data: function get_data() {
@@ -6280,6 +6279,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 // mixin
 
@@ -6301,7 +6301,8 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_3_vee_validate___default.a, {
       showUploader: false,
       image: null,
       cropper: null,
-      upload: false
+      upload: false,
+      loading: false
     };
   },
   props: ['imageUrl', 'uploadURL'],
@@ -6321,6 +6322,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_3_vee_validate___default.a, {
     this.$on('imgUploaded', function (imageData) {
       this.image = imageData;
       this.cropper.replace(imageData);
+      this.loadig = false;
     });
   },
 
@@ -6333,6 +6335,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_3_vee_validate___default.a, {
 
       this.$validator.validateAll().then(function (result) {
         if (result) {
+          _this.loadig = true;
           _this.onFileChange(e);
           return;
         }
@@ -70117,7 +70120,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": "dream_comments"
     }
-  }, [(_vm.isAuth && _vm.authDream.user_id == _vm.authUser.id) ? _c('div', {
+  }, [(_vm.isAuth && _vm.authDream.id == _vm.dream.id) ? _c('div', {
     staticClass: "animated fadeIn"
   }, [_c('p', {
     staticClass: "title is-4 is-spaced"
@@ -71662,6 +71665,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "control"
   }, [_c('button', {
     staticClass: "button is-primary",
+    class: {
+      'is-loadig': _vm.loading
+    },
     attrs: {
       "type": "button",
       "id": "uploadFileCall"

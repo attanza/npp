@@ -91,12 +91,13 @@ export default {
     },
     postDream(){
       axios.post('/api/dream/'+this.authUser.id, this.get_data()).then((resp) => {
-        if (resp.status == 200) {
-          this.$store.commit('dream_mutation', resp.data.dream);
-          this.modalShow = false;
-          this.throw_noty('success','Mimpimu telah disimpan lanjutkan dengan mengupload gambar mimpimu');
-          window.eventBus.$emit('dream_created');
-        }
+        console.log(resp);
+        // if (resp.status == 200) {
+        //   this.$store.commit('dream_mutation', resp.data.dream);
+        //   this.modalShow = false;
+        //   this.throw_noty('success','Mimpimu telah disimpan lanjutkan dengan mengupload gambar mimpimu');
+        //   window.eventBus.$emit('dream_created');
+        // }
       });
     },
     get_data(){

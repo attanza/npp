@@ -58,7 +58,7 @@ class DreamTest extends TestCase
 
         // Mail::to($user)->send(new CreateDreamMail($user));
         $this->actingAs($user, 'api')
-            ->json('post', '/api/dream/'.$user->dream->id, $postData)
+            ->json('post', '/api/dream/'.$user->id, $postData)
             ->assertStatus(200);
         // Perform Send Mail...
         Mail::assertSent(CreateDreamMail::class, function ($mail) use ($user) {
@@ -85,7 +85,7 @@ class DreamTest extends TestCase
           'description' => $faker->paragraph,
         ];
         $this->actingAs($user, 'api')
-            ->json('post', '/api/dream/'.$otherUser->dream->id, $postData)
+            ->json('post', '/api/dream/'.$otherUser->id, $postData)
             ->assertStatus(403);
     }
 

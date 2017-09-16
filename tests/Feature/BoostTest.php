@@ -51,10 +51,10 @@ class BoostTest extends TestCase
      */
     public function test_boost_list()
     {
-        $response = $this->get('/dream/'.$this->user2->dream->slug);
-        $response->assertStatus(200);
-        $response = $this->json('post', '/boost/'.$this->user2->dream->id.'/listing')
-            ->assertStatus(200);
+        $this->get('/dream/'.$this->user2->dream->slug)
+          ->assertStatus(200);
+        $this->json('post', '/boost/'.$this->user2->dream->id.'/listing')
+          ->assertStatus(200);
     }
 
     private function createUsers()

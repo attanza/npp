@@ -17,8 +17,8 @@
       </div>
     </section>
   </div>
-  <section class="section" style="z-index: 10;">
-    <div class="container bg-white p-b-30" style="border-radius: 3px;">
+  <section class="section">
+    <div class="box">
       <div class="columns animated fadeIn">
         <div class="column">
           <figure class="m-t-50">
@@ -59,35 +59,7 @@
         </div>
       </div>
 
-
-      {{-- <div class="npp-video">
-        <div class="columns">
-          <div class="column">
-            <div class="embed-responsive embed-responsive-16by9">
-              <iframe class="embed-responsive-item" src="//www.youtube.com/embed/qa90lAgfKxM"></iframe>
-            </div>
-          </div>
-        </div>
-        <div class="columns">
-          <div class="column">
-            <div class="embed-responsive embed-responsive-4by3">
-              <iframe class="embed-responsive-item" src="//www.youtube.com/embed/qa90lAgfKxM"></iframe>
-            </div>
-          </div>
-          <div class="column">
-            <div class="embed-responsive embed-responsive-4by3">
-              <iframe class="embed-responsive-item" src="//www.youtube.com/embed/qa90lAgfKxM"></iframe>
-            </div>
-          </div>
-          <div class="column">
-            <div class="embed-responsive embed-responsive-4by3">
-              <iframe class="embed-responsive-item" src="//www.youtube.com/embed/qa90lAgfKxM"></iframe>
-            </div>
-          </div>
-        </div>
-      </div> --}}
-
-
+      {{-- @include('slots.npp_video') --}}
     </div>
   </section>
 </div>

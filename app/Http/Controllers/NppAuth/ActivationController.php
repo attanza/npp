@@ -59,11 +59,25 @@ class ActivationController extends Controller
               'msg' => 'User tidak ditemukan '
             ], 422);
         }
-        
+
+        // chek Activation
+        $this->chekActivation($user);
+
         // Send Activation Mail
         Mail::to($user)->send(new ActivationCodeMail($user));
         return response()->json([
           'msg' => 'Email akan dikirmkan dalam beberapa saat'
         ], 200);
+    }
+
+    private function chekActivation($user)
+    {
+        $activation = Activation::where('user_id', $user->id)->first();
+        if (count($activation) == 0) {
+            Activation::create([
+              'user_id' => $user->id,
+              'code' => str_random(60)
+            ]);
+        }
     }
 }

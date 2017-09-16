@@ -15,17 +15,27 @@ use Carbon\Carbon;
 
 class DreamController extends Controller
 {
-    public function storeDream(DreamUpdateRequest $request, $id)
+    public function storeDream(DreamUpdateRequest $request, $userId)
     {
+        $dream = Dream::where('user_id', $userId)->first();
+        if (count($dream) == 0) {
+            return response()->json([
+                'msg' => 'Mimpi tidak ditemukan'
+            ], 422);
+        }
+        if (Auth::id() != $userId) {
+            return response()->json([
+                'msg' => 'Operasi tidak diizinkan'
+            ], 403);
+        }
         $dream_title = $request->dream;
-        $dream = Dream::where('user_id', $id)->first();
         $dream->dream = $dream_title;
         $dream->slug = str_slug(str_limit($dream_title, 50).'-'.Auth::user()->username);
         $dream->keyword = $request->keyword;
         $dream->description = clean($request->description);
         $dream->save();
 
-        $user = User::with('dream')->find($id);
+        $user = User::with('dream')->find($userId);
         // Send Email;
         $when = Carbon::now()->addMinutes(5);
         Mail::to($user)->queue(new CreateDreamMail($user));
