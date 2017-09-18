@@ -10,18 +10,18 @@
         </button>
       </p>
     </div>
-    <avatar-upload :imageUrl="image" :uploadURL="uploadURL"></avatar-upload>
+    <!-- <avatar-upload :imageUrl="image" :uploadURL="uploadURL"></avatar-upload> -->
   </div>
 </template>
 <script>
 import catchJsonErrors from '../../mixins/catchJsonErrors';
 import authUserData from '../../mixins/authUserData';
-import avatarUpload from '../profile/avatar/AvatarUpload';
+// import avatarUpload from '../profile/avatar/AvatarUpload';
 export default {
   name: "dream_upload_button",
-  components: {
-    avatarUpload
-  },
+  // components: {
+  //   avatarUpload
+  // },
   data: () => ({
     image: '',
     uploadURL: '',
@@ -45,7 +45,11 @@ export default {
   },
   methods: {
     showUploader(){
-      window.eventBus.$emit('showUploader');
+      let data = {
+        image: this.image,
+        uploadURL: this.uploadURL,
+      }
+      window.eventBus.$emit('showUploader', data);
     },
     afterUpload(image){
       this.$store.commit('dream_photo_mutation', image);

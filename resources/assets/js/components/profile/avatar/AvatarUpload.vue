@@ -18,7 +18,7 @@
                 <span v-show="errors.has('imageFile')" class="help is-danger">{{ errors.first('imageFile') }}</span>
               </p>
               <p class="control" v-else>
-                <button type="button" class="button is-primary" :class="{'is-loadig':loading}"
+                <button type="button" class="button is-primary" :class="{'is-loading':loading}"
                 id="uploadFileCall" v-on:click="uploadFile">
                   <span class="icon m-r-5"><i class="fa fa-upload"></i></span>Upload
                 </button>
@@ -28,7 +28,6 @@
         </section>
       </div>
     </div>
-    <!-- <b-loading :active.sync="isLoading"></b-loading> -->
   </div>
 </template>
 <script>
@@ -53,36 +52,33 @@ export default {
     cropper: null,
     upload: false,
     loading:false,
+    uploadURL: '',
   }),
-  props: ['imageUrl', 'uploadURL'],
-
-  watch: {
-    imageUrl(){
-      if (this.imageUrl != '') {
-        this.image = this.imageUrl;
-      }
-    }
-  },
+  // props: ['imageUrl', 'uploadURL'],
 
   mounted(){
-    this.image = this.imageUrl;
+    // this.image = this.imageUrl;
     window.eventBus.$on('showUploader', this.setUploader);
+    window.eventBus.$on('onBack', this.closeModal);
     this.setUpCropper();
     this.$on('imgUploaded', function (imageData) {
       this.image = imageData
       this.cropper.replace(imageData)
-      this.loadig = false;
+      this.loading = false;
 		})
-
   },
+
   methods: {
-    setUploader() {
+    setUploader: _.debounce(function(data){
+      this.image = data.imageUrl;
+      this.uploadURL = data.uploadURL;
       this.showUploader = true;
-    },
+    }, 200),
+
     validateBeforeSubmit(e) {
 	    this.$validator.validateAll().then((result) => {
         if (result) {
-          this.loadig = true;
+          this.loading = true;
           this.onFileChange(e)
           return;
         }
@@ -117,13 +113,16 @@ export default {
 			reader.readAsDataURL(file);
 		},
     uploadFile () {
-      this.isLoading = true;
       axios.post(this.uploadURL, {file: this.cropper.getCroppedCanvas().toDataURL()})
       window.eventBus.$emit('after-upload', this.cropper.getCroppedCanvas().toDataURL())
       this.showUploader = false;
       this.upload = false;
 		},
+    closeModal(){
+      this.showUploader = false;
+    }
   },
+
   mixins: [authUserData, catchJsonErrors]
 
 }

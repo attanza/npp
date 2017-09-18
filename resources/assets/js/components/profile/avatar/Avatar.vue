@@ -21,17 +21,18 @@
         </p>
       </footer>
     </div>
-    <avatar-upload :imageUrl="profile.photo_path" :uploadURL="uploadURL"></avatar-upload>
+    <!-- <avatar-upload :imageUrl="profile.photo_path" :uploadURL="uploadURL"></avatar-upload> -->
   </div>
 </template>
 <script>
 import authUserData from '../../../mixins/authUserData';
-import AvatarUpload from './AvatarUpload'
+import catchJsonErrors from '../../../mixins/catchJsonErrors';
+// import AvatarUpload from './AvatarUpload'
 export default {
   name: "avatar",
-  components: {
-    'avatar-upload': AvatarUpload
-  },
+  // components: {
+  //   'avatar-upload': AvatarUpload
+  // },
   props: ['profile'],
   data: () => ({
     uploadURL: '',
@@ -43,13 +44,19 @@ export default {
   },
   methods: {
     showUploader(){
-      window.eventBus.$emit('showUploader');
+      let data = {
+        imageUrl : this.profile.photo_path,
+        uploadURL : this.uploadURL
+      }
+      window.eventBus.$emit('showUploader', data);
+      this.popStateListener();
+
     },
     afterUpload(image){
       this.$store.commit('avatar_mutation', image);
     }
   },
-  mixins: [authUserData]
+  mixins: [authUserData, catchJsonErrors]
 
 }
 </script>

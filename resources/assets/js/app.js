@@ -33,6 +33,8 @@ Vue.component('user-init', require('./components/user/UserInit.vue'));
 // Profile
 Vue.component('profile-info', require('./components/profile/ProfileInfo.vue'));
 Vue.component('avatar', require('./components/profile/avatar/Avatar.vue'));
+Vue.component('avatar-upload', require('./components/profile/avatar/AvatarUpload.vue'));
+
 
 // nav
 Vue.component('avatar-nav', require('./components/profile/avatar/AvatarNav.vue'));
@@ -46,6 +48,7 @@ Vue.component('dream-list', require('./components/dream/DreamList.vue'));
 Vue.component('dream-photo', require('./components/dream/DreamPhoto.vue'));
 // Vue.component('dream-redirector', require('./components/dream/DreamRedirector.vue'));
 Vue.component('dream-counter', require('./components/dream/DreamCounter.vue'));
+Vue.component('dream-create-form', require('./components/dream/DreamCreateForm.vue'));
 
 // comments
 Vue.component('dream-comments', require('./components/dream_comments/controllers/DreamComments.vue'));

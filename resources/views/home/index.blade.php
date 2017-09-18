@@ -3,7 +3,7 @@
 <div class="body-bg-black">
   <div class="body-bg-home-image">
     <section class="section">
-      <div class="columns is-centered animated fadeInDown">
+      <div class="columns is-centered animated fadeIn">
         <div class="column is-one-third is-narrow">
           <center>
             <img src="{{asset('images/resource/npp_logo_small_wide.png')}}" alt="Npp Logo Small Wide" width="60%">

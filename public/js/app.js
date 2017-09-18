@@ -3332,8 +3332,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__DreamCreateForm__ = __webpack_require__("./resources/assets/js/components/dream/DreamCreateForm.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__DreamCreateForm___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__DreamCreateForm__);
 //
 //
 //
@@ -3348,14 +3346,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "dream_create_button",
-  components: {
-    DreamCreateForm: __WEBPACK_IMPORTED_MODULE_0__DreamCreateForm___default.a
-  },
   data: function data() {
     return {
       isOpen: false
@@ -3428,7 +3421,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-
 __WEBPACK_IMPORTED_MODULE_3_vee_validate__["Validator"].addLocale(__WEBPACK_IMPORTED_MODULE_2_vee_validate_dist_locale_id___default.a);
 Vue.use(__WEBPACK_IMPORTED_MODULE_3_vee_validate___default.a, {
   locale: 'id'
@@ -3442,20 +3434,18 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_3_vee_validate___default.a, {
       logo: '/images/resource/npp_logo.png'
     };
   },
-  created: function created() {
+  mounted: function mounted() {
     window.eventBus.$on('show-form', this.showForm);
+    window.eventBus.$on('onBack', this.closeModal);
   },
 
-  watch: {
-    authDream: function authDream() {
-      if (this.authDream) {
-        // this.fill_form();
-      }
-    }
-  },
   methods: {
     showForm: function showForm() {
       this.modalShow = true;
+      this.popStateListener();
+    },
+    closeModal: function closeModal() {
+      this.modalShow = false;
     },
     fill_form: function fill_form() {
       this.dream = this.authDream.dream;
@@ -3476,14 +3466,15 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_3_vee_validate___default.a, {
       });
     },
     postDream: function postDream() {
+      var _this2 = this;
+
       axios.post('/api/dream/' + this.authUser.id, this.get_data()).then(function (resp) {
-        console.log(resp);
-        // if (resp.status == 200) {
-        //   this.$store.commit('dream_mutation', resp.data.dream);
-        //   this.modalShow = false;
-        //   this.throw_noty('success','Mimpimu telah disimpan lanjutkan dengan mengupload gambar mimpimu');
-        //   window.eventBus.$emit('dream_created');
-        // }
+        if (resp.status == 200) {
+          _this2.$store.commit('dream_mutation', resp.data.dream);
+          _this2.modalShow = false;
+          _this2.throw_noty('success', 'Mimpimu telah disimpan lanjutkan dengan mengupload gambar mimpimu');
+          window.eventBus.$emit('dream_created');
+        }
       });
     },
     get_data: function get_data() {
@@ -3657,14 +3648,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BackTop___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__BackTop__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__DreamSearch__ = __webpack_require__("./resources/assets/js/components/dream/DreamSearch.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__DreamSearch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__DreamSearch__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__admin_Paginator__ = __webpack_require__("./resources/assets/js/components/admin/Paginator.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__admin_Paginator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__admin_Paginator__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_paginationData__ = __webpack_require__("./resources/assets/js/mixins/paginationData.js");
 //
+
+
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'DreamList',
   components: {
-    BackTop: __WEBPACK_IMPORTED_MODULE_0__BackTop___default.a, DreamSearch: __WEBPACK_IMPORTED_MODULE_1__DreamSearch___default.a
+    BackTop: __WEBPACK_IMPORTED_MODULE_0__BackTop___default.a, DreamSearch: __WEBPACK_IMPORTED_MODULE_1__DreamSearch___default.a, Paginator: __WEBPACK_IMPORTED_MODULE_2__admin_Paginator___default.a
   },
   data: function data() {
     return {
@@ -3681,37 +3677,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       isLoading: false
     };
   },
-
-
-  computed: {
-    isActived: function isActived() {
-      return this.pagination.current_page;
-    },
-    pagesNumber: function pagesNumber() {
-      if (!this.pagination.to) {
-        return [];
-      }
-
-      var from = this.pagination.current_page - this.offset;
-      if (from < 1) {
-        from = 1;
-      }
-
-      var to = from + this.offset * 2;
-      if (to >= this.pagination.last_page) {
-        to = this.pagination.last_page;
-      }
-
-      var pagesArray = [];
-      while (from <= to) {
-        pagesArray.push(from);
-        from++;
-      }
-
-      return pagesArray;
-    }
-  },
-
   mounted: function mounted() {
     this.get_dreams(this.pagination.current_page);
     this.$on('dreams', function (dreams) {
@@ -3746,7 +3711,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     showDream: function showDream(slug) {
       window.location.replace('/dream/' + slug);
     }
-  }
+  },
+  mixins: [__WEBPACK_IMPORTED_MODULE_3__mixins_paginationData__["a" /* default */]]
 });
 
 /***/ }),
@@ -3854,7 +3820,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
   methods: {
     showUploader: function showUploader() {
-      window.eventBus.$emit('showUploader');
+      var data = {
+        imageUrl: this.image,
+        uploadURL: this.uploadURL
+      };
+      window.eventBus.$emit('showUploader', data);
     },
     afterUpload: function afterUpload(image) {
       this.$store.commit('dream_photo_mutation', image);
@@ -4042,8 +4012,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_catchJsonErrors__ = __webpack_require__("./resources/assets/js/mixins/catchJsonErrors.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_authUserData__ = __webpack_require__("./resources/assets/js/mixins/authUserData.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__profile_avatar_AvatarUpload__ = __webpack_require__("./resources/assets/js/components/profile/avatar/AvatarUpload.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__profile_avatar_AvatarUpload___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__profile_avatar_AvatarUpload__);
 //
 //
 //
@@ -4062,12 +4030,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-
+// import avatarUpload from '../profile/avatar/AvatarUpload';
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "dream_upload_button",
-  components: {
-    avatarUpload: __WEBPACK_IMPORTED_MODULE_2__profile_avatar_AvatarUpload___default.a
-  },
+  // components: {
+  //   avatarUpload
+  // },
   data: function data() {
     return {
       image: '',
@@ -4094,7 +4062,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
   methods: {
     showUploader: function showUploader() {
-      window.eventBus.$emit('showUploader');
+      var data = {
+        image: this.image,
+        uploadURL: this.uploadURL
+      };
+      window.eventBus.$emit('showUploader', data);
     },
     afterUpload: function afterUpload(image) {
       this.$store.commit('dream_photo_mutation', image);
@@ -6151,8 +6123,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue2_google_maps__, {
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_authUserData__ = __webpack_require__("./resources/assets/js/mixins/authUserData.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__AvatarUpload__ = __webpack_require__("./resources/assets/js/components/profile/avatar/AvatarUpload.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__AvatarUpload___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__AvatarUpload__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_catchJsonErrors__ = __webpack_require__("./resources/assets/js/mixins/catchJsonErrors.js");
 //
 //
 //
@@ -6182,11 +6153,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
+// import AvatarUpload from './AvatarUpload'
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "avatar",
-  components: {
-    'avatar-upload': __WEBPACK_IMPORTED_MODULE_1__AvatarUpload___default.a
-  },
+  // components: {
+  //   'avatar-upload': AvatarUpload
+  // },
   props: ['profile'],
   data: function data() {
     return {
@@ -6200,13 +6172,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
   methods: {
     showUploader: function showUploader() {
-      window.eventBus.$emit('showUploader');
+      var data = {
+        imageUrl: this.profile.photo_path,
+        uploadURL: this.uploadURL
+      };
+      window.eventBus.$emit('showUploader', data);
+      this.popStateListener();
     },
     afterUpload: function afterUpload(image) {
       this.$store.commit('avatar_mutation', image);
     }
   },
-  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_authUserData__["a" /* default */]]
+  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_authUserData__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__mixins_catchJsonErrors__["a" /* default */]]
 
 });
 
@@ -6279,7 +6256,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 // mixin
 
@@ -6302,40 +6278,38 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_3_vee_validate___default.a, {
       image: null,
       cropper: null,
       upload: false,
-      loading: false
+      loading: false,
+      uploadURL: ''
     };
   },
-  props: ['imageUrl', 'uploadURL'],
-
-  watch: {
-    imageUrl: function imageUrl() {
-      if (this.imageUrl != '') {
-        this.image = this.imageUrl;
-      }
-    }
-  },
+  // props: ['imageUrl', 'uploadURL'],
 
   mounted: function mounted() {
-    this.image = this.imageUrl;
+    // this.image = this.imageUrl;
     window.eventBus.$on('showUploader', this.setUploader);
+    window.eventBus.$on('onBack', this.closeModal);
     this.setUpCropper();
     this.$on('imgUploaded', function (imageData) {
       this.image = imageData;
       this.cropper.replace(imageData);
-      this.loadig = false;
+      this.loading = false;
     });
   },
 
+
   methods: {
-    setUploader: function setUploader() {
+    setUploader: _.debounce(function (data) {
+      this.image = data.imageUrl;
+      this.uploadURL = data.uploadURL;
       this.showUploader = true;
-    },
+    }, 200),
+
     validateBeforeSubmit: function validateBeforeSubmit(e) {
       var _this = this;
 
       this.$validator.validateAll().then(function (result) {
         if (result) {
-          _this.loadig = true;
+          _this.loading = true;
           _this.onFileChange(e);
           return;
         }
@@ -6368,13 +6342,16 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_3_vee_validate___default.a, {
       reader.readAsDataURL(file);
     },
     uploadFile: function uploadFile() {
-      this.isLoading = true;
       axios.post(this.uploadURL, { file: this.cropper.getCroppedCanvas().toDataURL() });
       window.eventBus.$emit('after-upload', this.cropper.getCroppedCanvas().toDataURL());
       this.showUploader = false;
       this.upload = false;
+    },
+    closeModal: function closeModal() {
+      this.showUploader = false;
     }
   },
+
   mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_authUserData__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__mixins_catchJsonErrors__["a" /* default */]]
 
 });
@@ -70433,12 +70410,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.showUploader
     }
-  }, [_vm._m(0), _vm._v(" "), _c('span', [_vm._v("Upload gambar mimpimu disini")])])])]), _vm._v(" "), _c('avatar-upload', {
-    attrs: {
-      "imageUrl": _vm.image,
-      "uploadURL": _vm.uploadURL
-    }
-  })], 1)
+  }, [_vm._m(0), _vm._v(" "), _c('span', [_vm._v("Upload gambar mimpimu disini")])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('span', {
     staticClass: "icon"
@@ -71218,54 +71190,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "columns"
   }, [_c('div', {
     staticClass: "column is-three-quarters"
-  }, [_c('nav', {
-    staticClass: "pagination"
-  }, [(_vm.pagination.current_page > 1) ? _c('a', {
-    staticClass: "pagination-previous",
+  }, [_c('paginator', {
+    attrs: {
+      "pagination": _vm.pagination,
+      "pagesNumber": _vm.pagesNumber,
+      "isActived": _vm.isActived
+    },
     on: {
-      "click": function($event) {
-        $event.preventDefault();
-        _vm.changePage(_vm.pagination.current_page = 1)
-      }
+      "changePage": _vm.changePage
     }
-  }, [_vm._m(0)]) : _vm._e(), _vm._v(" "), (_vm.pagination.current_page > 1) ? _c('a', {
-    staticClass: "pagination-previous",
-    on: {
-      "click": function($event) {
-        $event.preventDefault();
-        _vm.changePage(_vm.pagination.current_page - 1)
-      }
-    }
-  }, [_vm._m(1)]) : _vm._e(), _vm._v(" "), (_vm.pagination.current_page < _vm.pagination.last_page) ? _c('a', {
-    staticClass: "pagination-next",
-    on: {
-      "click": function($event) {
-        $event.preventDefault();
-        _vm.changePage(_vm.pagination.current_page + 1)
-      }
-    }
-  }, [_vm._m(2)]) : _vm._e(), _vm._v(" "), (_vm.pagination.current_page < _vm.pagination.last_page) ? _c('a', {
-    staticClass: "pagination-next",
-    on: {
-      "click": function($event) {
-        $event.preventDefault();
-        _vm.changePage(_vm.pagination.current_page = _vm.pagination.last_page)
-      }
-    }
-  }, [_vm._m(3)]) : _vm._e(), _vm._v(" "), _c('ul', {
-    staticClass: "pagination-list"
-  }, _vm._l((_vm.pagesNumber), function(page) {
-    return _c('li', [_c('a', {
-      staticClass: "pagination-link",
-      class: [page == _vm.isActived ? 'is-current' : ''],
-      on: {
-        "click": function($event) {
-          $event.preventDefault();
-          _vm.changePage(page)
-        }
-      }
-    }, [_vm._v(_vm._s(page))])])
-  }))])]), _vm._v(" "), _c('div', {
+  })], 1), _vm._v(" "), _c('div', {
     staticClass: "column"
   }, [_c('div', {
     staticClass: "field has-addons"
@@ -71326,31 +71260,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('i', {
     staticClass: "fa fa-arrow-up"
   })])])])], 1)])])])])])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('span', {
-    staticClass: "icon"
-  }, [_c('i', {
-    staticClass: "fa fa-fast-backward"
-  })])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('span', {
-    staticClass: "icon"
-  }, [_c('i', {
-    staticClass: "fa fa-step-backward"
-  })])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('span', {
-    staticClass: "icon"
-  }, [_c('i', {
-    staticClass: "fa fa-step-forward"
-  })])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('span', {
-    staticClass: "icon"
-  }, [_c('i', {
-    staticClass: "fa fa-fast-forward"
-  })])
-}]}
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -71666,7 +71576,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('button', {
     staticClass: "button is-primary",
     class: {
-      'is-loadig': _vm.loading
+      'is-loading': _vm.loading
     },
     attrs: {
       "type": "button",
@@ -73797,7 +73707,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.showForm
     }
-  }, [_vm._m(0), _vm._v(" "), _c('span', [_vm._v("Deklarasikan mimpimu disini")])])])]), _vm._v(" "), _c('dream-create-form')], 1)
+  }, [_vm._m(0), _vm._v(" "), _c('span', [_vm._v("Deklarasikan mimpimu disini")])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('span', {
     staticClass: "icon"
@@ -74184,6 +74094,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "value": (_vm.password)
     },
     on: {
+      "keyup": function($event) {
+        if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13)) { return null; }
+        _vm.validateBeforeSubmit($event)
+      },
       "input": function($event) {
         if ($event.target.composing) { return; }
         _vm.password = $event.target.value
@@ -74235,6 +74149,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "value": (_vm.password)
     },
     on: {
+      "keyup": function($event) {
+        if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13)) { return null; }
+        _vm.validateBeforeSubmit($event)
+      },
       "input": function($event) {
         if ($event.target.composing) { return; }
         _vm.password = $event.target.value
@@ -75404,12 +75322,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.showUploader
     }
-  }, [_vm._v("Ganti Foto Profil")])])])])]), _vm._v(" "), _c('avatar-upload', {
-    attrs: {
-      "imageUrl": _vm.profile.photo_path,
-      "uploadURL": _vm.uploadURL
-    }
-  })], 1)
+  }, [_vm._v("Ganti Foto Profil")])])])])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -92340,6 +92253,7 @@ Vue.component('user-init', __webpack_require__("./resources/assets/js/components
 // Profile
 Vue.component('profile-info', __webpack_require__("./resources/assets/js/components/profile/ProfileInfo.vue"));
 Vue.component('avatar', __webpack_require__("./resources/assets/js/components/profile/avatar/Avatar.vue"));
+Vue.component('avatar-upload', __webpack_require__("./resources/assets/js/components/profile/avatar/AvatarUpload.vue"));
 
 // nav
 Vue.component('avatar-nav', __webpack_require__("./resources/assets/js/components/profile/avatar/AvatarNav.vue"));
@@ -92353,6 +92267,7 @@ Vue.component('dream-list', __webpack_require__("./resources/assets/js/component
 Vue.component('dream-photo', __webpack_require__("./resources/assets/js/components/dream/DreamPhoto.vue"));
 // Vue.component('dream-redirector', require('./components/dream/DreamRedirector.vue'));
 Vue.component('dream-counter', __webpack_require__("./resources/assets/js/components/dream/DreamCounter.vue"));
+Vue.component('dream-create-form', __webpack_require__("./resources/assets/js/components/dream/DreamCreateForm.vue"));
 
 // comments
 Vue.component('dream-comments', __webpack_require__("./resources/assets/js/components/dream_comments/controllers/DreamComments.vue"));
@@ -94701,7 +94616,19 @@ module.exports = Component.exports
 
     scroll: _.debounce(function (el) {
       this.$scrollTo(el);
-    }, 500)
+    }, 500),
+    popStateListener: function popStateListener() {
+      if (typeof history.pushState === "function") {
+        history.pushState("jibberish", null, null);
+        window.onpopstate = function () {
+          // alert('back button pushed')
+          window.eventBus.$emit('onBack');
+          // history.pushState('newjibberish', null, null);
+          // Handle the back (or forward) buttons here
+          // Will NOT handle refresh, use onbeforeunload for this.
+        };
+      }
+    }
   }
   // 200: OK. The standard success code and default option.
   // 201: Object created. Useful for the store actions.
@@ -94876,7 +94803,6 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
 		currentParentComment_mutation: function currentParentComment_mutation(state, comment) {
 			state.currentParentComment = comment;
 		},
-
 
 		// Comments
 		dream_comments_mutation: function dream_comments_mutation(state, comment) {

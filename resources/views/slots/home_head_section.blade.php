@@ -1,5 +1,5 @@
 <div class="columns">
-  <div class="column m-t-20 animated fadeInLeft">
+  <div class="column m-t-20 animated fadeIn">
     <div class="tile is-parent is-vertical">
       <figure class="tile is-child">
         <center>
@@ -12,7 +12,7 @@
       </article>
     </div>
   </div>
-  <div class="column animated fadeInRight" style="padding: 20px;">
+  <div class="column animated fadeIn" style="padding: 20px;">
     @if (Auth::guest())
       <login></login>
       <register></register>

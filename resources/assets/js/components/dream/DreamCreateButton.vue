@@ -10,16 +10,11 @@
         </button>
       </p>
     </div>
-    <dream-create-form></dream-create-form>
   </div>
 </template>
 <script>
-import DreamCreateForm from './DreamCreateForm'
 export default {
   name: "dream_create_button",
-  components: {
-    DreamCreateForm
-  },
   data: () => ({
     isOpen: false,
   }),

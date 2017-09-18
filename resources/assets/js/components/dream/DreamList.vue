@@ -1,11 +1,13 @@
-<template src="./dream_list.html"></template>dani.lesmiadi@gma
+<template src="./dream_list.html"></template>
 <script>
 import BackTop from './../BackTop';
 import DreamSearch from './DreamSearch'
+import Paginator from '../admin/Paginator'
+import paginationData from '../../mixins/paginationData'
 export default {
   name: 'DreamList',
   components: {
-    BackTop, DreamSearch
+    BackTop, DreamSearch, Paginator
   },
   data() {
     return {
@@ -21,36 +23,6 @@ export default {
       paginate: 9,
       isLoading: false,
     }
-  },
-
-  computed: {
-    isActived() {
-      return this.pagination.current_page
-    },
-
-    pagesNumber() {
-      if (!this.pagination.to) {
-        return []
-      }
-
-      var from = this.pagination.current_page - this.offset
-      if (from < 1) {
-        from = 1
-      }
-
-      var to = from + (this.offset * 2)
-      if (to >= this.pagination.last_page) {
-        to = this.pagination.last_page
-      }
-
-      var pagesArray = []
-      while (from <= to) {
-        pagesArray.push(from)
-        from++
-      }
-
-      return pagesArray
-    },
   },
 
   mounted() {
@@ -90,7 +62,8 @@ export default {
     showDream(slug){
       window.location.replace('/dream/'+slug);
     }
-  }
+  },
+  mixins: [paginationData]
 }
 </script>
 

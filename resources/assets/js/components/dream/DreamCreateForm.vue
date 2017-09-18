@@ -43,7 +43,6 @@
 <script>
 import catchJsonErrors from '../../mixins/catchJsonErrors';
 import authUserData from '../../mixins/authUserData';
-
 import id from 'vee-validate/dist/locale/id';
 import VeeValidate, { Validator } from 'vee-validate';
 Validator.addLocale(id);
@@ -57,21 +56,17 @@ export default {
     modalShow: false,
     logo: '/images/resource/npp_logo.png',
   }),
-  created() {
+  mounted() {
     window.eventBus.$on('show-form', this.showForm);
-
-
-  },
-  watch: {
-    authDream(){
-      if (this.authDream) {
-        // this.fill_form();
-      }
-    }
+    window.eventBus.$on('onBack', this.closeModal);
   },
   methods: {
     showForm() {
       this.modalShow = true;
+      this.popStateListener();
+    },
+    closeModal(){
+      this.modalShow = false;
     },
     fill_form(){
       this.dream = this.authDream.dream;
@@ -91,13 +86,12 @@ export default {
     },
     postDream(){
       axios.post('/api/dream/'+this.authUser.id, this.get_data()).then((resp) => {
-        console.log(resp);
-        // if (resp.status == 200) {
-        //   this.$store.commit('dream_mutation', resp.data.dream);
-        //   this.modalShow = false;
-        //   this.throw_noty('success','Mimpimu telah disimpan lanjutkan dengan mengupload gambar mimpimu');
-        //   window.eventBus.$emit('dream_created');
-        // }
+        if (resp.status == 200) {
+          this.$store.commit('dream_mutation', resp.data.dream);
+          this.modalShow = false;
+          this.throw_noty('success','Mimpimu telah disimpan lanjutkan dengan mengupload gambar mimpimu');
+          window.eventBus.$emit('dream_created');
+        }
       });
     },
     get_data(){
@@ -110,7 +104,8 @@ export default {
     strippedContent(text) {
       let regex = /(<([^>]+)>)/ig;
       return text.replace(regex, "");
-    }
+    },
+
   },
   mixins: [catchJsonErrors, authUserData],
 

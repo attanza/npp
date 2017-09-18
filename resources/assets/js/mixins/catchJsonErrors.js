@@ -38,6 +38,18 @@ export default {
     scroll: _.debounce(function(el){
       this.$scrollTo(el);
     },500),
+    popStateListener(){
+      if (typeof history.pushState === "function") {
+          history.pushState("jibberish", null, null);
+          window.onpopstate = function () {
+              // alert('back button pushed')
+              window.eventBus.$emit('onBack');
+              // history.pushState('newjibberish', null, null);
+              // Handle the back (or forward) buttons here
+              // Will NOT handle refresh, use onbeforeunload for this.
+          };
+      }
+    }
   }
 }
 // 200: OK. The standard success code and default option.

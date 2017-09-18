@@ -88,7 +88,12 @@ export default {
 
   methods: {
     showUploader(){
-      window.eventBus.$emit('showUploader');
+      let data = {
+        imageUrl : this.image,
+        uploadURL : this.uploadURL
+      }
+      window.eventBus.$emit('showUploader', data);
+
     },
     afterUpload(image){
       this.$store.commit('dream_photo_mutation', image);

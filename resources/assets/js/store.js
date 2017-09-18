@@ -16,7 +16,7 @@ export const store = new Vuex.Store({
 		boost_count: 0,
 		booster: [],
 		is_booster: false,
-		currentParentComment: {}
+		currentParentComment: {},
 	},
 
 	getters: {
@@ -62,8 +62,6 @@ export const store = new Vuex.Store({
 		currentParentComment_mutation(state, comment){
 			state.currentParentComment = comment
 		},
-
-
 		// Comments
 		dream_comments_mutation(state, comment){
 			state.dream_comments.unshift(comment)

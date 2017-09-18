@@ -11,7 +11,6 @@
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('css/cropper.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/animate.min.css')}}">
-
     @yield('styles')
 
 </head>
@@ -26,11 +25,13 @@
 
         <mobile-nav></mobile-nav>
         @yield('content')
+        @include('slots.modals')
         @include('slots.session_messages')
     </div>
         @include('layouts.partials.footer')
 
     <script>var baseUrl = "{{url('/')}}";</script>
+    {{-- <script src="{{asset('js/global.js')}}"></script> --}}
     <script src="{{ mix('js/app.js') }}"></script>
     <script src="{{asset('js/stretchy.js')}}" data-filter=".textarea" async></script>
     @yield('scripts')

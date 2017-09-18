@@ -62,7 +62,9 @@ class DreamController extends Controller
           'paginate' => 'required|integer',
         ]);
         $dreams = Dream::with('user')
-            ->whereHas('medias')->orderBy('id', 'desc')
+            // ->whereHas('medias')
+            ->where('dream', '<>', '')
+            ->orderBy('id', 'desc')
             ->paginate($request->paginate);
         $response = [
             'pagination' => [
