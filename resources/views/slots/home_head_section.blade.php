@@ -7,7 +7,9 @@
         </center>
       </figure>
       <article class="tile is-child">
-        <h2 class="title is-2 has-text-centered has-text-warning">Total mimpi:</h2>
+        <a href="{{route('bmi.index')}}">
+          <h2 class="title is-2 has-text-centered has-text-warning m-b-10">Total mimpi:</h2>
+        </a>
         <dream-counter></dream-counter>
       </article>
     </div>

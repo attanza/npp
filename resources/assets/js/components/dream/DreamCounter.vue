@@ -1,7 +1,7 @@
 <template>
   <div id="dream_counter">
     <center>
-      <ul class="list-inline">
+      <ul class="list-inline" @click="toBmi">
         <li v-for="value in dreamCounts">
           <div class="box-npp animated fadeInDown">
             <p class="is-size-4 has-text-centered">{{value}}</p>
@@ -16,6 +16,7 @@ export default {
   name: "dream_counter",
   data: () => ({
     dreamCounts: [],
+    bmiUrl: baseUrl+'/berjuta-mimpi-indonesia'
   }),
   mounted(){
     this.getDreamCount();
@@ -48,6 +49,9 @@ export default {
       } else {
         return num;
       }
+    },
+    toBmi(){
+      window.location.replace(this.bmiUrl);
     }
   }
 }
@@ -67,5 +71,8 @@ export default {
   padding: 4px 8px;
   border: 2px solid #000;
   background-color: #fff;
+}
+.list-inline:hover{
+  cursor: pointer;
 }
 </style>

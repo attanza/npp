@@ -23,9 +23,12 @@
         @include('layouts.partials.mainNav')
         {{-- @include('slots.mobile_nav') --}}
 
-        <mobile-nav></mobile-nav>
-        @yield('content')
-        @include('slots.modals')
+        <div style="padding-top: 60px;">
+          <mobile-nav></mobile-nav>
+          @yield('content')
+          @include('slots.modals')
+        </div>
+
         @include('slots.session_messages')
     </div>
         @include('layouts.partials.footer')

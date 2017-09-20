@@ -58,6 +58,9 @@ Vue.component('order-form', require('./components/orders/OrderForm.vue'));
 
 // Boost
 Vue.component('boost', require('./components/boost/Boost.vue'));
+// Back to top
+Vue.component('back-top', require('./components/BackTop.vue'));
+
 import {
   store
 } from './store'

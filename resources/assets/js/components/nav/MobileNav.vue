@@ -1,6 +1,6 @@
 <template>
   <div id="mobile_nav">
-    <div class="tabs is-fullwidth is-centered is-hidden-desktop">
+    <div class="tabs is-fullwidth is-centered is-hidden-desktop fixed-top">
       <ul>
         <li>
           <a @click="showMainMenu = true">
@@ -73,4 +73,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.tabs {
+  background-color: #fff;
+}
 </style>

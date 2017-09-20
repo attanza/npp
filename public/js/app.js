@@ -3284,7 +3284,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   name: "dream_counter",
   data: function data() {
     return {
-      dreamCounts: []
+      dreamCounts: [],
+      bmiUrl: baseUrl + '/berjuta-mimpi-indonesia'
     };
   },
   mounted: function mounted() {
@@ -3321,6 +3322,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       } else {
         return num;
       }
+    },
+    toBmi: function toBmi() {
+      window.location.replace(this.bmiUrl);
     }
   }
 });
@@ -11194,7 +11198,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, "\n.tabs[data-v-5d2eca0f] {\n  background-color: #fff;\n}\n", ""]);
 
 // exports
 
@@ -11449,7 +11453,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n.list-inline[data-v-d81b94ca] {\n  padding-left: 0;\n  margin-left: -5px;\n  list-style: none;\n}\n.list-inline > li[data-v-d81b94ca] {\n  display: inline-block;\n  padding-right: 3px;\n  padding-left: 3px;\n}\n.box-npp[data-v-d81b94ca] {\n  padding: 4px 8px;\n  border: 2px solid #000;\n  background-color: #fff;\n}\n", ""]);
+exports.push([module.i, "\n.list-inline[data-v-d81b94ca] {\n  padding-left: 0;\n  margin-left: -5px;\n  list-style: none;\n}\n.list-inline > li[data-v-d81b94ca] {\n  display: inline-block;\n  padding-right: 3px;\n  padding-left: 3px;\n}\n.box-npp[data-v-d81b94ca] {\n  padding: 4px 8px;\n  border: 2px solid #000;\n  background-color: #fff;\n}\n.list-inline[data-v-d81b94ca]:hover {\n  cursor: pointer;\n}\n", ""]);
 
 // exports
 
@@ -73308,7 +73312,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "id": "mobile_nav"
     }
   }, [_c('div', {
-    staticClass: "tabs is-fullwidth is-centered is-hidden-desktop"
+    staticClass: "tabs is-fullwidth is-centered is-hidden-desktop fixed-top"
   }, [_c('ul', [_c('li', [_c('a', {
     on: {
       "click": function($event) {
@@ -75108,7 +75112,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "id": "dream_counter"
     }
   }, [_c('center', [_c('ul', {
-    staticClass: "list-inline"
+    staticClass: "list-inline",
+    on: {
+      "click": _vm.toBmi
+    }
   }, _vm._l((_vm.dreamCounts), function(value) {
     return _c('li', [_c('div', {
       staticClass: "box-npp animated fadeInDown"
@@ -92277,6 +92284,9 @@ Vue.component('order-form', __webpack_require__("./resources/assets/js/component
 
 // Boost
 Vue.component('boost', __webpack_require__("./resources/assets/js/components/boost/Boost.vue"));
+// Back to top
+Vue.component('back-top', __webpack_require__("./resources/assets/js/components/BackTop.vue"));
+
 
 var app = new Vue({
     el: '#app',

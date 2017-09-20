@@ -42,6 +42,11 @@
       </div>
     </div>
   </section>
+  <section class="section">
+    @include('slots.npp_video_about')
+    
+  </section>
+
   <section class="section bg-transparent product">
     <div class="container">
       <figure class="image">
