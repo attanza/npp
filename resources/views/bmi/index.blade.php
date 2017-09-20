@@ -14,7 +14,7 @@
 @section('styles')
   <style>
     .body-bg-bmi-image{
-      background-image: linear-gradient(rgba(0,0,0,0.0),rgba(0,0,0,0.0)), url(../images/resource/bg_bmi.png);
+      background-image: linear-gradient(rgba(0,0,0,0.0),rgba(0,0,0,0.0)), url(../images/resource/bg_bmi.jpg);
       background-position: center;
       background-size: 100% 100%;
       /*height: 50vh;*/
