@@ -31,7 +31,7 @@ class ActivationController extends Controller
         // check if Activated
         if ($user->is_active) {
             Session::flash('success', 'Akun anda telah diaktifkan, silahkan login.');
-            return redirect('/');
+            return redirect('/berjuta-mimpi-indonesia');
         }
         // activate User
         $activation->update([
@@ -43,7 +43,7 @@ class ActivationController extends Controller
         ]);
         // return
         Session::flash('success', 'Akun anda telah diaktifkan, silahkan login.');
-        return redirect('/');
+        return redirect('/berjuta-mimpi-indonesia');
     }
 
     public function resendActivation(Request $request)

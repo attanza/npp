@@ -27,7 +27,7 @@
           </p>
         </div>
         <div class="field">
-          <label class="label">Lokasi</label>
+          <label class="label">Kota/Kabupaten</label>
           <p class="control g-map">
             <gmap-autocomplete @place_changed="setPlace"></gmap-autocomplete>
           </p>
@@ -100,6 +100,7 @@ export default {
         this.lat = place.geometry.location.lat(),
         this.lng = place.geometry.location.lng()
         this.location = addr;
+        console.log(place);
     },
     submit(){
       if (this.user_id != null) {

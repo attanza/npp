@@ -6,7 +6,7 @@
           <span class="icon">
             <i class="fa fa-camera"></i>
           </span>
-          <span>Upload gambar mimpimu disini</span>
+          <span>Langkah 2: Upload gambar mimpimu...</span>
         </button>
       </p>
     </div>

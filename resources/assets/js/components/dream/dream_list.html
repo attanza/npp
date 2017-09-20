@@ -25,7 +25,12 @@
                 </div>
                 <div class="media-content">
                   <p class="title is-5">{{dream.user.first_name}}</p>
-                  <p class="subtitle is-7">{{dream.user.email}}</p>
+                  <p class="subtitle is-7">
+                    <span class="icon is-small">
+                      <i class="fa fa-map-marker"></i>
+                    </span>
+                    {{dream.user.profile.location}}
+                  </p>
                 </div>
               </div>
             </div>

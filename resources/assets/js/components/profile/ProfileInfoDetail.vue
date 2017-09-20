@@ -19,7 +19,7 @@
               <td>{{authProfile.about}}</td>
             </tr>
             <tr>
-              <th>Lokasi</th>
+              <th>Kota/Kabupaten</th>
               <td>{{authProfile.location}}</td>
             </tr>
             <tr>
