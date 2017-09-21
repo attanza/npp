@@ -1,7 +1,7 @@
 <template>
   <div id="dream_create">
-    <div class="modal" :class="{'is-active' : modalShow}">
-      <div class="modal-background" @click="modalShow = false"></div>
+    <div class="modal" :class="{'is-active' : showDreamEdit}">
+      <div class="modal-background" @click="handleClose"></div>
       <div class="modal-card">
         <div class="modal-content">
           <figure >
@@ -33,7 +33,7 @@
           </div>
         </section>
         <footer class="modal-card-foot">
-          <a class="card-footer-item" @click="modalShow = false">Batal</a>
+          <a class="card-footer-item" @click="handleClose">Batal</a>
           <a class="card-footer-item" @click="validateBeforeSubmit()">Simpan</a>
         </footer>
       </div>
@@ -43,7 +43,6 @@
 <script>
 import catchJsonErrors from '../../mixins/catchJsonErrors';
 import authUserData from '../../mixins/authUserData';
-
 import id from 'vee-validate/dist/locale/id';
 import VeeValidate, { Validator } from 'vee-validate';
 Validator.addLocale(id);
@@ -54,17 +53,10 @@ export default {
   name: "dream_create",
   data: () => ({
     dream: '', keyword: '', description: '', slug: '',
-    modalShow: false,
     logo: '/images/resource/npp_logo.png',
   }),
-  props: ['dream_data'],
+  props: ['showDreamEdit'],
 
-  created() {
-    window.eventBus.$on('show-form', this.showForm);
-    // this.dream = this.dream_data.dream;
-    // this.keyword = this.dream_data.keyword;
-    // this.description = this.dream_data.description;
-  },
   watch: {
     authDream(){
       if (this.authDream) {
@@ -73,9 +65,6 @@ export default {
     }
   },
   methods: {
-    showForm() {
-      this.modalShow = true;
-    },
     fill_form(){
       this.dream = this.authDream.dream;
       this.keyword = this.authDream.keyword;
@@ -96,13 +85,13 @@ export default {
     postDream(){
       axios.post('/api/dream/'+this.authUser.id, this.get_data()).then((resp) => {
         if (resp.status == 200) {
+          console.log(resp);
           this.$store.commit('dream_mutation', resp.data.dream);
           if (this.slug != resp.data.dream.slug) {
-            window.location.reload();
-          }
-          this.modalShow = false;
+            window.location.replace('/dream/'+resp.data.dream.slug);
+          }          
           this.throw_noty('success','Mimpimu telah diperbaharui');
-          window.eventBus.$emit('dream_created');
+          this.handleClose();
         }
       });
     },
@@ -116,6 +105,9 @@ export default {
     strippedContent(text) {
       let regex = /(<([^>]+)>)/ig;
       return text.replace(regex, "");
+    },
+    handleClose(){
+      this.$emit('onCloseDreamEdit');
     }
   },
   mixins: [catchJsonErrors, authUserData],

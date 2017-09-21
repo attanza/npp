@@ -3065,7 +3065,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-
 __WEBPACK_IMPORTED_MODULE_3_vee_validate__["a" /* Validator */].addLocale(__WEBPACK_IMPORTED_MODULE_2_vee_validate_dist_locale_id___default.a);
 Vue.use(__WEBPACK_IMPORTED_MODULE_3_vee_validate__["b" /* default */], {
   locale: 'id'
@@ -3075,18 +3074,10 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_3_vee_validate__["b" /* default */], {
   data: function data() {
     return {
       dream: '', keyword: '', description: '', slug: '',
-      modalShow: false,
       logo: '/images/resource/npp_logo.png'
     };
   },
-  props: ['dream_data'],
-
-  created: function created() {
-    window.eventBus.$on('show-form', this.showForm);
-    // this.dream = this.dream_data.dream;
-    // this.keyword = this.dream_data.keyword;
-    // this.description = this.dream_data.description;
-  },
+  props: ['showDreamEdit'],
 
   watch: {
     authDream: function authDream() {
@@ -3096,9 +3087,6 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_3_vee_validate__["b" /* default */], {
     }
   },
   methods: {
-    showForm: function showForm() {
-      this.modalShow = true;
-    },
     fill_form: function fill_form() {
       this.dream = this.authDream.dream;
       this.keyword = this.authDream.keyword;
@@ -3123,13 +3111,13 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_3_vee_validate__["b" /* default */], {
 
       axios.post('/api/dream/' + this.authUser.id, this.get_data()).then(function (resp) {
         if (resp.status == 200) {
+          console.log(resp);
           _this2.$store.commit('dream_mutation', resp.data.dream);
           if (_this2.slug != resp.data.dream.slug) {
-            window.location.reload();
+            window.location.replace('/dream/' + resp.data.dream.slug);
           }
-          _this2.modalShow = false;
           _this2.throw_noty('success', 'Mimpimu telah diperbaharui');
-          window.eventBus.$emit('dream_created');
+          _this2.handleClose();
         }
       });
     },
@@ -3143,6 +3131,9 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_3_vee_validate__["b" /* default */], {
     strippedContent: function strippedContent(text) {
       var regex = /(<([^>]+)>)/ig;
       return text.replace(regex, "");
+    },
+    handleClose: function handleClose() {
+      this.$emit('onCloseDreamEdit');
     }
   },
   mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_catchJsonErrors__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__mixins_authUserData__["a" /* default */]]
@@ -3185,8 +3176,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         current_page: 1
       },
       offset: 3,
-      paginate: 9,
-      isLoading: false
+      paginate: 9
     };
   },
   mounted: function mounted() {
@@ -3196,7 +3186,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     });
     this.$on('pagination', function (pagination) {
       this.pagination = pagination;
-      this.isLoading = false;
     });
     window.eventBus.$on('new_dream_submited', this.addDream);
   },
@@ -3204,7 +3193,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
   methods: {
     get_dreams: function get_dreams(page) {
-      this.isLoading = true;
       var vm = this;
       axios.post('/dream/listing?page=' + page, {
         paginate: this.paginate
@@ -3302,7 +3290,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   data: function data() {
     return {
       image: '',
-      uploadURL: ''
+      uploadURL: '',
+      showDreamEdit: false
     };
   },
   props: ['dream'],
@@ -3346,6 +3335,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       if (this.dream.dream != this.authDream.dream) {
         window.location.replace('/dream/' + this.authDream.slug);
       }
+    },
+    onCloseDreamEdit: function onCloseDreamEdit() {
+      this.showDreamEdit = false;
     }
   },
   mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_authUserData__["a" /* default */]]
@@ -5968,6 +5960,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_3_vee_validate__["b" /* default */], {
     },
     closeModal: function closeModal() {
       this.showUploader = false;
+      this.upload = false;
     }
   },
 
@@ -68052,200 +68045,203 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { attrs: { id: "dream_create" } }, [
-    _c("div", { staticClass: "modal", class: { "is-active": _vm.modalShow } }, [
-      _c("div", {
-        staticClass: "modal-background",
-        on: {
-          click: function($event) {
-            _vm.modalShow = false
-          }
-        }
-      }),
-      _vm._v(" "),
-      _c("div", { staticClass: "modal-card" }, [
-        _c("div", { staticClass: "modal-content" }, [
-          _c("figure", [
-            _c("img", { attrs: { src: _vm.logo, alt: "Image", width: "40%" } })
-          ])
-        ]),
+    _c(
+      "div",
+      { staticClass: "modal", class: { "is-active": _vm.showDreamEdit } },
+      [
+        _c("div", {
+          staticClass: "modal-background",
+          on: { click: _vm.handleClose }
+        }),
         _vm._v(" "),
-        _c("section", { staticClass: "modal-card-body" }, [
-          _c("div", { staticClass: "field" }, [
-            _c("label", { staticClass: "label" }, [_vm._v("Apa mimpimu ?")]),
-            _vm._v(" "),
-            _c("div", { staticClass: "control" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.dream,
-                    expression: "dream"
-                  },
-                  {
-                    name: "validate",
-                    rawName: "v-validate",
-                    value: "required|max:200",
-                    expression: "'required|max:200'"
-                  }
-                ],
-                class: { input: true, "is-danger": _vm.errors.has("dream") },
-                attrs: {
-                  name: "dream",
-                  type: "text",
-                  placeholder: "Sebutkan mimpimu disini",
-                  "data-vv-as": "Mimpimu"
-                },
-                domProps: { value: _vm.dream },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.dream = $event.target.value
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c(
-                "span",
-                {
-                  directives: [
-                    {
-                      name: "show",
-                      rawName: "v-show",
-                      value: _vm.errors.has("dream"),
-                      expression: "errors.has('dream')"
-                    }
-                  ],
-                  staticClass: "help is-danger"
-                },
-                [_vm._v(_vm._s(_vm.errors.first("dream")))]
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "field" }, [
-            _c("label", { staticClass: "label" }, [
-              _vm._v("Tag / Kata kunci mimpimu")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "control" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.keyword,
-                    expression: "keyword"
-                  },
-                  {
-                    name: "validate",
-                    rawName: "v-validate",
-                    value: "max:200",
-                    expression: "'max:200'"
-                  }
-                ],
-                class: { input: true, "is-danger": _vm.errors.has("keyword") },
-                attrs: {
-                  name: "keyword",
-                  type: "text",
-                  placeholder: "Tag atau kata kunci mimpimu",
-                  "data-vv-as": "Mimpimu"
-                },
-                domProps: { value: _vm.keyword },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.keyword = $event.target.value
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c(
-                "span",
-                {
-                  directives: [
-                    {
-                      name: "show",
-                      rawName: "v-show",
-                      value: _vm.errors.has("keyword"),
-                      expression: "errors.has('keyword')"
-                    }
-                  ],
-                  staticClass: "help is-danger"
-                },
-                [_vm._v(_vm._s(_vm.errors.first("keyword")))]
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "field" }, [
-            _c("label", { staticClass: "label" }, [_vm._v("Tentang mimpimu")]),
-            _vm._v(" "),
-            _c("div", { staticClass: "control" }, [
-              _c("textarea", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.description,
-                    expression: "description"
-                  }
-                ],
-                staticClass: "textarea",
-                attrs: {
-                  placeholder: "Ceritakan tentang mimpimu disini",
-                  name: "description"
-                },
-                domProps: {
-                  value: _vm.description,
-                  innerHTML: _vm._s(_vm.description)
-                },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.description = $event.target.value
-                  }
-                }
+        _c("div", { staticClass: "modal-card" }, [
+          _c("div", { staticClass: "modal-content" }, [
+            _c("figure", [
+              _c("img", {
+                attrs: { src: _vm.logo, alt: "Image", width: "40%" }
               })
             ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("footer", { staticClass: "modal-card-foot" }, [
-          _c(
-            "a",
-            {
-              staticClass: "card-footer-item",
-              on: {
-                click: function($event) {
-                  _vm.modalShow = false
-                }
-              }
-            },
-            [_vm._v("Batal")]
-          ),
+          ]),
           _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "card-footer-item",
-              on: {
-                click: function($event) {
-                  _vm.validateBeforeSubmit()
+          _c("section", { staticClass: "modal-card-body" }, [
+            _c("div", { staticClass: "field" }, [
+              _c("label", { staticClass: "label" }, [_vm._v("Apa mimpimu ?")]),
+              _vm._v(" "),
+              _c("div", { staticClass: "control" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.dream,
+                      expression: "dream"
+                    },
+                    {
+                      name: "validate",
+                      rawName: "v-validate",
+                      value: "required|max:200",
+                      expression: "'required|max:200'"
+                    }
+                  ],
+                  class: { input: true, "is-danger": _vm.errors.has("dream") },
+                  attrs: {
+                    name: "dream",
+                    type: "text",
+                    placeholder: "Sebutkan mimpimu disini",
+                    "data-vv-as": "Mimpimu"
+                  },
+                  domProps: { value: _vm.dream },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.dream = $event.target.value
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.errors.has("dream"),
+                        expression: "errors.has('dream')"
+                      }
+                    ],
+                    staticClass: "help is-danger"
+                  },
+                  [_vm._v(_vm._s(_vm.errors.first("dream")))]
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "field" }, [
+              _c("label", { staticClass: "label" }, [
+                _vm._v("Tag / Kata kunci mimpimu")
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "control" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.keyword,
+                      expression: "keyword"
+                    },
+                    {
+                      name: "validate",
+                      rawName: "v-validate",
+                      value: "max:200",
+                      expression: "'max:200'"
+                    }
+                  ],
+                  class: {
+                    input: true,
+                    "is-danger": _vm.errors.has("keyword")
+                  },
+                  attrs: {
+                    name: "keyword",
+                    type: "text",
+                    placeholder: "Tag atau kata kunci mimpimu",
+                    "data-vv-as": "Mimpimu"
+                  },
+                  domProps: { value: _vm.keyword },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.keyword = $event.target.value
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.errors.has("keyword"),
+                        expression: "errors.has('keyword')"
+                      }
+                    ],
+                    staticClass: "help is-danger"
+                  },
+                  [_vm._v(_vm._s(_vm.errors.first("keyword")))]
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "field" }, [
+              _c("label", { staticClass: "label" }, [
+                _vm._v("Tentang mimpimu")
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "control" }, [
+                _c("textarea", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.description,
+                      expression: "description"
+                    }
+                  ],
+                  staticClass: "textarea",
+                  attrs: {
+                    placeholder: "Ceritakan tentang mimpimu disini",
+                    name: "description"
+                  },
+                  domProps: {
+                    value: _vm.description,
+                    innerHTML: _vm._s(_vm.description)
+                  },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.description = $event.target.value
+                    }
+                  }
+                })
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("footer", { staticClass: "modal-card-foot" }, [
+            _c(
+              "a",
+              {
+                staticClass: "card-footer-item",
+                on: { click: _vm.handleClose }
+              },
+              [_vm._v("Batal")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "card-footer-item",
+                on: {
+                  click: function($event) {
+                    _vm.validateBeforeSubmit()
+                  }
                 }
-              }
-            },
-            [_vm._v("Simpan")]
-          )
+              },
+              [_vm._v("Simpan")]
+            )
+          ])
         ])
-      ])
-    ])
+      ]
+    )
   ])
 }
 var staticRenderFns = []
@@ -69804,14 +69800,7 @@ var render = function() {
     _c("div", { class: { modal: true, "is-active": _vm.showUploader } }, [
       _c(
         "div",
-        {
-          staticClass: "modal-background",
-          on: {
-            click: function($event) {
-              _vm.showUploader = false
-            }
-          }
-        },
+        { staticClass: "modal-background", on: { click: _vm.closeModal } },
         [_vm._m(0)]
       ),
       _vm._v(" "),
@@ -73882,7 +73871,11 @@ var render = function() {
                 "a",
                 {
                   staticClass: "card-footer-item",
-                  on: { click: _vm.showForm }
+                  on: {
+                    click: function($event) {
+                      _vm.showDreamEdit = true
+                    }
+                  }
                 },
                 [_vm._m(2)]
               ),
@@ -73899,7 +73892,10 @@ var render = function() {
           : _vm._e()
       ]),
       _vm._v(" "),
-      _c("dream-edit-form", { attrs: { dream_data: _vm.dream } })
+      _c("dream-edit-form", {
+        attrs: { showDreamEdit: _vm.showDreamEdit },
+        on: { onCloseDreamEdit: _vm.onCloseDreamEdit }
+      })
     ],
     1
   )

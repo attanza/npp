@@ -21,7 +21,6 @@ export default {
       },
       offset: 3,
       paginate: 9,
-      isLoading: false,
     }
   },
 
@@ -32,14 +31,12 @@ export default {
     })
     this.$on('pagination', function(pagination) {
       this.pagination = pagination;
-      this.isLoading = false;
     })
     window.eventBus.$on('new_dream_submited', this.addDream);
   },
 
   methods: {
     get_dreams(page) {
-      this.isLoading = true;
       var vm = this
       axios.post('/dream/listing?page=' + page, {
         paginate: this.paginate

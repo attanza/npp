@@ -61,14 +61,11 @@
           </div>
         </div>
       </div>
-
       @include('slots.npp_video')
-
-
     </div>
   </section>
 </div>
 @endsection
 @section('styles')
-  <link rel="stylesheet" href="{{asset('css/homePage.css')}}">
+  <link rel="stylesheet" href="{{asset('css/home_page.css')}}">
 @endsection

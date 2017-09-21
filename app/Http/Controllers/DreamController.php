@@ -12,6 +12,7 @@ use App\Mail\CreateDreamMail;
 use App\Jobs\UploadDreamJob;
 use Auth;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Cache;
 
 class DreamController extends Controller
 {
@@ -66,14 +67,29 @@ class DreamController extends Controller
             ->where('dream', '<>', '')
             ->orderBy('id', 'desc')
             ->paginate($request->paginate);
+
+        if ($request->page == 1) {
+            $data = $dreams->toArray();
+            if (Cache::has('dreamLead')) {
+                $dreamLeads = Cache::get('dreamLead');
+                if (count($dreamLeads) > 0) {
+                    foreach ($dreamLeads as $dream) {
+                        array_unshift($data['data'], $dream);
+                    }
+                }
+            }
+            $dreams = collect($data);
+            // return $dreams;
+        }
+
         $response = [
             'pagination' => [
-                'total' => $dreams->total(),
-                'per_page' => $dreams->perPage(),
-                'current_page' => $dreams->currentPage(),
-                'last_page' => $dreams->lastPage(),
-                'from' => $dreams->firstItem(),
-                'to' => $dreams->lastItem()
+                'total' => $dreams['total'],
+                'per_page' => $dreams['per_page'],
+                'current_page' => $dreams['current_page'],
+                'last_page' => $dreams['last_page'],
+                'from' => $dreams['from'],
+                'to' => $dreams['to']
             ],
             'dreams' => $dreams
         ];

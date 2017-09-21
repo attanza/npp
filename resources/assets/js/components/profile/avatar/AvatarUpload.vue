@@ -1,7 +1,7 @@
 <template>
   <div id="upload_avatar">
     <div :class="{'modal': true, 'is-active': showUploader }">
-      <div class="modal-background" @click="showUploader = false">
+      <div class="modal-background" @click="closeModal">
         <div class="field is-grouped is-grouped-right">
           <button class="delete is-large" aria-label="close"></button>
         </div>
@@ -122,6 +122,7 @@ export default {
 		},
     closeModal(){
       this.showUploader = false;
+      this.upload = false;
     }
   },
 

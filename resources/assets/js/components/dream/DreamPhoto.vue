@@ -38,7 +38,7 @@
         </figure>
       </div>
       <footer class="card-footer" v-if="dream.user.id == authUser.id">
-        <a class="card-footer-item" @click="showForm">
+        <a class="card-footer-item" @click="showDreamEdit = true">
           <span class="icon"><i class="fa fa-pencil"></i></span>
         </a>
         <a class="card-footer-item" @click="showUploader">
@@ -47,7 +47,7 @@
       </footer>
     </div>
     <!-- <avatar-upload :imageUrl="image" :uploadURL="uploadURL"></avatar-upload> -->
-    <dream-edit-form :dream_data="dream"></dream-edit-form>
+    <dream-edit-form :showDreamEdit="showDreamEdit" @onCloseDreamEdit="onCloseDreamEdit"></dream-edit-form>
   </div>
 </template>
 <script>
@@ -63,6 +63,7 @@ export default {
   data: () => ({
     image: '',
     uploadURL: '',
+    showDreamEdit: false,
   }),
   props: ['dream'],
 
@@ -105,6 +106,9 @@ export default {
       if (this.dream.dream != this.authDream.dream) {
         window.location.replace('/dream/'+this.authDream.slug)
       }
+    },
+    onCloseDreamEdit(){
+      this.showDreamEdit = false;
     }
   },
   mixins: [authUserData],
