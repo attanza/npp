@@ -66,10 +66,10 @@ class DreamController extends Controller
             // ->whereHas('medias')
             ->where('dream', '<>', '')
             ->orderBy('id', 'desc')
-            ->paginate($request->paginate);
+            ->paginate($request->paginate)->toArray();
 
         if ($request->page == 1) {
-            $data = $dreams->toArray();
+            $data = $dreams;
             if (Cache::has('dreamLead')) {
                 $dreamLeads = Cache::get('dreamLead');
                 if (count($dreamLeads) > 0) {

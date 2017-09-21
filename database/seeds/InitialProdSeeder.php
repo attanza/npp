@@ -64,6 +64,13 @@ class InitialProdSeeder extends Seeder
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
           ]);
+
+          DB::table('products')->insert([
+            'code' => '51766931',
+            'name' => 'NPP Book',
+            'stock' => 100,
+            'price' => 175000
+          ]);
         }
     }
 }
