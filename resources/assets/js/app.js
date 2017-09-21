@@ -49,6 +49,8 @@ Vue.component('dream-photo', require('./components/dream/DreamPhoto.vue'));
 // Vue.component('dream-redirector', require('./components/dream/DreamRedirector.vue'));
 Vue.component('dream-counter', require('./components/dream/DreamCounter.vue'));
 Vue.component('dream-create-form', require('./components/dream/DreamCreateForm.vue'));
+Vue.component('dream-welcome', require('./components/dream/DreamWelcome.vue'));
+
 
 // comments
 Vue.component('dream-comments', require('./components/dream_comments/controllers/DreamComments.vue'));

@@ -22,7 +22,6 @@ export default {
   }),
   methods: {
     showDream() {
-      console.log('show');
       if (this.authDream) {
         window.location.replace('/dream/'+this.authDream.slug)
       }

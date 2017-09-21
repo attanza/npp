@@ -48,6 +48,7 @@ export default {
     afterUpload(){
       this.showDreamUpload = false;
       this.throw_noty('success', 'Gambar mimpi akan segera di upload');
+      this.dreamShow = true;
     },
     dream_created(){
       this.showDreamCreate = false;

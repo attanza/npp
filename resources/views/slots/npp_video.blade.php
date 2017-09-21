@@ -23,16 +23,16 @@
       </div>
     </div>
   </div>
-  <div class="field is-grouped is-grouped-centered m-t-20">
-    <p class="control">
-      <back-top>
-        <button class="button is-primary">
-          {{-- <span class="icon">
-            <i class="fa fa-arrow-up"></i>
-          </span> --}}
-          Bergabung bersama kami
-        </button>
-      </back-top>
-    </p>
-  </div>
+  @if (!Auth::check())
+    <div class="field is-grouped is-grouped-centered m-t-20">
+      <p class="control">
+        <back-top>
+          <button class="button is-primary">
+            Bergabung bersama kami
+          </button>
+        </back-top>
+      </p>
+    </div>
+  @endif
+
 </div>

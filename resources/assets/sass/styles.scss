@@ -69,3 +69,13 @@
        -o-transform: translate3d(0, 0, 0);
           transform: translate3d(0, 0, 0);
 }
+@media only screen and (min-width: 1023px){
+  .content-wrapper{
+    padding-top: 65px;
+  }
+}
+@media only screen and (max-width: 1022px){
+  .content-wrapper{
+    padding-top: 100px;
+  }
+}

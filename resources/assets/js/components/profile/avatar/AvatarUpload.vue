@@ -73,6 +73,8 @@ export default {
       this.image = data.imageUrl;
       this.uploadURL = data.uploadURL;
       this.showUploader = true;
+      this.cropper.replace(data.imageUrl)
+
     }, 200),
 
     validateBeforeSubmit(e) {

@@ -22,9 +22,7 @@
       <div class="card bg-yellow-opacity m-l-20 m-r-20 m-t-30">
         <div class="card-content">
           <h1 class="title is-1-desktop">Hallo, {{Auth::user()->first_name}}</h1>
-          <p class="is-size-4-desktop is-size-6-mobile has-text-white">
-            Terima Kasih sudah ikut berpartisipasi untuk mensukseskan Gerakan Berjuta Mimpi Indonesia, Dukunganmu sungguh sangat berarti bagi kami, ayo segera deklarasikan mimpimu dan kita saling mendukung untuk mewujudkannya.
-          </p>
+          <dream-welcome></dream-welcome>
         </div>
       </div>
       <dream></dream>

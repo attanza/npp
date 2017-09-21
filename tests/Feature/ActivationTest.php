@@ -34,7 +34,7 @@ class ActivationTest extends TestCase
           'user_id' => $user->id,
         ]);
         $this->get('/npp-activation/'.$user->email.'/'.$activation->code)
-          ->assertRedirect('/')
+          ->assertRedirect('/berjuta-mimpi-indonesia')
           ->assertSessionHas('success', 'Akun anda telah diaktifkan, silahkan login.');
     }
 

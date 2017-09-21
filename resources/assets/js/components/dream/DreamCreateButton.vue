@@ -6,7 +6,7 @@
           <span class="icon">
             <i class="fa fa-hand-o-right"></i>
           </span>
-          <span>Langkah 1: Deskripsikan mimpimu...</span>
+          <span>Deskripsikan mimpimu...</span>
         </button>
       </p>
     </div>

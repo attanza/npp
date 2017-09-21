@@ -40,7 +40,7 @@ export default {
       axios.post('/npp-login', this.get_data()).then((resp)=>{
         // console.log(resp);
         if (resp.status == 200) {
-            window.location.replace('/');
+            window.location.replace('/berjuta-mimpi-indonesia');
         } else if (resp.status == 201) {
             this.button_processing = '';
             this.showModal = true;

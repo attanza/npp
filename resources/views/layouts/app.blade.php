@@ -21,15 +21,14 @@
           <notification-listener username="{{Auth::user()->username}}"></notification-listener>
         @endif
         @include('layouts.partials.mainNav')
-        {{-- @include('slots.mobile_nav') --}}
+        <mobile-nav></mobile-nav>
+        
+        <div class="content-wrapper">
 
-        <div style="padding-top: 60px;">
-          <mobile-nav></mobile-nav>
           @yield('content')
           @include('slots.modals')
+          @include('slots.session_messages')
         </div>
-
-        @include('slots.session_messages')
     </div>
         @include('layouts.partials.footer')
 

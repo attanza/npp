@@ -46,19 +46,19 @@
         </a>
       </footer>
     </div>
-    <avatar-upload :imageUrl="image" :uploadURL="uploadURL"></avatar-upload>
+    <!-- <avatar-upload :imageUrl="image" :uploadURL="uploadURL"></avatar-upload> -->
     <dream-edit-form :dream_data="dream"></dream-edit-form>
   </div>
 </template>
 <script>
 import authUserData from '../../mixins/authUserData';
-import avatarUpload from '../profile/avatar/AvatarUpload';
+// import avatarUpload from '../profile/avatar/AvatarUpload';
 import DreamEditForm from './DreamEditForm'
 
 export default {
   name: "dream_photo",
   components: {
-    DreamEditForm, avatarUpload,
+    DreamEditForm,
   },
   data: () => ({
     image: '',
