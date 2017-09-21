@@ -38,6 +38,5 @@ class BmiController extends Controller
             $expiresAt = Carbon::now()->addDays(1);
             Cache::put('dreamLead', $dreamLead, $expiresAt);
         }
-
     }
 }

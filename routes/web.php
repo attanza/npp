@@ -79,9 +79,7 @@ Route::group(['prefix' => 'dream-comments'], function(){
 // Dream Search
 Route::post('/dream-search', 'DreamSearchController@search');
 
-Route::get('/404', function(){
-  return view('errors.404');
-});
-Route::get('/500', function(){
-  return view('errors.500');
+Route::get('/clear-cache', function(){
+    Artisan::call('cache:clear');
+    return redirect('/');
 });
