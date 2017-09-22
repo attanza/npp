@@ -36,13 +36,13 @@
             </tr>
             <tr>
               <th></th>
-              <td><a href="javascript:void(0)" @click="showForm">Perbaharui password</a></td>
+              <td><a href="javascript:void(0)" @click="showFromChangePass = true">Perbaharui password</a></td>
             </tr>
           </table>
         </div>
       </div>
     </div>
-    <change-password-form></change-password-form>
+    <change-password-form :showFromChangePass="showFromChangePass" @onClose="formPassClose"></change-password-form>
   </div>
 </template>
 <script>
@@ -55,7 +55,7 @@ export default {
     ChangePasswordForm
   },
   data: () => ({
-
+    showFromChangePass: false
   }),
   methods: {
     contact_edit(){
@@ -63,6 +63,9 @@ export default {
     },
     showForm(){
       window.eventBus.$emit('show-form');
+    },
+    formPassClose(){
+      this.showFromChangePass = false;
     }
   },
   mixins: [authUserData]

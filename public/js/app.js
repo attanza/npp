@@ -5186,7 +5186,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 
@@ -5202,6 +5201,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     };
   },
+  props: ['showFromChangePass'],
   mounted: function mounted() {
     window.eventBus.$on('show-form', this.showForm);
   },
@@ -5227,8 +5227,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       axios.post('/api/reset-password/' + this.authUser.id, this.getData()).then(function (resp) {
         if (resp.status == 200) {
           _this2.throw_noty('success', resp.data.msg);
-          _this2.clear_form();
-          _this2.showModal = false;
+          _this2.onClose();
         }
       }).catch(function (error) {
         if (error.response) {
@@ -5247,6 +5246,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.old_password = '';
       this.password = '';
       this.password_confirmation = '';
+    },
+    onClose: function onClose() {
+      this.clear_form();
+      this.$emit('onClose');
     }
   },
   mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_catchJsonErrors__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__mixins_authUserData__["a" /* default */]]
@@ -5377,7 +5380,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     ChangePasswordForm: __WEBPACK_IMPORTED_MODULE_2__ChangePasswordForm___default.a
   },
   data: function data() {
-    return {};
+    return {
+      showFromChangePass: false
+    };
   },
   methods: {
     contact_edit: function contact_edit() {
@@ -5385,6 +5390,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     showForm: function showForm() {
       window.eventBus.$emit('show-form');
+    },
+    formPassClose: function formPassClose() {
+      this.showFromChangePass = false;
     }
   },
   mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_authUserData__["a" /* default */]]
@@ -10575,7 +10583,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n.image[data-v-35142d38] {\n  background-color: #fff;\n}\n.image img[data-v-35142d38] {\n  max-height: 80vh !important;\n  height: auto;\n  overflow: scroll;\n}\n", ""]);
+exports.push([module.i, "\n.image[data-v-35142d38] {\n  background-color: #fff;\n}\n.image img[data-v-35142d38] {\n  max-height: 80vh !important;\n  height: auto;\n  overflow: scroll;\n}\n@media only screen and (max-width: 1022px) {\n.cropper-wrap-box[data-v-35142d38] {\n    padding-top: 80px;\n}\n}\n", ""]);
 
 // exports
 
@@ -11085,7 +11093,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n.modal-card-head[data-v-fb40ceea] {\n  background-color: #000;\n}\n.modal-card-title[data-v-fb40ceea] {\n  color: #ffcc2a;\n}\n.modal-card-foot[data-v-fb40ceea] {\n  background-color: #000;\n}\n.card-image[data-v-fb40ceea] {\n  background-color: #000;\n  height: auto;\n}\n.content figure[data-v-fb40ceea] {\n  text-align: left;\n}\n", ""]);
+exports.push([module.i, "\n.modal-card-head[data-v-fb40ceea] {\n  background-color: #000;\n}\n.modal-card-title[data-v-fb40ceea] {\n  color: #ffcc2a;\n}\n.modal-card-foot[data-v-fb40ceea] {\n  background-color: #000;\n}\n.card-image[data-v-fb40ceea] {\n  background-color: #000;\n  height: auto;\n}\n.content figure[data-v-fb40ceea] {\n  text-align: left;\n}\n@media only screen and (max-width: 1022px) {\n.modal-card[data-v-fb40ceea] {\n    padding-top: 80px;\n}\n}\n", ""]);
 
 // exports
 
@@ -69165,7 +69173,11 @@ var render = function() {
                     "a",
                     {
                       attrs: { href: "javascript:void(0)" },
-                      on: { click: _vm.showForm }
+                      on: {
+                        click: function($event) {
+                          _vm.showFromChangePass = true
+                        }
+                      }
                     },
                     [_vm._v("Perbaharui password")]
                   )
@@ -69176,7 +69188,10 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _c("change-password-form")
+      _c("change-password-form", {
+        attrs: { showFromChangePass: _vm.showFromChangePass },
+        on: { onClose: _vm.formPassClose }
+      })
     ],
     1
   )
@@ -74965,220 +74980,219 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { attrs: { id: "change_password_form" } }, [
-    _c("div", { staticClass: "modal", class: { "is-active": _vm.showModal } }, [
-      _c("div", {
-        staticClass: "modal-background",
-        on: {
-          click: function($event) {
-            _vm.modalShow = false
-          }
-        }
-      }),
-      _vm._v(" "),
-      _c("div", { staticClass: "modal-card" }, [
-        _c("div", { staticClass: "modal-content" }, [
-          _c("figure", [
-            _c("img", { attrs: { src: _vm.logo, alt: "Image", width: "40%" } })
-          ])
-        ]),
+    _c(
+      "div",
+      { staticClass: "modal", class: { "is-active": _vm.showFromChangePass } },
+      [
+        _c("div", {
+          staticClass: "modal-background",
+          on: { click: _vm.onClose }
+        }),
         _vm._v(" "),
-        _c("section", { staticClass: "modal-card-body" }, [
-          _c("label", { staticClass: "label" }, [_vm._v("Password lama")]),
-          _vm._v(" "),
-          _c("p", { staticClass: "control" }, [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.old_password,
-                  expression: "old_password"
-                },
-                {
-                  name: "validate",
-                  rawName: "v-validate",
-                  value: "required|min:6",
-                  expression: "'required|min:6'"
-                }
-              ],
-              class: {
-                input: true,
-                "is-danger": _vm.errors.has("old_password")
-              },
-              attrs: {
-                name: "old_password",
-                "data-vv-as": "Password lama",
-                type: "password"
-              },
-              domProps: { value: _vm.old_password },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.old_password = $event.target.value
-                }
-              }
-            }),
+        _c("div", { staticClass: "modal-card" }, [
+          _c("header", { staticClass: "modal-card-head" }, [
+            _c("p", { staticClass: "modal-card-title" }, [
+              _vm._v("Perbaharui Password")
+            ]),
             _vm._v(" "),
-            _c(
-              "span",
-              {
-                directives: [
-                  {
-                    name: "show",
-                    rawName: "v-show",
-                    value: _vm.errors.has("old_password"),
-                    expression: "errors.has('old_password')"
-                  }
-                ],
-                staticClass: "help is-danger"
-              },
-              [_vm._v(_vm._s(_vm.errors.first("old_password")))]
-            )
+            _c("button", {
+              staticClass: "delete",
+              attrs: { "aria-label": "close" },
+              on: { click: _vm.onClose }
+            })
           ]),
           _vm._v(" "),
-          _c("label", { staticClass: "label" }, [_vm._v("Password baru")]),
-          _vm._v(" "),
-          _c("p", { staticClass: "control" }, [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.password,
-                  expression: "password"
-                },
-                {
-                  name: "validate",
-                  rawName: "v-validate",
-                  value: "required|min:6",
-                  expression: "'required|min:6'"
-                }
-              ],
-              class: { input: true, "is-danger": _vm.errors.has("password") },
-              attrs: {
-                name: "password",
-                id: "password",
-                "data-vv-as": "Password",
-                type: "password"
-              },
-              domProps: { value: _vm.password },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.password = $event.target.value
-                }
-              }
-            }),
+          _c("section", { staticClass: "modal-card-body" }, [
+            _c("label", { staticClass: "label" }, [_vm._v("Password lama")]),
             _vm._v(" "),
-            _c(
-              "span",
-              {
+            _c("p", { staticClass: "control" }, [
+              _c("input", {
                 directives: [
                   {
-                    name: "show",
-                    rawName: "v-show",
-                    value: _vm.errors.has("password"),
-                    expression: "errors.has('password')"
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.old_password,
+                    expression: "old_password"
+                  },
+                  {
+                    name: "validate",
+                    rawName: "v-validate",
+                    value: "required|min:6",
+                    expression: "'required|min:6'"
                   }
                 ],
-                staticClass: "help is-danger"
-              },
-              [_vm._v(_vm._s(_vm.errors.first("password")))]
-            )
-          ]),
-          _vm._v(" "),
-          _c("label", { staticClass: "label" }, [
-            _vm._v("Password konfirmasi")
-          ]),
-          _vm._v(" "),
-          _c("p", { staticClass: "control" }, [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.password_confirmation,
-                  expression: "password_confirmation"
+                class: {
+                  input: true,
+                  "is-danger": _vm.errors.has("old_password")
                 },
-                {
-                  name: "validate",
-                  rawName: "v-validate",
-                  value: "required|min:6|confirmed:password",
-                  expression: "'required|min:6|confirmed:password'"
-                }
-              ],
-              class: {
-                input: true,
-                "is-danger": _vm.errors.has("password_confirmation")
-              },
-              attrs: {
-                name: "password_confirmation",
-                id: "password_confirmation",
-                "data-vv-as": "Konfirmasi password",
-                type: "password"
-              },
-              domProps: { value: _vm.password_confirmation },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+                attrs: {
+                  name: "old_password",
+                  "data-vv-as": "Password lama",
+                  type: "password"
+                },
+                domProps: { value: _vm.old_password },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.old_password = $event.target.value
                   }
-                  _vm.password_confirmation = $event.target.value
                 }
-              }
-            }),
+              }),
+              _vm._v(" "),
+              _c(
+                "span",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.errors.has("old_password"),
+                      expression: "errors.has('old_password')"
+                    }
+                  ],
+                  staticClass: "help is-danger"
+                },
+                [_vm._v(_vm._s(_vm.errors.first("old_password")))]
+              )
+            ]),
             _vm._v(" "),
-            _c(
-              "span",
-              {
+            _c("label", { staticClass: "label" }, [_vm._v("Password baru")]),
+            _vm._v(" "),
+            _c("p", { staticClass: "control" }, [
+              _c("input", {
                 directives: [
                   {
-                    name: "show",
-                    rawName: "v-show",
-                    value: _vm.errors.has("password_confirmation"),
-                    expression: "errors.has('password_confirmation')"
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.password,
+                    expression: "password"
+                  },
+                  {
+                    name: "validate",
+                    rawName: "v-validate",
+                    value: "required|min:6",
+                    expression: "'required|min:6'"
                   }
                 ],
-                staticClass: "help is-danger"
+                class: { input: true, "is-danger": _vm.errors.has("password") },
+                attrs: {
+                  name: "password",
+                  id: "password",
+                  "data-vv-as": "Password",
+                  type: "password"
+                },
+                domProps: { value: _vm.password },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.password = $event.target.value
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "span",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.errors.has("password"),
+                      expression: "errors.has('password')"
+                    }
+                  ],
+                  staticClass: "help is-danger"
+                },
+                [_vm._v(_vm._s(_vm.errors.first("password")))]
+              )
+            ]),
+            _vm._v(" "),
+            _c("label", { staticClass: "label" }, [
+              _vm._v("Password konfirmasi")
+            ]),
+            _vm._v(" "),
+            _c("p", { staticClass: "control" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.password_confirmation,
+                    expression: "password_confirmation"
+                  },
+                  {
+                    name: "validate",
+                    rawName: "v-validate",
+                    value: "required|min:6|confirmed:password",
+                    expression: "'required|min:6|confirmed:password'"
+                  }
+                ],
+                class: {
+                  input: true,
+                  "is-danger": _vm.errors.has("password_confirmation")
+                },
+                attrs: {
+                  name: "password_confirmation",
+                  id: "password_confirmation",
+                  "data-vv-as": "Konfirmasi password",
+                  type: "password"
+                },
+                domProps: { value: _vm.password_confirmation },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.password_confirmation = $event.target.value
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "span",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.errors.has("password_confirmation"),
+                      expression: "errors.has('password_confirmation')"
+                    }
+                  ],
+                  staticClass: "help is-danger"
+                },
+                [_vm._v(_vm._s(_vm.errors.first("password_confirmation")))]
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("footer", { staticClass: "modal-card-foot" }, [
+            _c(
+              "a",
+              { staticClass: "card-footer-item", on: { click: _vm.onClose } },
+              [_vm._v("Batal")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "card-footer-item",
+                on: {
+                  click: function($event) {
+                    _vm.validateBeforeSubmit()
+                  }
+                }
               },
-              [_vm._v(_vm._s(_vm.errors.first("password_confirmation")))]
+              [_vm._v("Simpan")]
             )
           ])
-        ]),
-        _vm._v(" "),
-        _c("footer", { staticClass: "modal-card-foot" }, [
-          _c(
-            "a",
-            {
-              staticClass: "card-footer-item",
-              on: {
-                click: function($event) {
-                  _vm.showModal = false
-                }
-              }
-            },
-            [_vm._v("Batal")]
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "card-footer-item",
-              on: {
-                click: function($event) {
-                  _vm.validateBeforeSubmit()
-                }
-              }
-            },
-            [_vm._v("Simpan")]
-          )
         ])
-      ])
-    ])
+      ]
+    )
   ])
 }
 var staticRenderFns = []

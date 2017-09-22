@@ -141,4 +141,10 @@ export default {
   height: auto;
   overflow: scroll;
 }
+
+@media only screen and (max-width: 1022px){
+  .cropper-wrap-box {
+    padding-top: 80px;
+  }
+}
 </style>
