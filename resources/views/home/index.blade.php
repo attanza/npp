@@ -61,10 +61,7 @@
           </div>
         </div>
       </div>
-
-      {{-- @include('slots.npp_video') --}}
-
-
+      @include('slots.npp_video')
     </div>
   </section>
 </div>

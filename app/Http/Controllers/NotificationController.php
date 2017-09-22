@@ -66,17 +66,19 @@ class NotificationController extends Controller
         $data = [];
         foreach ($notifications as $not) {
             $model = $not->notifiable_type::find($not->notifiable_id);
-            $sender = User::find($model->user_id);
-            $modelWith = $this->getModelType($not->notifiable_type, $not->notifiable_id);
-            array_push($data, [
-                'id' => $not->id,
-                'avatar' => $sender->profile->photo_path,
-                'msg' => json_decode($not->data)->msg,
-                'created_at' => Carbon::parse($not->created_at)->format('Y-m-d H:i:s'),
-                'type' => $modelWith['type'],
-                'url' => $modelWith['url'],
-                'read' => $not->read
-            ]);
+            if ($model) {
+                $sender = User::find($model->user_id);
+                $modelWith = $this->getModelType($not->notifiable_type, $not->notifiable_id);
+                array_push($data, [
+                    'id' => $not->id,
+                    'avatar' => $sender->profile->photo_path,
+                    'msg' => json_decode($not->data)->msg,
+                    'created_at' => Carbon::parse($not->created_at)->format('Y-m-d H:i:s'),
+                    'type' => $modelWith['type'],
+                    'url' => $modelWith['url'],
+                    'read' => $not->read
+                ]);
+            }
         }
         return $data;
     }
