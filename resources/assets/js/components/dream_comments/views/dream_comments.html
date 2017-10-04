@@ -3,12 +3,16 @@
   <div class="animated fadeIn" v-if="isAuth && authDream.id == dream.id">
     <p class="title is-4 is-spaced">{{authDream.dream}}</p>
     <p class="subtitle is-6" v-html="authDream.description"></p>
+    <!-- Your share button code -->
+<iframe src="https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fwww.negeriparapemimpi.com%2F&layout=button&size=small&mobile_iframe=true&appId=148921942380749&width=59&height=20" width="59" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
   </div>
   <div class="animated fadeIn" v-else>
     <p class="title is-4 is-spaced">{{dream.dream}}</p>
     <p class="subtitle is-6" v-html="dream.description"></p>
+    <!-- Your share button code -->
+<iframe src="https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fwww.negeriparapemimpi.com%2F&layout=button&size=small&mobile_iframe=true&appId=148921942380749&width=59&height=20" width="59" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
   </div>
-  <!--  Commet Input -->
+  <!--  Comment Input -->
   <br>
   <comment-input v-if="isAuth" @newText="saveComment"></comment-input>
   <div class="notification is-primary animated rubberBand" v-if="!isAuth">

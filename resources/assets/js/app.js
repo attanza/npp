@@ -13,6 +13,9 @@ Vue.use(VueMoment);
 import VueScrollto from 'vue-scrollto';
 Vue.use(VueScrollto);
 
+import SocialSharing from 'vue-social-sharing';
+Vue.use(SocialSharing);
+
 // Main
 Vue.component('session-messages', require('./components/SessionMessages.vue'));
 

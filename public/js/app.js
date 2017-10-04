@@ -3934,7 +3934,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     CommentInput: __WEBPACK_IMPORTED_MODULE_2__slots_CommentInput___default.a, ParentComments: __WEBPACK_IMPORTED_MODULE_3__ParentComments___default.a
   },
   data: function data() {
-    return {};
+    return {
+      shareUrl: ''
+    };
   },
   watch: {
     isAuth: function isAuth() {
@@ -3944,6 +3946,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     }
   },
   props: ['dream'],
+  mounted: function mounted() {
+    // this.fbShare();
+    this.shareUrl = baseUrl + '/dream/' + this.dream.slug;
+  },
+
   methods: {
     saveComment: function saveComment(text) {
       var _this = this;
@@ -67891,6 +67898,19 @@ var render = function() {
             _c("p", {
               staticClass: "subtitle is-6",
               domProps: { innerHTML: _vm._s(_vm.authDream.description) }
+            }),
+            _vm._v(" "),
+            _c("iframe", {
+              staticStyle: { border: "none", overflow: "hidden" },
+              attrs: {
+                src:
+                  "https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fwww.negeriparapemimpi.com%2F&layout=button&size=small&mobile_iframe=true&appId=148921942380749&width=59&height=20",
+                width: "59",
+                height: "20",
+                scrolling: "no",
+                frameborder: "0",
+                allowTransparency: "true"
+              }
             })
           ])
         : _c("div", { staticClass: "animated fadeIn" }, [
@@ -67901,6 +67921,19 @@ var render = function() {
             _c("p", {
               staticClass: "subtitle is-6",
               domProps: { innerHTML: _vm._s(_vm.dream.description) }
+            }),
+            _vm._v(" "),
+            _c("iframe", {
+              staticStyle: { border: "none", overflow: "hidden" },
+              attrs: {
+                src:
+                  "https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fwww.negeriparapemimpi.com%2F&layout=button&size=small&mobile_iframe=true&appId=148921942380749&width=59&height=20",
+                width: "59",
+                height: "20",
+                scrolling: "no",
+                frameborder: "0",
+                allowTransparency: "true"
+              }
             })
           ]),
       _vm._v(" "),
@@ -75809,6 +75842,338 @@ return VueScrollTo$1;
 
 })));
 
+
+/***/ }),
+
+/***/ "./node_modules/vue-social-sharing/dist/vue-social-sharing.common.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/*!
+ * vue-social-sharing v2.2.7 
+ * (c) 2017 nicolasbeauvais
+ * Released under the MIT License.
+ */
+
+
+var email = {"sharer":"mailto:?subject=@title&body=@url%0D%0A%0D%0A@description","type":"direct"};
+var facebook = {"sharer":"https://www.facebook.com/sharer/sharer.php?u=@url&title=@title&description=@description&quote=@quote","type":"popup"};
+var googleplus = {"sharer":"https://plus.google.com/share?url=@url","type":"popup"};
+var line = {"sharer":"http://line.me/R/msg/text/?@description%0D%0A@url","type":"popup"};
+var linkedin = {"sharer":"https://www.linkedin.com/shareArticle?mini=true&url=@url&title=@title&summary=@description","type":"popup"};
+var odnoklassniki = {"sharer":"https://connect.ok.ru/dk?st.cmd=WidgetSharePreview&st.shareUrl=@url&st.comments=@description","type":"popup"};
+var pinterest = {"sharer":"https://pinterest.com/pin/create/button/?url=@url&media=@media&description=@title","type":"popup"};
+var reddit = {"sharer":"https://www.reddit.com/submit?url=@url&title=@title","type":"popup"};
+var skype = {"sharer":"https://web.skype.com/share?url=@description%0D%0A@url","type":"popup"};
+var telegram = {"sharer":"https://t.me/share/url?url=@url&text=@description","type":"popup"};
+var twitter = {"sharer":"https://twitter.com/intent/tweet?text=@title&url=@url&hashtags=@hashtags&via=@twitteruser","type":"popup"};
+var vk = {"sharer":"https://vk.com/share.php?url=@url&title=@title&description=@description&image=@media&noparse=true","type":"popup"};
+var weibo = {"sharer":"http://service.weibo.com/share/share.php?url=@url&title=@title","type":"popup"};
+var whatsapp = {"sharer":"whatsapp://send?text=@description%0D%0A@url","type":"direct","action":"share/whatsapp/share"};
+var sms = {"sharer":"sms:?body=@url%20@description","type":"direct"};
+var Networks = {
+	email: email,
+	facebook: facebook,
+	googleplus: googleplus,
+	line: line,
+	linkedin: linkedin,
+	odnoklassniki: odnoklassniki,
+	pinterest: pinterest,
+	reddit: reddit,
+	skype: skype,
+	telegram: telegram,
+	twitter: twitter,
+	vk: vk,
+	weibo: weibo,
+	whatsapp: whatsapp,
+	sms: sms
+};
+
+var SocialSharingNetwork = {
+  functional: true,
+
+  props: {
+    network: {
+      type: String,
+      default: ''
+    }
+  },
+
+  render: function render (createElement, context) {
+    var network = Networks[context.props.network];
+
+    return createElement(context.parent.networkTag, {
+      class: context.data.staticClass || null,
+      style: context.data.staticStyle || null,
+      attrs: {
+        id: context.data.attrs.id || null,
+        'data-link': network.type === 'popup'
+          ? '#share-' + context.props.network
+          : context.parent.createSharingUrl(context.props.network),
+        'data-action': network.type === 'popup' ? null : network.action
+      },
+      on: {
+        click: network.type === 'popup' ? function () {
+          context.parent.share(context.props.network);
+        } : function () {
+          context.parent.touch(context.props.network);
+        }
+      }
+    }, context.children);
+  }
+};
+
+var inBrowser = typeof window !== 'undefined';
+var $window = inBrowser ? window : null;
+
+var SocialSharing = {
+  props: {
+    /**
+     * URL to share.
+     * @var string
+     */
+    url: {
+      type: String,
+      default: inBrowser ? window.location.href : ''
+    },
+
+    /**
+     * Sharing title, if available by network.
+     * @var string
+     */
+    title: {
+      type: String,
+      default: ''
+    },
+
+    /**
+     * Sharing description, if available by network.
+     * @var string
+     */
+    description: {
+      type: String,
+      default: ''
+    },
+
+    /**
+     * Facebook quote
+     * @var string
+     */
+    quote: {
+      type: String,
+      default: ''
+    },
+
+    /**
+     * Twitter hashtags
+     * @var string
+     */
+    hashtags: {
+      type: String,
+      default: ''
+    },
+
+    /**
+     * Twitter user.
+     * @var string
+     */
+    twitterUser: {
+      type: String,
+      default: ''
+    },
+
+    /**
+     * Flag that indicates if counts should be retrieved.
+     * - NOT WORKING IN CURRENT VERSION
+     * @var mixed
+     */
+    withCounts: {
+      type: [String, Boolean],
+      default: false
+    },
+
+    /**
+     * Google plus key.
+     * @var string
+     */
+    googleKey: {
+      type: String,
+      default: undefined
+    },
+
+    /**
+     * Pinterest Media URL.
+     * Specifies the image/media to be used.
+     */
+    media: {
+      type: String,
+      default: ''
+    },
+
+    /**
+     * Network sub component tag.
+     * Default to span tag
+     */
+    networkTag: {
+      type: String,
+      default: 'span'
+    }
+  },
+
+  data: function data () {
+    return {
+      /**
+       * Available sharing networks.
+       * @param object
+       */
+      networks: Networks,
+
+      /**
+       * Popup settings.
+       * @param object
+       */
+      popup: {
+        status: false,
+        resizable: true,
+        toolbar: false,
+        menubar: false,
+        scrollbars: false,
+        location: false,
+        directories: false,
+        width: 626,
+        height: 436,
+        top: 0,
+        left: 0,
+        window: undefined,
+        interval: null
+      }
+    };
+  },
+
+  methods: {
+    /**
+     * Returns generated sharer url.
+     *
+     * @param network Social network key.
+     */
+    createSharingUrl: function createSharingUrl (network) {
+      return this.networks[network].sharer
+        .replace(/@url/g, encodeURIComponent(this.url))
+        .replace(/@title/g, encodeURIComponent(this.title))
+        .replace(/@description/g, encodeURIComponent(this.description))
+        .replace(/@quote/g, encodeURIComponent(this.quote))
+        .replace(/@hashtags/g, this.hashtags)
+        .replace(/@media/g, this.media)
+        .replace(/@twitteruser/g, this.twitterUser ? '&via=' + this.twitterUser : '');
+    },
+
+    /**
+     * Shares URL in specified network.
+     *
+     * @param string network Social network key.
+     */
+    share: function share (network) {
+      this.openSharer(network, this.createSharingUrl(network));
+      this.$root.$emit('social_shares_open', network, this.url);
+    },
+
+    /**
+     * Touches network and emits click event.
+     *
+     * @param string network Social network key.
+     */
+    touch: function touch (network) {
+      window.open(this.createSharingUrl(network), '_self');
+      this.$root.$emit('social_shares_open', network, this.url);
+    },
+
+    /**
+     * Opens sharer popup.
+     *
+     * @param string url Url to share.
+     */
+    openSharer: function openSharer (network, url) {
+      var this$1 = this;
+
+      // If a popup window already exist it will be replaced, trigger a close event.
+      if (this.popup.window && this.popup.interval) {
+        clearInterval(this.popup.interval);
+        this.popup.window.close();// Force close (for Facebook)
+        this.$root.$emit('social_shares_change', network, this.url);
+      }
+
+      this.popup.window = window.open(
+        url,
+        'sharer',
+        'status=' + (this.popup.status ? 'yes' : 'no') +
+        ',height=' + this.popup.height +
+        ',width=' + this.popup.width +
+        ',resizable=' + (this.popup.resizable ? 'yes' : 'no') +
+        ',left=' + this.popup.left +
+        ',top=' + this.popup.top +
+        ',screenX=' + this.popup.left +
+        ',screenY=' + this.popup.top +
+        ',toolbar=' + (this.popup.toolbar ? 'yes' : 'no') +
+        ',menubar=' + (this.popup.menubar ? 'yes' : 'no') +
+        ',scrollbars=' + (this.popup.scrollbars ? 'yes' : 'no') +
+        ',location=' + (this.popup.location ? 'yes' : 'no') +
+        ',directories=' + (this.popup.directories ? 'yes' : 'no')
+      );
+
+      this.popup.window.focus();
+
+      // Create an interval to detect popup closing event
+      this.popup.interval = setInterval(function () {
+        if (this$1.popup.window.closed) {
+          clearInterval(this$1.popup.interval);
+          this$1.popup.window = undefined;
+          this$1.$root.$emit('social_shares_close', network, this$1.url);
+        }
+      }, 500);
+    }
+  },
+
+  /**
+   * Sets popup default dimensions.
+   */
+  mounted: function mounted () {
+    if (!inBrowser) {
+      return;
+    }
+
+    /**
+     * Center the popup on dual screens
+     * http://stackoverflow.com/questions/4068373/center-a-popup-window-on-screen/32261263
+     */
+    var dualScreenLeft = $window.screenLeft !== undefined ? $window.screenLeft : screen.left;
+    var dualScreenTop = $window.screenTop !== undefined ? $window.screenTop : screen.top;
+
+    var width = $window.innerWidth ? $window.innerWidth : (document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width);
+    var height = $window.innerHeight ? $window.innerHeight : (document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height);
+
+    this.popup.left = ((width / 2) - (this.popup.width / 2)) + dualScreenLeft;
+    this.popup.top = ((height / 2) - (this.popup.height / 2)) + dualScreenTop;
+  },
+
+  /**
+   * Set component aliases for buttons and links.
+   */
+  components: {
+    'network': SocialSharingNetwork
+  }
+};
+
+SocialSharing.version = '2.2.7';
+
+SocialSharing.install = function (Vue) {
+  Vue.component('social-sharing', SocialSharing);
+};
+
+if (typeof window !== 'undefined') {
+  window.SocialSharing = SocialSharing;
+}
+
+module.exports = SocialSharing;
 
 /***/ }),
 
@@ -90386,7 +90751,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vue_moment__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vue_scrollto__ = __webpack_require__("./node_modules/vue-scrollto/vue-scrollto.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vue_scrollto___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_vue_scrollto__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__store__ = __webpack_require__("./resources/assets/js/store.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue_social_sharing__ = __webpack_require__("./node_modules/vue-social-sharing/dist/vue-social-sharing.common.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue_social_sharing___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_vue_social_sharing__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__store__ = __webpack_require__("./resources/assets/js/store.js");
 __webpack_require__("./resources/assets/js/bootstrap.js");
 
 window.Vue = __webpack_require__("./node_modules/vue/dist/vue.common.js");
@@ -90401,6 +90768,9 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_2_vue_moment___default.a);
 // Vue scroll
 
 Vue.use(__WEBPACK_IMPORTED_MODULE_3_vue_scrollto___default.a);
+
+
+Vue.use(__WEBPACK_IMPORTED_MODULE_4_vue_social_sharing___default.a);
 
 // Main
 Vue.component('session-messages', __webpack_require__("./resources/assets/js/components/SessionMessages.vue"));
@@ -90453,7 +90823,7 @@ Vue.component('back-top', __webpack_require__("./resources/assets/js/components/
 
 var app = new Vue({
     el: '#app',
-    store: __WEBPACK_IMPORTED_MODULE_4__store__["a" /* store */]
+    store: __WEBPACK_IMPORTED_MODULE_5__store__["a" /* store */]
 });
 
 /***/ }),

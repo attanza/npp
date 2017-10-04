@@ -10,7 +10,7 @@ export default {
     CommentInput, ParentComments
   },
   data: () => ({
-
+      shareUrl: '',
   }),
   watch: {
     isAuth(){
@@ -20,6 +20,10 @@ export default {
     },
   },
   props: ['dream'],
+  mounted(){
+    // this.fbShare();
+    this.shareUrl = baseUrl+'/dream/'+this.dream.slug;
+  },
   methods: {
     saveComment(text) {
       axios.post('/api/parent-comments', this.get_data(text)).then((resp)=>{
@@ -55,7 +59,6 @@ export default {
         }
       });
     },
-
   },
   mixins: [authUserData, catchJsonErrors]
 
